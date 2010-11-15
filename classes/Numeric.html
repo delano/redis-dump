@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>: Numeric [redis-dump 0.1.0.001]</title>
+    <title>: Numeric [redis-dump 0.1.1.001]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -45,15 +45,15 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000037">to_bytes</a></li>
-              <li><a href="#M000036">to_ms</a></li>
+              <li><a href="#M000044">to_bytes</a></li>
+              <li><a href="#M000043">to_ms</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000037'>
-                <a name='M000037'>      </a>
+              <div class='method public-instance' id='method-M000044'>
+                <a name='M000044'>      </a>
                 <div class='synopsis'>
                   <span class='name'>to_bytes</span>
                   <span class='arguments'>()</span>
@@ -64,23 +64,23 @@
                   </p>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000037-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000044-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000037-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 187</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_bytes</span>&#x000A;    <span class="ruby-identifier">args</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abs</span>.<span class="ruby-identifier">to_i</span>&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>.<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'KB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'MB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'GB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">6</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'TB'</span>]&#x000A;    <span class="ruby-keyword kw">else</span>&#x000A;      [<span class="ruby-keyword kw">self</span>, <span class="ruby-value str">'B'</span>].<span class="ruby-identifier">join</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000044-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 220</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_bytes</span>&#x000A;    <span class="ruby-identifier">args</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abs</span>.<span class="ruby-identifier">to_i</span>&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>.<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'KB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'MB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'GB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">6</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'TB'</span>]&#x000A;    <span class="ruby-keyword kw">else</span>&#x000A;      [<span class="ruby-keyword kw">self</span>, <span class="ruby-value str">'B'</span>].<span class="ruby-identifier">join</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000036'>
-                <a name='M000036'>      </a>
+              <div class='method public-instance' id='method-M000043'>
+                <a name='M000043'>      </a>
                 <div class='synopsis'>
                   <span class='name'>to_ms</span>
                   <span class='arguments'>()</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000036-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000043-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000036-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 182</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_ms</span>&#x000A;    (<span class="ruby-keyword kw">self</span><span class="ruby-operator">*</span><span class="ruby-value">1000</span>).<span class="ruby-identifier">to_i</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000043-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 215</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_ms</span>&#x000A;    (<span class="ruby-keyword kw">self</span><span class="ruby-operator">*</span><span class="ruby-value">1000</span>).<span class="ruby-identifier">to_i</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>

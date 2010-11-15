@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>: Array [redis-dump 0.1.0.001]</title>
+    <title>: Array [redis-dump 0.1.1.001]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -45,50 +45,50 @@
             <h2>Methods</h2>
             <h3>public instance</h3>
             <ol>
-              <li><a href="#M000034">/</a></li>
-              <li><a href="#M000033">chunk</a></li>
-              <li><a href="#M000035">tuple</a></li>
+              <li><a href="#M000041">/</a></li>
+              <li><a href="#M000040">chunk</a></li>
+              <li><a href="#M000042">tuple</a></li>
             </ol>
           </div>
           <div id='section'>
             <div id='methods'>
               <h2>Public instance methods</h2>
-              <div class='method public-instance' id='method-M000034'>
-                <a name='M000034'>      </a>
+              <div class='method public-instance' id='method-M000041'>
+                <a name='M000041'>      </a>
                 <div class='synopsis'>
                   <span class='name'>/</span>
                   <span class='arguments'>(number_of_chunks)</span>
                 </div>
                 <div class='description'>
                   <p>
-                  Alias for <a href="Array.html#M000033">chunk</a>
+                  Alias for <a href="Array.html#M000040">chunk</a>
                   </p>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000033'>
-                <a name='M000033'>      </a>
+              <div class='method public-instance' id='method-M000040'>
+                <a name='M000040'>      </a>
                 <div class='synopsis'>
                   <span class='name'>chunk</span>
                   <span class='arguments'>(number_of_chunks)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000033-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000040-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000033-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 164</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">chunk</span>(<span class="ruby-identifier">number_of_chunks</span>)&#x000A;    <span class="ruby-identifier">chunks</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">number_of_chunks</span>).<span class="ruby-identifier">collect</span> { [] }&#x000A;    <span class="ruby-identifier">chunks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a_chunk</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">a_chunk</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">any?</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-identifier">chunks</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000040-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 197</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">chunk</span>(<span class="ruby-identifier">number_of_chunks</span>)&#x000A;    <span class="ruby-identifier">chunks</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">number_of_chunks</span>).<span class="ruby-identifier">collect</span> { [] }&#x000A;    <span class="ruby-identifier">chunks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a_chunk</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">a_chunk</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">any?</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-identifier">chunks</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000035'>
-                <a name='M000035'>      </a>
+              <div class='method public-instance' id='method-M000042'>
+                <a name='M000042'>      </a>
                 <div class='synopsis'>
                   <span class='name'>tuple</span>
                   <span class='arguments'>(tuple_size=2)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000035-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000042-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000035-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 172</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tuple</span>(<span class="ruby-identifier">tuple_size</span>=<span class="ruby-value">2</span>)&#x000A;    <span class="ruby-identifier">tuples</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">size</span><span class="ruby-operator">/</span><span class="ruby-identifier">tuple_size</span>)).<span class="ruby-identifier">collect</span> { [] }&#x000A;    <span class="ruby-identifier">tuples</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a_tuple</span>,<span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">tuple_size</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">a_tuple</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">shift</span> } <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">any?</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-identifier">tuples</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000042-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 205</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tuple</span>(<span class="ruby-identifier">tuple_size</span>=<span class="ruby-value">2</span>)&#x000A;    <span class="ruby-identifier">tuples</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">size</span><span class="ruby-operator">/</span><span class="ruby-identifier">tuple_size</span>)).<span class="ruby-identifier">collect</span> { [] }&#x000A;    <span class="ruby-identifier">tuples</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a_tuple</span>,<span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">tuple_size</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">a_tuple</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">shift</span> } <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">any?</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;    <span class="ruby-identifier">tuples</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
