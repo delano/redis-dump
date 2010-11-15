@@ -1,5 +1,11 @@
 REDIS-DUMP, CHANGES
 
+#### 0.1.1 (2010-11-15) ###############################
+
+* ADDED: redis-load and redis-dump executables
+* ADDED: Redis::Dump.host, Redis::Dump.port
+
+
 #### 0.1.0 (2010-11-15) ###############################
 
 Initial public release.
