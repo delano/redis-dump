@@ -49,6 +49,7 @@ One of:
 == More Info
 
 * Codes[http://github.com/delano/redis-dump]
+* Docs[http://goldensword.ca/redis-dump/]
 
 
 == Credits
