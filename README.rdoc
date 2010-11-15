@@ -1,0 +1,29 @@
+= Redis Dump v0.1 ALPHA
+
+<i>Backup and restore your Redis data to and from JSON.</i>
+
+<b>NOTE: This is alpha software. DO NOT RELY ON IT!!</b>
+
+
+== Installation
+
+One of:
+
+    $ gem install redisdump
+    
+    
+== More Info
+
+* Codes[http://github.com/delano/redisdump]
+
+
+== Credits
+
+* delano[http://github.com/delano]
+
+
+== Thanks
+
+* antirez and the funky redis bunch!
+
+
