@@ -1,5 +1,5 @@
 unless defined?(RD_HOME)
-  RD_HOME = File.expand_path(File.join(File.dirname(__FILE__), '..') )
+  RD_HOME = File.expand_path(File.join(File.dirname(__FILE__), '..', '..') )
 end
 
 require 'redis'
