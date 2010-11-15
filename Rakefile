@@ -12,7 +12,7 @@ end
 config = YAML.load_file("VERSION.yml")
 task :default => ["build"]
 CLEAN.include [ 'pkg', 'doc' ]
-name = "stella"
+name = "redis-dump"
 
 begin
   require "jeweler"

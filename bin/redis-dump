@@ -1,0 +1,76 @@
+#!/usr/bin/ruby
+
+# = Redis-Dump
+# 
+#
+# Usage:
+# 
+#     $ redis-dump -h
+#     $ redis-dump > dumpfile_full.json
+#     $ redis-dump -d 15 > dumpfile_db15.json
+#
+#--
+
+RD_HOME = File.expand_path File.join(File.dirname(__FILE__), '..')
+lib_dir = File.join(RD_HOME, 'lib')
+$:.unshift lib_dir  
+
+require 'redis/dump'
+require 'drydock'
+
+# Command-line interface for bin/redis-dump
+class Redis::Dump::CLI
+  extend Drydock
+  
+  default :dump
+  trawler :dump
+  
+  global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
+  global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :V, :version, "Display version" do 
+    puts "Version: #{Redis::Dump::VERSION.to_s}"
+    exit 0
+  end
+  global :D, :debug do
+    Redis::Dump.debug = true
+  end
+  global :nosafe do
+    Redis::Dump.safe = false
+  end
+  
+  before do |obj|
+    obj.global.uri ||= 'redis://%s:%s' % ['localhost', 6379]
+    obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
+    obj.global.database &&= obj.global.database.to_i
+    obj.global.database ||= (0..15)
+    Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
+  end
+  
+  usage "redis-dump > dumpfile_full.json"
+  usage "redis-dump -d 15 > dumpfile_db15.json"
+  command :dump do |obj|
+    rd = Redis::Dump.new obj.global.database, obj.global.uri
+    rd.dump do |record|
+      puts record
+    end
+  end
+  
+end
+
+  
+begin
+  Drydock.run!(ARGV, STDIN) if Drydock.run? && !Drydock.has_run?
+rescue Drydock::ArgError, Drydock::OptError => ex
+  STDERR.puts ex.message
+  STDERR.puts ex.usage
+rescue Drydock::InvalidArgument => ex
+  STDERR.puts ex.message
+rescue Drydock::UnknownCommand => ex
+  STDERR.puts "Unknown command: %s" % ex.name
+rescue Interrupt
+  puts $/, "Exiting... "
+  exit 1
+rescue => ex
+  STDERR.puts "ERROR (#{ex.class.to_s}): #{ex.message}"
+  STDERR.puts ex.backtrace if Redis::Dump.debug
+end
