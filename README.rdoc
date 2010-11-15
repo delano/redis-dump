@@ -4,6 +4,8 @@
 
 <b>NOTE: This is alpha software. DO NOT RELY ON IT FOR PRECIOUS THINGS!!</b>
 
+<b>ALSO: This is an unofficial tool.</b>
+
 
 == Usage
 
