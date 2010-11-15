@@ -39,7 +39,7 @@ class Redis::Dump::CLI
   end
   
   before do |obj|
-    obj.global.uri ||= 'redis://%s:%s' % ['localhost', 6379]
+    obj.global.uri ||= 'redis://%s:%s' % [Redis::Dump.host, Redis::Dump.port]
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)

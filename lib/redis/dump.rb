@@ -10,19 +10,21 @@ class Redis
     unless defined?(Redis::Dump::VALID_TYPES)
       VALID_TYPES = ['string', 'set', 'list', 'zset', 'hash', 'none'].freeze
     end
+    @host = '127.0.0.1'
+    @port = 6379
     @debug = false
     @encoder = Yajl::Encoder.new
     @parser = Yajl::Parser.new
     @safe = true
     class << self
-      attr_accessor :debug, :encoder, :parser, :safe
+      attr_accessor :debug, :encoder, :parser, :safe, :host, :port
       def ld(msg)
         STDERR.puts "#{'%.4f' % Time.now.utc.to_f}: #{msg}" if @debug
       end
     end
     attr_accessor :dbs, :uri
     attr_reader :redis_connections
-    def initialize(dbs=nil,uri="redis://127.0.0.1:6379")
+    def initialize(dbs=nil,uri="redis://#{Redis::Dump.host}:#{Redis::Dump.port}")
       @redis_connections = {}
       @uri = uri
       unless dbs.nil?
