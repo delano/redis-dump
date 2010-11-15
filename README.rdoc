@@ -31,12 +31,12 @@ Here are examples of each datatype:
     {"db":0,"key":"hashkey","ttl":-1,"type":"hash","value":{"field_a":"value_a","field_b":"value_b","field_c":"value_c"},"size":42}
     {"db":0,"key":"listkey","ttl":-1,"type":"list","value":["value_0","value_1","value_2","value_0","value_1","value_2"],"size":42}
     {"db":0,"key":"setkey","ttl":-1,"type":"set","value":["value_2","value_0","value_1","value_3"],"size":28}
-        {"db":0,"key":"zsetkey","ttl":-1,"type":"zset","value":[["value_0","100"],["value_1","100"],["value_2","200"],["value_3","300"],["value_4","400"]],"size":50}
+    {"db":0,"key":"zsetkey","ttl":-1,"type":"zset","value":[["value_0","100"],["value_1","100"],["value_2","200"],["value_3","300"],["value_4","400"]],"size":50}
     {"db":0,"key":"stringkey","ttl":79,"type":"string","value":"stringvalue","size":11}
 
 === Important note about TTLs
 
-One of the purposes of redis-dump is the ability to restore the database to a known state. When you restore a redis database from a redis-dump file, <em>expires are reset to their values at the time the dump was created</em>. This is different from restoring from Redis' native .rdb or .aof files (expires are stored relative to the actual time they were set). 
+One of the purposes of redis-dump is the ability to restore the database to a known state. When you restore a redis database from a redis-dump file, <em>the expires are reset to their values at the time the dump was created</em>. This is different from restoring from Redis' native .rdb or .aof files (expires are stored relative to the actual time they were set). 
 
 
 == Installation
