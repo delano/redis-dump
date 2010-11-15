@@ -37,10 +37,10 @@ end
 Rake::RDocTask.new do |rdoc|
   version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}.#{config[:BUILD]}"
   rdoc.rdoc_dir = "doc"
-  rdoc.title = "stella #{version}"
+  rdoc.title = "redisdump #{version}"
   rdoc.rdoc_files.include("README*")
   rdoc.rdoc_files.include("LICENSE.txt")
-  rdoc.rdoc_files.include("bin/*.rb")
+  #rdoc.rdoc_files.include("bin/*.rb")
   rdoc.rdoc_files.include("lib/**/*.rb")
 end
 
