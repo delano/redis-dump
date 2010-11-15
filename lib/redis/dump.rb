@@ -1,3 +1,7 @@
+unless defined?(RD_HOME)
+  RD_HOME = File.expand_path(File.join(File.dirname(__FILE__), '..') )
+end
+
 require 'redis'
 require 'yajl'
 
@@ -157,6 +161,33 @@ class Redis
       def stringify_none  (this_redis, key, v=nil)  (v || '')                                            end
     end
     extend Redis::Dump::ClassMethods
+    
+    module VERSION
+      def self.stamp
+        @info[:STAMP].to_i
+      end
+      def self.owner
+        @info[:OWNER]
+      end
+      def self.to_s
+        [@info[:MAJOR], @info[:MINOR], @info[:PATCH], @info[:BUILD]].join('.')
+      end
+      def self.path
+        File.join(RD_HOME, 'VERSION.yml')
+      end
+      def self.load_config
+        require 'yaml'
+        @info ||= YAML.load_file(path)
+      end
+      load_config
+    end
+
+    class Problem < RuntimeError
+      def initialize(*args)
+        @args = args.flatten.compact
+      end
+      def message() @args && @args.first end
+    end
   end
 end
 
