@@ -18,15 +18,15 @@ begin
   require "jeweler"
   Jeweler::Tasks.new do |gem|
     gem.version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}"
-    gem.name = "redisdump"
+    gem.name = "redis-dump"
     gem.rubyforge_project = gem.name
     gem.summary = "Backup and restore your Redis data to and from JSON."
     gem.description = gem.summary
     gem.email = "delano@solutious.com"
-    gem.homepage = "http://github.com/delano/redisdump"
+    gem.homepage = "http://github.com/delano/redis-dump"
     gem.authors = ["Delano Mandelbaum"]
-    gem.add_dependency("yajl",    ">= 0.1")
-    gem.add_dependency("redis",   ">= 2.0")
+    gem.add_dependency("yajl-ruby",    ">= 0.1")
+    gem.add_dependency("redis",        ">= 2.0")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
@@ -37,7 +37,7 @@ end
 Rake::RDocTask.new do |rdoc|
   version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}.#{config[:BUILD]}"
   rdoc.rdoc_dir = "doc"
-  rdoc.title = "redisdump #{version}"
+  rdoc.title = "redis-dump #{version}"
   rdoc.rdoc_files.include("README*")
   rdoc.rdoc_files.include("LICENSE.txt")
   #rdoc.rdoc_files.include("bin/*.rb")

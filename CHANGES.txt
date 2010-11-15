@@ -1,4 +1,4 @@
-REDISDUMP, CHANGES
+REDIS-DUMP, CHANGES
 
 #### 0.1.0 (2010-11-15) ###############################
 
