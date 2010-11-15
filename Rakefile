@@ -25,6 +25,8 @@ begin
     gem.email = "delano@solutious.com"
     gem.homepage = "http://github.com/delano/redisdump"
     gem.authors = ["Delano Mandelbaum"]
+    gem.add_dependency("yajl",    ">= 0.1")
+    gem.add_dependency("redis",   ">= 2.0")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
