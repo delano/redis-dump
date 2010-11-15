@@ -1,4 +1,4 @@
-require 'lib/redis/dump'
+require 'redis/dump'
 
 @uri_base = "redis://127.0.0.1:6371"
 

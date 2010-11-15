@@ -1,0 +1,5 @@
+{"db":0,"key":"hashkey","ttl":-1,"type":"hash","value":{"field_a":"value_a","field_b":"value_b","field_c":"value_c"},"size":42}
+{"db":0,"key":"listkey","ttl":-1,"type":"list","value":["value_0","value_1","value_2","value_0","value_1","value_2"],"size":42}
+{"db":0,"key":"setkey","ttl":-1,"type":"set","value":["value_2","value_0","value_1","value_3"],"size":28}
+{"db":0,"key":"zsetkey","ttl":-1,"type":"zset","value":[["value_0","100"],["value_1","100"],["value_2","200"],["value_3","300"],["value_4","400"]],"size":50}
+{"db":0,"key":"stringkey","ttl":79,"type":"string","value":"stringvalue","size":11}
