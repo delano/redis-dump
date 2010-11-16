@@ -1,5 +1,8 @@
 require 'redis/dump'
 
+# The test instance of redis must be running:
+# $ redis-server try/redis-server.conf
+
 @uri_base = "redis://127.0.0.1:6371"
 
 Redis::Dump.debug = false

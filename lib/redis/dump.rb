@@ -3,6 +3,7 @@ unless defined?(RD_HOME)
 end
 
 require 'redis'
+require 'uri/redis'
 require 'yajl'
 
 class Redis
@@ -43,20 +44,39 @@ class Redis
       self.class.ld 'CONNECT: ' << this_uri
       Redis.connect :url => this_uri
     end
-    def each_key &blk
-      @redis_connections.keys.sort.each do |redis_uri|
-        self.class.ld ['---', "DB: #{redis_connections[redis_uri].client.db}", '---'].join($/)
-        keys = redis_connections[redis_uri].keys
+    
+    # Calls blk for each key. If keys is nil, this will iterate over
+    # every key in every open redis connection.
+    # * keys (Array, optional). If keys is provided it must contain URI::Redis objects.
+    def each_key(keys=nil, &blk)
+      if keys.nil?
+        @redis_connections.keys.sort.each do |redis_uri|
+          self.class.ld ['---', "DB: #{redis_connections[redis_uri].client.db}", '---'].join($/)
+          keys = redis_connections[redis_uri].keys
+          keys.each do |key|
+            blk.call redis_connections[redis_uri], key
+          end
+        end
+      else
         keys.each do |key|
-          blk.call redis_connections[redis_uri], key
+          unless URI::Redis === key
+            raise Redis::Dump::Problem, "#{key} must be a URI::Redis object"
+          end
+          redis_uri = key.serverid
+          if redis_connections[redis_uri].nil?
+            raise Redis::Dump::Problem, "Not connected to #{redis_uri}"
+          end
+          blk.call redis_connections[redis_uri], key.key
         end
       end
     end
-    def dump(&each_record)
+    
+    # See each_key
+    def dump(keys=nil, &each_record)
       values = []
-      each_key do |this_redis,key|
+      each_key(keys) do |this_redis,key|
         info = Redis::Dump.dump this_redis, key
-        #self.class.ld " #{key} (#{info[:type]}): #{info[:size].to_bytes}"
+        self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
         encoded = self.class.encoder.encode info
         each_record.nil? ? (values << encoded) : each_record.call(encoded)
       end
@@ -66,7 +86,7 @@ class Redis
       values = []
       each_key do |this_redis,key|
         info = Redis::Dump.report this_redis, key
-        #self.class.ld " #{key} (#{info[:type]}): #{info[:size].to_bytes}"
+        self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
         each_record.nil? ? (values << info) : each_record.call(info)
       end
       values

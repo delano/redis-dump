@@ -27,6 +27,7 @@ begin
     gem.authors = ["Delano Mandelbaum"]
     gem.add_dependency("yajl-ruby",    ">= 0.1")
     gem.add_dependency("redis",        ">= 2.0")
+    gem.add_dependency("uri-redis",    ">= 0.4.0")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
