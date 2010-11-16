@@ -5,9 +5,9 @@
 #
 # Usage:
 # 
-#     $ redis-load -h
-#     $ <dumpfile_full.json redis-load
-#     $ <dumpfile_db15.json redis-load -d 15
+#     $ redis-report -h
+#     $ redis-report
+#     $ redis-report -d 15
 #
 #--
 
@@ -22,11 +22,15 @@ require 'drydock'
 class Redis::Dump::CLI
   extend Drydock
   
-  default :load
-  trawler :load
+  default :report
+  trawler :report
   
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :v, :verbose, "Increase output" do 
+    @verbose ||= 0
+    @verbose += 1
+  end
   global :V, :version, "Display version" do 
     puts "Version: #{Redis::Dump::VERSION.to_s}"
     exit 0
@@ -48,9 +52,17 @@ class Redis::Dump::CLI
   
   usage "<dumpfile_full.json redis-load"
   usage "<dumpfile_db15.json redis-load -d 15"
-  command :load do |obj|
+  command :report do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
-    rd.load STDIN
+    total_size, dbs = 0, {}
+    rd.report do |record|
+      puts record if obj.global.verbose >= 1
+      dbs[record['db']] ||= 0
+      dbs[record['db']] += record['size']
+      total_size += record['size']
+    end
+    puts dbs.keys.sort.collect { |db| "  db#{db}: #{dbs[db].to_bytes}" }
+    puts "total: #{total_size.to_bytes}"
   end
   
 end
