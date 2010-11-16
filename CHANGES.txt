@@ -1,5 +1,9 @@
 REDIS-DUMP, CHANGES
 
+#### 0.1.4 (2010-11-16) ###############################
+
+* FIXED: missing set_value_none
+
 #### 0.1.3 (2010-11-16) ###############################
 
 * ADDED: Support for dumping a specific subset of keys

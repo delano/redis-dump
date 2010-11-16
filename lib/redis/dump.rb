@@ -166,6 +166,9 @@ class Redis
       def set_value_string(this_redis, key, str)
         this_redis.set key, str
       end
+      def set_value_none(this_redis, key, str)
+        # ignore
+      end
       
       def value_string(this_redis, key)  this_redis.get key                                                       end
       def value_list  (this_redis, key)  this_redis.lrange key, 0, -1                                             end
