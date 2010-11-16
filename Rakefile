@@ -11,7 +11,7 @@ end
  
 config = YAML.load_file("VERSION.yml")
 task :default => ["build"]
-CLEAN.include [ 'pkg', 'doc' ]
+CLEAN.include [ 'pkg', 'doc', '*gemspec' ]
 name = "redis-dump"
 
 begin
