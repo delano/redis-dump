@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>: Redis::Dump::ClassMethods [redis-dump 0.1.3.001]</title>
+    <title>: Redis::Dump::ClassMethods [redis-dump 0.1.4.001]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -46,24 +46,25 @@
               <li><a href="#M000013">set_value</a></li>
               <li><a href="#M000016">set_value_hash</a></li>
               <li><a href="#M000017">set_value_list</a></li>
+              <li><a href="#M000021">set_value_none</a></li>
               <li><a href="#M000018">set_value_set</a></li>
               <li><a href="#M000020">set_value_string</a></li>
               <li><a href="#M000019">set_value_zset</a></li>
               <li><a href="#M000015">stringify</a></li>
-              <li><a href="#M000031">stringify_hash</a></li>
-              <li><a href="#M000028">stringify_list</a></li>
-              <li><a href="#M000032">stringify_none</a></li>
-              <li><a href="#M000029">stringify_set</a></li>
-              <li><a href="#M000027">stringify_string</a></li>
-              <li><a href="#M000030">stringify_zset</a></li>
+              <li><a href="#M000032">stringify_hash</a></li>
+              <li><a href="#M000029">stringify_list</a></li>
+              <li><a href="#M000033">stringify_none</a></li>
+              <li><a href="#M000030">stringify_set</a></li>
+              <li><a href="#M000028">stringify_string</a></li>
+              <li><a href="#M000031">stringify_zset</a></li>
               <li><a href="#M000010">type</a></li>
               <li><a href="#M000014">value</a></li>
-              <li><a href="#M000025">value_hash</a></li>
-              <li><a href="#M000022">value_list</a></li>
-              <li><a href="#M000026">value_none</a></li>
-              <li><a href="#M000023">value_set</a></li>
-              <li><a href="#M000021">value_string</a></li>
-              <li><a href="#M000024">value_zset</a></li>
+              <li><a href="#M000026">value_hash</a></li>
+              <li><a href="#M000023">value_list</a></li>
+              <li><a href="#M000027">value_none</a></li>
+              <li><a href="#M000024">value_set</a></li>
+              <li><a href="#M000022">value_string</a></li>
+              <li><a href="#M000025">value_zset</a></li>
             </ol>
           </div>
           <div id='section'>
@@ -134,6 +135,19 @@
                   <pre id='M000017-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 157</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_value_list</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">list</span>)&#x000A;        <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">rpush</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> }&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
+              <div class='method public-instance' id='method-M000021'>
+                <a name='M000021'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>set_value_none</span>
+                  <span class='arguments'>(this_redis, key, str)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000021-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000021-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 169</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_value_none</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">str</span>)&#x000A;        <span class="ruby-comment cmt"># ignore</span>&#x000A;      <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
               <div class='method public-instance' id='method-M000018'>
                 <a name='M000018'>      </a>
                 <div class='synopsis'>
@@ -186,82 +200,82 @@
                   <pre id='M000015-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 149</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">t</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;        <span class="ruby-identifier">t</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">type</span>&#x000A;        <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;stringify_#{t}&quot;</span>, <span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>)&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000031'>
-                <a name='M000031'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>stringify_hash</span>
-                  <span class='arguments'>(this_redis, key, v=nil)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000031-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000031-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 180</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_hash</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_hash</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>  <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000028'>
-                <a name='M000028'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>stringify_list</span>
-                  <span class='arguments'>(this_redis, key, v=nil)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000028-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000028-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 177</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_list</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_list</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">join</span>                       <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
               <div class='method public-instance' id='method-M000032'>
                 <a name='M000032'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>stringify_none</span>
+                  <span class='name'>stringify_hash</span>
                   <span class='arguments'>(this_redis, key, v=nil)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000032-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000032-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 181</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_none</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>)                                                     <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000032-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 183</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_hash</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_hash</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000029'>
                 <a name='M000029'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>stringify_set</span>
+                  <span class='name'>stringify_list</span>
                   <span class='arguments'>(this_redis, key, v=nil)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000029-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000029-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 178</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_set</span>   (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_set</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">join</span>                        <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000029-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 180</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_list</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_list</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">join</span>                       <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000027'>
-                <a name='M000027'>      </a>
+              <div class='method public-instance' id='method-M000033'>
+                <a name='M000033'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>stringify_string</span>
+                  <span class='name'>stringify_none</span>
                   <span class='arguments'>(this_redis, key, v=nil)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000027-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000033-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000027-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 176</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>))                          <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000033-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 184</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_none</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>)                                                     <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000030'>
                 <a name='M000030'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>stringify_zset</span>
+                  <span class='name'>stringify_set</span>
                   <span class='arguments'>(this_redis, key, v=nil)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000030-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000030-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 179</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_zset</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_zset</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>       <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000030-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 181</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_set</span>   (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_set</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">join</span>                        <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000028'>
+                <a name='M000028'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>stringify_string</span>
+                  <span class='arguments'>(this_redis, key, v=nil)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000028-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000028-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 179</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>))                          <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000031'>
+                <a name='M000031'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>stringify_zset</span>
+                  <span class='arguments'>(this_redis, key, v=nil)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000031-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000031-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 182</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stringify_zset</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword kw">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_zset</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>       <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000010'>
@@ -290,82 +304,82 @@
                   <pre id='M000014-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 145</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">t</span>=<span class="ruby-keyword kw">nil</span>)&#x000A;        <span class="ruby-identifier">t</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">type</span>&#x000A;        <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;value_#{t}&quot;</span>, <span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)&#x000A;      <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000025'>
-                <a name='M000025'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>value_hash</span>
-                  <span class='arguments'>(this_redis, key)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000025-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000025-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 174</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_hash</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">hgetall</span>(<span class="ruby-identifier">key</span>)                                                  <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-M000022'>
-                <a name='M000022'>      </a>
-                <div class='synopsis'>
-                  <span class='name'>value_list</span>
-                  <span class='arguments'>(this_redis, key)</span>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000022-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='M000022-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 171</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_list</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">lrange</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">0</span>, <span class="ruby-value">-1</span>                                             <span class="ruby-keyword kw">end</span></pre>
-                </div>
-              </div>
               <div class='method public-instance' id='method-M000026'>
                 <a name='M000026'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>value_none</span>
+                  <span class='name'>value_hash</span>
                   <span class='arguments'>(this_redis, key)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000026-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000026-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 175</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_none</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-value str">''</span>                                                                       <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000026-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 177</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_hash</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">hgetall</span>(<span class="ruby-identifier">key</span>)                                                  <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000023'>
                 <a name='M000023'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>value_set</span>
+                  <span class='name'>value_list</span>
                   <span class='arguments'>(this_redis, key)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000023-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000023-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 172</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_set</span>   (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">smembers</span> <span class="ruby-identifier">key</span>                                                  <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000023-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 174</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_list</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">lrange</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">0</span>, <span class="ruby-value">-1</span>                                             <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
-              <div class='method public-instance' id='method-M000021'>
-                <a name='M000021'>      </a>
+              <div class='method public-instance' id='method-M000027'>
+                <a name='M000027'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>value_string</span>
+                  <span class='name'>value_none</span>
                   <span class='arguments'>(this_redis, key)</span>
                 </div>
                 <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('M000021-source'); return false">
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000027-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000021-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 170</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">key</span>                                                       <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000027-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 178</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_none</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-value str">''</span>                                                                       <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
               <div class='method public-instance' id='method-M000024'>
                 <a name='M000024'>      </a>
                 <div class='synopsis'>
-                  <span class='name'>value_zset</span>
+                  <span class='name'>value_set</span>
                   <span class='arguments'>(this_redis, key)</span>
                 </div>
                 <div class='source'>
                   <a class='source-toggle' href='#' onclick="toggleCode('M000024-source'); return false">
                     [show source]
                   </a>
-                  <pre id='M000024-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 173</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_zset</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">zrange</span>(<span class="ruby-identifier">key</span>, <span class="ruby-value">0</span>, <span class="ruby-value">-1</span>, <span class="ruby-identifier">:with_scores</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>).<span class="ruby-identifier">tuple</span>                <span class="ruby-keyword kw">end</span></pre>
+                  <pre id='M000024-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 175</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_set</span>   (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">smembers</span> <span class="ruby-identifier">key</span>                                                  <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000022'>
+                <a name='M000022'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>value_string</span>
+                  <span class='arguments'>(this_redis, key)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000022-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000022-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 173</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">key</span>                                                       <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000025'>
+                <a name='M000025'>      </a>
+                <div class='synopsis'>
+                  <span class='name'>value_zset</span>
+                  <span class='arguments'>(this_redis, key)</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000025-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000025-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 176</span>&#x000A;      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value_zset</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">zrange</span>(<span class="ruby-identifier">key</span>, <span class="ruby-value">0</span>, <span class="ruby-value">-1</span>, <span class="ruby-identifier">:with_scores</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>).<span class="ruby-identifier">tuple</span>                <span class="ruby-keyword kw">end</span></pre>
                 </div>
               </div>
             </div>
