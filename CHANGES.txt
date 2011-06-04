@@ -1,5 +1,9 @@
 REDIS-DUMP, CHANGES
 
+#### 0.1.5 (2011-06-04) ###############################
+
+* FIXED: Added drydock dependency to gemspec [Mike Dupont]
+
 #### 0.1.4 (2010-11-16) ###############################
 
 * FIXED: missing set_value_none

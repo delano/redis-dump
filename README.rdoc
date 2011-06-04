@@ -43,10 +43,18 @@ One of the purposes of redis-dump is the ability to restore the database to a kn
 
 == Installation
 
-One of:
-
     $ gem install redis-dump
-    
+
+Or of you want to run it directly:
+
+    $ git clone https://github.com/delano/redis-dump.git
+    $ cd redis-dump
+    $ gem install redis
+    $ gem install uri-redis
+    $ gem install yajl-ruby
+    $ gem install drydock
+    $ ruby -rubygems bin/redis-dump
+
     
 == More Info
 
