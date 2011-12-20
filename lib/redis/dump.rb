@@ -66,7 +66,10 @@ class Redis
           if redis_connections[redis_uri].nil?
             raise Redis::Dump::Problem, "Not connected to #{redis_uri}"
           end
-          blk.call redis_connections[redis_uri], key.key
+
+          redis_connections[redis_uri].keys(key.key).each do |k|
+            blk.call redis_connections[redis_uri], k
+          end
         end
       end
     end

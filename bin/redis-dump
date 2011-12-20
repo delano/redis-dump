@@ -16,6 +16,7 @@ lib_dir = File.join(RD_HOME, 'lib')
 $:.unshift lib_dir  
 
 require 'redis/dump'
+require 'uri/redis'
 require 'drydock'
 
 # Command-line interface for bin/redis-dump
@@ -27,6 +28,7 @@ class Redis::Dump::CLI
   
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :k, :keys, String, "Keys to dump separated by comma"
   global :V, :version, "Display version" do 
     puts "Version: #{Redis::Dump::VERSION.to_s}"
     exit 0
@@ -43,6 +45,15 @@ class Redis::Dump::CLI
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
+
+    if (obj.global.keys)
+      obj.global.keys = obj.global.keys.split(",").collect do |k|
+        tmp_uri = URI.parse(obj.global.uri)
+        tmp_uri.key = k
+        tmp_uri
+      end
+    end
+
     Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
   end
   
@@ -50,7 +61,7 @@ class Redis::Dump::CLI
   usage "redis-dump -d 15 > dumpfile_db15.json"
   command :dump do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
-    rd.dump do |record|
+    rd.dump(obj.global.keys) do |record|
       puts record
     end
   end
