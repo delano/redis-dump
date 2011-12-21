@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # = Redis-Dump
 # 
@@ -30,7 +30,7 @@ class Redis::Dump::CLI
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
   global :k, :keys, String, "Keys to dump separated by comma"
   global :V, :version, "Display version" do 
-    puts "Version: #{Redis::Dump::VERSION.to_s}"
+    puts "Version: #{RedisDump::VERSION}"
     exit 0
   end
   global :D, :debug do

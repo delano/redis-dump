@@ -4,7 +4,7 @@ require "redis/version"
 
 Gem::Specification.new do |s|
   s.name        = "redis-dump"
-  s.version     = Redis::Dump::VERSION.to_s
+  s.version     = RedisDump::VERSION
   s.authors     = ["Delano Mandelbaum", "Leif Gensert"]
   s.email       = ["delano@solutious.com"]
   s.homepage    = "http://github.com/delano/redis-dump"
@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency("yajl-ruby",    ">= 0.1")
-  s.add_dependency("redis",        ">= 2.0")
-  s.add_dependency("uri-redis",    ">= 0.4.0")
-  s.add_dependency("drydock",      ">= 0.6.9")
+  s.add_runtime_dependency("yajl-ruby",    ">= 0.1")
+  s.add_runtime_dependency("redis",        ">= 2.0")
+  s.add_runtime_dependency("uri-redis",    ">= 0.4.0")
+  s.add_runtime_dependency("drydock",      ">= 0.6.9")
 end
