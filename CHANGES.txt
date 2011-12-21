@@ -1,5 +1,9 @@
 REDIS-DUMP, CHANGES
 
+#### 0.2.0 (2011-12-21) ###############################
+
+* ADDED: export for specific keys
+
 #### 0.1.5 (2011-06-04) ###############################
 
 * FIXED: Added drydock dependency to gemspec [Mike Dupont]
