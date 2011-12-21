@@ -12,6 +12,9 @@
 There are two executables: <tt>redis-dump</tt> and <tt>redis-load</tt>. 
 
     $ redis-dump 
+    $ redis-dump -k my_key
+    $ redis-dump -k my_obj:*
+    $ redis-dump -k my_key,my_obj:*
     $ redis-dump -u 127.0.0.1:6371 > db_full.json
     $ redis-dump -u 127.0.0.1:6371 -d 15 > db_db15.json
     
