@@ -59,15 +59,28 @@ class Redis
         chunk_entries = []
         dump_keys = redis.keys(filter)
         dump_keys_size = dump_keys.size
+        Redis::Dump.ld "dump_keys: #{Redis::Dump.memory_usage}kb"
         dump_keys.each_with_index do |key,idx|
-          entry, idxplus = Redis::Dump.dump(redis, key), idx+1
+          entry, idxplus = key, idx+1
           #self.class.ld " #{key} (#{key_dump['type']}): #{key_dump['size'].to_bytes}"
-          entry_enc = self.class.encoder.encode entry
+          #entry_enc = self.class.encoder.encode entry
           if block_given?
-            chunk_entries << entry_enc
+            chunk_entries << entry
             process_chunk idx, dump_keys_size do |count|
-              Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id}"
-              yield chunk_entries
+              Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id} (#{Redis::Dump.memory_usage}kb)"
+              output_buffer = []
+              chunk_entries.select! do |key| 
+                type = Redis::Dump.type(redis, key)
+                if type == 'string' 
+                  true
+                else
+                  output_buffer.push self.class.encoder.encode(Redis::Dump.dump(redis, key, type))
+                  false
+                end
+              end
+              yield output_buffer
+              yield Redis::Dump.dump_strings(redis, chunk_entries) { |obj| self.class.encoder.encode(obj) }
+              output_buffer.clear
               chunk_entries.clear
             end
           else
@@ -148,14 +161,28 @@ class Redis
         #ld "report[#{this_redis.hash}, #{info}]"
         info
       end
-      def dump(this_redis, key)
+      def dump(this_redis, key, type=nil)
+        type ||= type(this_redis, key)
         info = { 'db' => this_redis.client.db, 'key' => key }
         info['ttl'] = this_redis.ttl key
-        info['type'] = type(this_redis, key)
+        info['type'] = type
         info['value'] = value(this_redis, key, info['type'])
         info['size'] = stringify(this_redis, key, info['type'], info['value']).size
         #ld "dump[#{this_redis.hash}, #{info}]"
         info
+      end
+      def dump_strings(this_redis, keys)
+        vals = this_redis.mget *keys
+        idx = -1
+        keys.collect { |key|
+          idx += 1
+          info = { 
+            'db' => this_redis.client.db, 'key' => key,
+            'ttl' => this_redis.ttl(key), 'type' => 'string',
+            'value' => vals[idx].to_s, 'size' => vals[idx].to_s.size
+          }
+          block_given? ? yield(info) : info
+        }
       end
       def set_value(this_redis, key, type, value, expire=nil)
         t ||= type
@@ -163,11 +190,9 @@ class Redis
         this_redis.expire key, expire if expire.to_s.to_i > 0
       end
       def value(this_redis, key, t=nil)
-        t ||= type
         send("value_#{t}", this_redis, key)
       end
       def stringify(this_redis, key, t=nil, v=nil)
-        t ||= type
         send("stringify_#{t}", this_redis, key, v)
       end
       
