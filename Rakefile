@@ -11,7 +11,7 @@ end
  
 config = YAML.load_file("VERSION.yml")
 task :default => ["build"]
-CLEAN.include [ 'pkg', 'doc', '*gemspec' ]
+CLEAN.include [ 'pkg', 'doc' ]
 name = "redis-dump"
 
 begin
@@ -45,22 +45,4 @@ Rake::RDocTask.new do |rdoc|
   #rdoc.rdoc_files.include("bin/*.rb")
   rdoc.rdoc_files.include("lib/**/*.rb")
 end
-
-
-# Rubyforge Release / Publish Tasks ==================================
-
-#about 'Publish website to rubyforge'
-task 'publish:rdoc' => 'doc/index.html' do
-  sh "scp -rp doc/* rubyforge.org:/var/www/gforge-projects/#{name}/"
-end
-
-#about 'Public release to rubyforge'
-task 'publish:gem' => [:package] do |t|
-  sh <<-end
-    rubyforge add_release -o Any -a CHANGES.txt -f -n README.md #{name} #{name} #{@spec.version} pkg/#{name}-#{@spec.version}.gem &&
-    rubyforge add_file -o Any -a CHANGES.txt -f -n README.md #{name} #{name} #{@spec.version} pkg/#{name}-#{@spec.version}.tgz 
-  end
-end
-
-
 
