@@ -28,6 +28,7 @@ class Redis::Dump::CLI
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
+  global :O, :'without_optimizations', "Disable run time optimizations"
   global :V, :version, "Display version" do 
     puts "Version: #{Redis::Dump::VERSION.to_s}"
     exit 0
@@ -44,6 +45,7 @@ class Redis::Dump::CLI
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
+    Redis::Dump.with_optimizations = false if obj.global.without_optimizations
     Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
     Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end

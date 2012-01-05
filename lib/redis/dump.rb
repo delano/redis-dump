@@ -17,9 +17,10 @@ class Redis
     @encoder = Yajl::Encoder.new
     @parser = Yajl::Parser.new
     @safe = true
-    @chunk_size = 2500
+    @chunk_size = 10000
+    @with_optimizations = true
     class << self
-      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size
+      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size, :with_optimizations
       def ld(msg)
         STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg] if debug
       end
@@ -59,7 +60,7 @@ class Redis
         chunk_entries = []
         dump_keys = redis.keys(filter)
         dump_keys_size = dump_keys.size
-        Redis::Dump.ld "dump_keys: #{Redis::Dump.memory_usage}kb"
+        Redis::Dump.ld "Memory after loading keys: #{Redis::Dump.memory_usage}kb"
         dump_keys.each_with_index do |key,idx|
           entry, idxplus = key, idx+1
           #self.class.ld " #{key} (#{key_dump['type']}): #{key_dump['size'].to_bytes}"
@@ -67,19 +68,23 @@ class Redis
           if block_given?
             chunk_entries << entry
             process_chunk idx, dump_keys_size do |count|
-              Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id} (#{Redis::Dump.memory_usage}kb)"
+              Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id}"
               output_buffer = []
               chunk_entries.select! do |key| 
                 type = Redis::Dump.type(redis, key)
-                if type == 'string' 
+                if self.class.with_optimizations && type == 'string' 
                   true
                 else
                   output_buffer.push self.class.encoder.encode(Redis::Dump.dump(redis, key, type))
                   false
                 end
               end
-              yield output_buffer
-              yield Redis::Dump.dump_strings(redis, chunk_entries) { |obj| self.class.encoder.encode(obj) }
+              unless output_buffer.empty?
+                yield output_buffer 
+              end
+              unless chunk_entries.empty?
+                yield Redis::Dump.dump_strings(redis, chunk_entries) { |obj| self.class.encoder.encode(obj) } 
+              end
               output_buffer.clear
               chunk_entries.clear
             end
