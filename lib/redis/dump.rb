@@ -89,7 +89,7 @@ class Redis
               chunk_entries.clear
             end
           else
-            entries << entry_enc
+            entries << self.class.encoder.encode(Redis::Dump.dump(redis, entry))
           end
         end
       end
