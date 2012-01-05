@@ -29,7 +29,7 @@ class Redis::Dump::CLI
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :V, :version, "Display version" do 
-    puts "Version: #{Redis::Dump::VERSION.to_s}"
+    puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
   end
   global :D, :debug do

@@ -244,7 +244,7 @@ class Redis
         @info[:OWNER]
       end
       def self.to_s
-        [@info[:MAJOR], @info[:MINOR], @info[:PATCH], @info[:BUILD]].join('.')
+        [@info[:MAJOR], @info[:MINOR], @info[:PATCH]].join('.')
       end
       def self.path
         File.join(RD_HOME, 'VERSION.yml')

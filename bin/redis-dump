@@ -32,7 +32,7 @@ class Redis::Dump::CLI
   global :f, :filter, String, "Filter selected keys (passed directly to redis' KEYS command)"
   global :O, :without_optimizations, "Disable run time optimizations"
   global :V, :version, "Display version" do 
-    puts "Version: #{Redis::Dump::VERSION.to_s}"
+    puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
   end
   global :D, :debug do
