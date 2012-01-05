@@ -50,8 +50,8 @@ class Redis::Dump::CLI
     Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
   end
   
-  usage "<dumpfile_full.json redis-load"
-  usage "<dumpfile_db15.json redis-load -d 15"
+  usage "redis-report"
+  usage "redis-report -d 15"
   command :report do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
     total_size, dbs = 0, {}

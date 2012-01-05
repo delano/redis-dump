@@ -20,7 +20,7 @@ class Redis
     class << self
       attr_accessor :debug, :encoder, :parser, :safe, :host, :port
       def ld(msg)
-        STDERR.puts "#{'%.4f' % Time.now.utc.to_f}: #{msg}" if @debug
+        STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg] if @debug
       end
     end
     attr_accessor :dbs, :uri
