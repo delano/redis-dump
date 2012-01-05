@@ -1,5 +1,15 @@
 REDIS-DUMP, CHANGES
 
+#### 0.3.0 (2012-01-05) ###############################
+
+* ADDED: Redis::Dump.dump_strings
+* ADDED: New global options for redis-dump: -c, -O
+* CHANGED: memory optimizations for Redis::Dump#dump
+
+#### 0.2.0 (unreleased) ###############################
+
+* ADDED: Redis::Dump.chunk_size support for dump and report
+
 #### 0.1.5 (2011-06-04) ###############################
 
 * FIXED: Added drydock dependency to gemspec [Mike Dupont]
