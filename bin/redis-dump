@@ -29,6 +29,7 @@ class Redis::Dump::CLI
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :c, :count, Integer, "Chunk size (default: #{Redis::Dump.chunk_size})"
+  global :f, :filter, String, "Filter selected keys (passed directly to redis' KEYS command)"
   global :O, :without_optimizations, "Disable run time optimizations"
   global :V, :version, "Display version" do 
     puts "Version: #{Redis::Dump::VERSION.to_s}"
@@ -62,7 +63,9 @@ class Redis::Dump::CLI
   usage "redis-dump -d 15 -c 100_000 > dumpfile_db15.json"
   command :dump do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
-    rd.dump do |records|
+    obj.global.filter &&= '*%s*' % obj.global.filter
+    Redis::Dump.ld " filter #{obj.global.filter}"
+    rd.dump(obj.global.filter) do |records|
       puts records
     end
   end

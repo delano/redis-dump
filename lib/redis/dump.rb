@@ -54,7 +54,8 @@ class Redis
     end
     
     # See each_key
-    def dump filter='*'
+    def dump filter=nil
+      filter ||= '*'
       entries = []
       each_database do |redis|
         chunk_entries = []

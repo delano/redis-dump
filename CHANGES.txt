@@ -1,5 +1,9 @@
 REDIS-DUMP, CHANGES
 
+#### 0.3.1 (2012-01-05) ###############################
+
+* ADDED: New global option for redis-dump: -f
+
 #### 0.3.0 (2012-01-05) ###############################
 
 * ADDED: Redis::Dump.dump_strings
