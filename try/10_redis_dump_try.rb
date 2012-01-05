@@ -25,12 +25,7 @@ Redis::Dump.safe = true
 @rdump.redis(0).keys.size
 #=> 5
 
-## Can get keys
-@rdump.keys
-#=> []
-
 ## Can dump
-exit
 @values = @rdump.dump
 @values.size
 #=> 5
