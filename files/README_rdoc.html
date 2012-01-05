@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>File: README.rdoc [redis-dump 0.3.1.000]</title>
+    <title>File: README.rdoc [redis-dump 0.3.2.]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <script type='text/javascript'>
@@ -31,7 +31,7 @@
         </div>
         <div class='last-update'>
           Last Update:
-          <span class='datetime'>2012-01-05 06:33:20 -0500</span>
+          <span class='datetime'>2012-01-05 08:52:36 -0500</span>
         </div>
       </div>
       <div id='content'>
@@ -49,7 +49,7 @@
             <p>
             There are two executables: <tt>redis-dump</tt> and <tt>redis-load</tt>.
             </p>
-            <pre>$ redis-dump&#x000A;$ redis-dump -u 127.0.0.1:6371 &gt; db_full.json&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 &gt; db_db15.json&#x000A;&#x000A;$ &lt; db_full.json redis-load&#x000A;$ &lt; db_db15.json redis-load -d 15</pre>
+            <pre>$ redis-dump&#x000A;$ redis-dump -u 127.0.0.1:6371 &gt; db_full.json&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 &gt; db_db15.json&#x000A;&#x000A;$ &lt; db_full.json redis-load&#x000A;$ &lt; db_db15.json redis-load -d 15&#x000A;# OR&#x000A;$ cat db_full | redis-load&#x000A;$ cat db_db15.json | redis-load -d 15&#x000A;&#x000A;# You can specify the redis URI via an environment variable&#x000A;$ export REDIS_URI=127.0.0.1:6371&#x000A;$ redis-dump</pre>
             <h2>Output format</h2>
             <p>
             All redis datatypes are output to a simple JSON object. All objects have
@@ -87,6 +87,14 @@
             .rdb or .aof files (expires are stored relative to the actual time they
             were set).
             </p>
+            <h2>Output directly to an encrypted file</h2>
+            <p>
+            For most sensitive data, you should consider encrypting the data directly
+            without writing first to a temp file. You can do this using the power of
+            [gpg](<a href="http://www.gnupg.org/">www.gnupg.org/</a>) and file
+            descriptors. Here are a couple examples:
+            </p>
+            <pre># Encrypt the data (interactive)&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 | gpg --force-mdc -v -c &gt; path/2/backup-db15.json.gpg&#x000A;&#x000A;# Encrypt the data (automated)&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 | 3&lt;/path/2/passphrase.txt gpg --force-mdc -v -c --passphrase-fd 3 &gt; path/2/backup-db15.json.gpg&#x000A;&#x000A;# Decrypt the file (interactive)&#x000A;$ gpg path/2/backup-db15.json.gpg&#x000A;Enter passphrase: *******&#x000A;&#x000A;# Decrypt the file (automated)&#x000A;$  3&lt;/path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg</pre>
             <h2>Installation</h2>
             <pre>$ gem install redis-dump</pre>
             <p>
