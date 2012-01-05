@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>: Numeric [redis-dump 0.3.0.001]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>Class</span>
+          Numeric
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a href="../files/lib/redis/dump_rb.html">lib/redis/dump.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Parent:
+          <strong>Object</strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>public instance</h3>
+            <ol>
+              <li><a href="#M000046">to_bytes</a></li>
+              <li><a href="#M000045">to_ms</a></li>
+            </ol>
+          </div>
+          <div id='section'>
+            <div id='methods'>
+              <h2>Public instance methods</h2>
+              <div class='method public-instance' id='method-M000046'>
+                <a name='M000046'></a>
+                <div class='synopsis'>
+                  <span class='name'>to_bytes</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  <p>
+                  TODO: Use 1024?
+                  </p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000046-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000046-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 291</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_bytes</span>&#x000A;    <span class="ruby-identifier">args</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abs</span>.<span class="ruby-identifier">to_i</span>&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>.<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'KB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'MB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'GB'</span>]&#x000A;    <span class="ruby-keyword kw">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">6</span>)&#x000A;      <span class="ruby-value str">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-value str">'TB'</span>]&#x000A;    <span class="ruby-keyword kw">else</span>&#x000A;      [<span class="ruby-keyword kw">self</span>, <span class="ruby-value str">'B'</span>].<span class="ruby-identifier">join</span>&#x000A;    <span class="ruby-keyword kw">end</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-M000045'>
+                <a name='M000045'></a>
+                <div class='synopsis'>
+                  <span class='name'>to_ms</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('M000045-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='M000045-source'><span class="ruby-comment cmt"># File lib/redis/dump.rb, line 286</span>&#x000A;  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_ms</span>&#x000A;    (<span class="ruby-keyword kw">self</span><span class="ruby-operator">*</span><span class="ruby-value">1000</span>).<span class="ruby-identifier">to_i</span>&#x000A;  <span class="ruby-keyword kw">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
   <head>
-    <title>Methods [redis-dump 0.1.4.001]</title>
+    <title>Methods [redis-dump 0.3.0.001]</title>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <link href='rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
     <base target='docwin'>
@@ -4331,51 +4331,52 @@
         
         Element.addMethods();
         var search_index = [
-          { method: '/', module: 'array', html: '<a href="classes/Array.html#M000042"><span class="method_name">/</span> <span class="module_name">(Array)</span></a>' },
-          { method: 'chunk', module: 'array', html: '<a href="classes/Array.html#M000041"><span class="method_name">chunk</span> <span class="module_name">(Array)</span></a>' },
+          { method: '/', module: 'array', html: '<a href="classes/Array.html#M000043"><span class="method_name">/</span> <span class="module_name">(Array)</span></a>' },
+          { method: 'chunk', module: 'array', html: '<a href="classes/Array.html#M000042"><span class="method_name">chunk</span> <span class="module_name">(Array)</span></a>' },
           { method: 'connect', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000005"><span class="method_name">connect</span> <span class="module_name">(Redis::Dump)</span></a>' },
-          { method: 'dump', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000007"><span class="method_name">dump</span> <span class="module_name">(Redis::Dump)</span></a>' },
           { method: 'dump', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000012"><span class="method_name">dump</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'each_key', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000006"><span class="method_name">each_key</span> <span class="module_name">(Redis::Dump)</span></a>' },
+          { method: 'dump', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000007"><span class="method_name">dump</span> <span class="module_name">(Redis::Dump)</span></a>' },
+          { method: 'dump_strings', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000013"><span class="method_name">dump_strings</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'each_database', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000006"><span class="method_name">each_database</span> <span class="module_name">(Redis::Dump)</span></a>' },
           { method: 'ld', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000001"><span class="method_name">ld</span> <span class="module_name">(Redis::Dump)</span></a>' },
           { method: 'load', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000009"><span class="method_name">load</span> <span class="module_name">(Redis::Dump)</span></a>' },
-          { method: 'load_config', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000038"><span class="method_name">load_config</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
-          { method: 'message', module: 'redis::dump::problem', html: '<a href="classes/Redis/Dump/Problem.html#M000040"><span class="method_name">message</span> <span class="module_name">(Redis::Dump::Problem)</span></a>' },
-          { method: 'new', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000002"><span class="method_name">new</span> <span class="module_name">(Redis::Dump)</span></a>' },
-          { method: 'new', module: 'redis::dump::problem', html: '<a href="classes/Redis/Dump/Problem.html#M000039"><span class="method_name">new</span> <span class="module_name">(Redis::Dump::Problem)</span></a>' },
-          { method: 'open_all_connections', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000003"><span class="method_name">open_all_connections</span> <span class="module_name">(Redis::Dump)</span></a>' },
-          { method: 'owner', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000035"><span class="method_name">owner</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
-          { method: 'path', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000037"><span class="method_name">path</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
+          { method: 'load_config', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000039"><span class="method_name">load_config</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
+          { method: 'memory_usage', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000002"><span class="method_name">memory_usage</span> <span class="module_name">(Redis::Dump)</span></a>' },
+          { method: 'message', module: 'redis::dump::problem', html: '<a href="classes/Redis/Dump/Problem.html#M000041"><span class="method_name">message</span> <span class="module_name">(Redis::Dump::Problem)</span></a>' },
+          { method: 'new', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000003"><span class="method_name">new</span> <span class="module_name">(Redis::Dump)</span></a>' },
+          { method: 'new', module: 'redis::dump::problem', html: '<a href="classes/Redis/Dump/Problem.html#M000040"><span class="method_name">new</span> <span class="module_name">(Redis::Dump::Problem)</span></a>' },
+          { method: 'owner', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000036"><span class="method_name">owner</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
+          { method: 'path', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000038"><span class="method_name">path</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
           { method: 'redis', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000004"><span class="method_name">redis</span> <span class="module_name">(Redis::Dump)</span></a>' },
-          { method: 'report', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000008"><span class="method_name">report</span> <span class="module_name">(Redis::Dump)</span></a>' },
           { method: 'report', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000011"><span class="method_name">report</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'set_value', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000013"><span class="method_name">set_value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'set_value_hash', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000016"><span class="method_name">set_value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'set_value_list', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000017"><span class="method_name">set_value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'set_value_none', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000021"><span class="method_name">set_value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'set_value_set', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000018"><span class="method_name">set_value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'set_value_string', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000020"><span class="method_name">set_value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'set_value_zset', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000019"><span class="method_name">set_value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'stamp', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000034"><span class="method_name">stamp</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
-          { method: 'stringify', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000015"><span class="method_name">stringify</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'stringify_hash', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000032"><span class="method_name">stringify_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'stringify_list', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000029"><span class="method_name">stringify_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'stringify_none', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000033"><span class="method_name">stringify_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'stringify_set', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000030"><span class="method_name">stringify_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'stringify_string', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000028"><span class="method_name">stringify_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'stringify_zset', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000031"><span class="method_name">stringify_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'to_bytes', module: 'numeric', html: '<a href="classes/Numeric.html#M000045"><span class="method_name">to_bytes</span> <span class="module_name">(Numeric)</span></a>' },
-          { method: 'to_ms', module: 'numeric', html: '<a href="classes/Numeric.html#M000044"><span class="method_name">to_ms</span> <span class="module_name">(Numeric)</span></a>' },
-          { method: 'to_s', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000036"><span class="method_name">to_s</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
-          { method: 'tuple', module: 'array', html: '<a href="classes/Array.html#M000043"><span class="method_name">tuple</span> <span class="module_name">(Array)</span></a>' },
+          { method: 'report', module: 'redis::dump', html: '<a href="classes/Redis/Dump.html#M000008"><span class="method_name">report</span> <span class="module_name">(Redis::Dump)</span></a>' },
+          { method: 'set_value', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000014"><span class="method_name">set_value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'set_value_hash', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000017"><span class="method_name">set_value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'set_value_list', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000018"><span class="method_name">set_value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'set_value_none', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000022"><span class="method_name">set_value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'set_value_set', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000019"><span class="method_name">set_value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'set_value_string', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000021"><span class="method_name">set_value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'set_value_zset', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000020"><span class="method_name">set_value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'stamp', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000035"><span class="method_name">stamp</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
+          { method: 'stringify', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000016"><span class="method_name">stringify</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'stringify_hash', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000033"><span class="method_name">stringify_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'stringify_list', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000030"><span class="method_name">stringify_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'stringify_none', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000034"><span class="method_name">stringify_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'stringify_set', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000031"><span class="method_name">stringify_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'stringify_string', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000029"><span class="method_name">stringify_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'stringify_zset', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000032"><span class="method_name">stringify_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'to_bytes', module: 'numeric', html: '<a href="classes/Numeric.html#M000046"><span class="method_name">to_bytes</span> <span class="module_name">(Numeric)</span></a>' },
+          { method: 'to_ms', module: 'numeric', html: '<a href="classes/Numeric.html#M000045"><span class="method_name">to_ms</span> <span class="module_name">(Numeric)</span></a>' },
+          { method: 'to_s', module: 'redis::dump::version', html: '<a href="classes/Redis/Dump/VERSION.html#M000037"><span class="method_name">to_s</span> <span class="module_name">(Redis::Dump::VERSION)</span></a>' },
+          { method: 'tuple', module: 'array', html: '<a href="classes/Array.html#M000044"><span class="method_name">tuple</span> <span class="module_name">(Array)</span></a>' },
           { method: 'type', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000010"><span class="method_name">type</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'value', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000014"><span class="method_name">value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'value_hash', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000026"><span class="method_name">value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'value_list', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000023"><span class="method_name">value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'value_none', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000027"><span class="method_name">value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'value_set', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000024"><span class="method_name">value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'value_string', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000022"><span class="method_name">value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
-          { method: 'value_zset', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000025"><span class="method_name">value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'value', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000015"><span class="method_name">value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'value_hash', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000027"><span class="method_name">value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'value_list', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000024"><span class="method_name">value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'value_none', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000028"><span class="method_name">value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'value_set', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000025"><span class="method_name">value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'value_string', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000023"><span class="method_name">value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
+          { method: 'value_zset', module: 'redis::dump::classmethods', html: '<a href="classes/Redis/Dump/ClassMethods.html#M000026"><span class="method_name">value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a>' },
         ]
         $(document).observe('dom:loaded', function() {
         	// Setup search-during-typing.
@@ -4446,51 +4447,52 @@
       </form>
       <ol class='methods' id='search-results' style='display: none'></ol>
       <ol class='methods' id='index-entries'>
-        <li><a href="classes/Array.html#M000042"><span class="method_name">/</span> <span class="module_name">(Array)</span></a></li>
-        <li><a href="classes/Array.html#M000041"><span class="method_name">chunk</span> <span class="module_name">(Array)</span></a></li>
+        <li><a href="classes/Array.html#M000043"><span class="method_name">/</span> <span class="module_name">(Array)</span></a></li>
+        <li><a href="classes/Array.html#M000042"><span class="method_name">chunk</span> <span class="module_name">(Array)</span></a></li>
         <li><a href="classes/Redis/Dump.html#M000005"><span class="method_name">connect</span> <span class="module_name">(Redis::Dump)</span></a></li>
-        <li><a href="classes/Redis/Dump.html#M000007"><span class="method_name">dump</span> <span class="module_name">(Redis::Dump)</span></a></li>
         <li><a href="classes/Redis/Dump/ClassMethods.html#M000012"><span class="method_name">dump</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump.html#M000006"><span class="method_name">each_key</span> <span class="module_name">(Redis::Dump)</span></a></li>
+        <li><a href="classes/Redis/Dump.html#M000007"><span class="method_name">dump</span> <span class="module_name">(Redis::Dump)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000013"><span class="method_name">dump_strings</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump.html#M000006"><span class="method_name">each_database</span> <span class="module_name">(Redis::Dump)</span></a></li>
         <li><a href="classes/Redis/Dump.html#M000001"><span class="method_name">ld</span> <span class="module_name">(Redis::Dump)</span></a></li>
         <li><a href="classes/Redis/Dump.html#M000009"><span class="method_name">load</span> <span class="module_name">(Redis::Dump)</span></a></li>
-        <li><a href="classes/Redis/Dump/VERSION.html#M000038"><span class="method_name">load_config</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
-        <li><a href="classes/Redis/Dump/Problem.html#M000040"><span class="method_name">message</span> <span class="module_name">(Redis::Dump::Problem)</span></a></li>
-        <li><a href="classes/Redis/Dump.html#M000002"><span class="method_name">new</span> <span class="module_name">(Redis::Dump)</span></a></li>
-        <li><a href="classes/Redis/Dump/Problem.html#M000039"><span class="method_name">new</span> <span class="module_name">(Redis::Dump::Problem)</span></a></li>
-        <li><a href="classes/Redis/Dump.html#M000003"><span class="method_name">open_all_connections</span> <span class="module_name">(Redis::Dump)</span></a></li>
-        <li><a href="classes/Redis/Dump/VERSION.html#M000035"><span class="method_name">owner</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
-        <li><a href="classes/Redis/Dump/VERSION.html#M000037"><span class="method_name">path</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
+        <li><a href="classes/Redis/Dump/VERSION.html#M000039"><span class="method_name">load_config</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
+        <li><a href="classes/Redis/Dump.html#M000002"><span class="method_name">memory_usage</span> <span class="module_name">(Redis::Dump)</span></a></li>
+        <li><a href="classes/Redis/Dump/Problem.html#M000041"><span class="method_name">message</span> <span class="module_name">(Redis::Dump::Problem)</span></a></li>
+        <li><a href="classes/Redis/Dump.html#M000003"><span class="method_name">new</span> <span class="module_name">(Redis::Dump)</span></a></li>
+        <li><a href="classes/Redis/Dump/Problem.html#M000040"><span class="method_name">new</span> <span class="module_name">(Redis::Dump::Problem)</span></a></li>
+        <li><a href="classes/Redis/Dump/VERSION.html#M000036"><span class="method_name">owner</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
+        <li><a href="classes/Redis/Dump/VERSION.html#M000038"><span class="method_name">path</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
         <li><a href="classes/Redis/Dump.html#M000004"><span class="method_name">redis</span> <span class="module_name">(Redis::Dump)</span></a></li>
-        <li><a href="classes/Redis/Dump.html#M000008"><span class="method_name">report</span> <span class="module_name">(Redis::Dump)</span></a></li>
         <li><a href="classes/Redis/Dump/ClassMethods.html#M000011"><span class="method_name">report</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000013"><span class="method_name">set_value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000016"><span class="method_name">set_value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000017"><span class="method_name">set_value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000021"><span class="method_name">set_value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000018"><span class="method_name">set_value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000020"><span class="method_name">set_value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000019"><span class="method_name">set_value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/VERSION.html#M000034"><span class="method_name">stamp</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000015"><span class="method_name">stringify</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000032"><span class="method_name">stringify_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000029"><span class="method_name">stringify_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000033"><span class="method_name">stringify_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000030"><span class="method_name">stringify_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000028"><span class="method_name">stringify_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000031"><span class="method_name">stringify_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Numeric.html#M000045"><span class="method_name">to_bytes</span> <span class="module_name">(Numeric)</span></a></li>
-        <li><a href="classes/Numeric.html#M000044"><span class="method_name">to_ms</span> <span class="module_name">(Numeric)</span></a></li>
-        <li><a href="classes/Redis/Dump/VERSION.html#M000036"><span class="method_name">to_s</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
-        <li><a href="classes/Array.html#M000043"><span class="method_name">tuple</span> <span class="module_name">(Array)</span></a></li>
+        <li><a href="classes/Redis/Dump.html#M000008"><span class="method_name">report</span> <span class="module_name">(Redis::Dump)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000014"><span class="method_name">set_value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000017"><span class="method_name">set_value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000018"><span class="method_name">set_value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000022"><span class="method_name">set_value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000019"><span class="method_name">set_value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000021"><span class="method_name">set_value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000020"><span class="method_name">set_value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/VERSION.html#M000035"><span class="method_name">stamp</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000016"><span class="method_name">stringify</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000033"><span class="method_name">stringify_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000030"><span class="method_name">stringify_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000034"><span class="method_name">stringify_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000031"><span class="method_name">stringify_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000029"><span class="method_name">stringify_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000032"><span class="method_name">stringify_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Numeric.html#M000046"><span class="method_name">to_bytes</span> <span class="module_name">(Numeric)</span></a></li>
+        <li><a href="classes/Numeric.html#M000045"><span class="method_name">to_ms</span> <span class="module_name">(Numeric)</span></a></li>
+        <li><a href="classes/Redis/Dump/VERSION.html#M000037"><span class="method_name">to_s</span> <span class="module_name">(Redis::Dump::VERSION)</span></a></li>
+        <li><a href="classes/Array.html#M000044"><span class="method_name">tuple</span> <span class="module_name">(Array)</span></a></li>
         <li><a href="classes/Redis/Dump/ClassMethods.html#M000010"><span class="method_name">type</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000014"><span class="method_name">value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000026"><span class="method_name">value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000023"><span class="method_name">value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000027"><span class="method_name">value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000024"><span class="method_name">value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000022"><span class="method_name">value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
-        <li><a href="classes/Redis/Dump/ClassMethods.html#M000025"><span class="method_name">value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000015"><span class="method_name">value</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000027"><span class="method_name">value_hash</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000024"><span class="method_name">value_list</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000028"><span class="method_name">value_none</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000025"><span class="method_name">value_set</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000023"><span class="method_name">value_string</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
+        <li><a href="classes/Redis/Dump/ClassMethods.html#M000026"><span class="method_name">value_zset</span> <span class="module_name">(Redis::Dump::ClassMethods)</span></a></li>
       </ol>
     </div>
   </body>
