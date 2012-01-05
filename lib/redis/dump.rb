@@ -64,28 +64,25 @@ class Redis
           #self.class.ld " #{key} (#{key_dump['type']}): #{key_dump['size'].to_bytes}"
           entry_enc = self.class.encoder.encode entry
           if block_given?
-            begin
-              chunk_entries << entry_enc
-              if (idxplus % self.class.chunk_size).zero? || idxplus >= dump_keys_size
-                Redis::Dump.ld " dumping #{chunk_entries.size} (#{idxplus}) from #{redis.client.id}"
-                yield chunk_entries
-                chunk_entries.clear
-              end
-            rescue Interrupt => ex
+            chunk_entries << entry_enc
+            process_chunk idx, dump_keys_size do |count|
+              Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id}"
               yield chunk_entries
-              break
+              chunk_entries.clear
             end
           else
-            begin
-              entries << entry_enc
-            rescue Interrupt => ex
-              break
-            end
+            entries << entry_enc
           end
         end
       end
       entries
     end
+    
+    def process_chunk idx, total_size
+      idxplus = idx+1
+      yield idxplus if (idxplus % self.class.chunk_size).zero? || idxplus >= total_size
+    end
+    private :process_chunk
     
     def report filter='*'
       values = []
@@ -97,7 +94,7 @@ class Redis
         dump_keys.each_with_index do |key,idx|
           entry, idxplus = Redis::Dump.report(redis, key), idx+1
           chunk_entries << entry
-          if (idxplus % self.class.chunk_size).zero? || idxplus >= dump_keys_size
+          process_chunk idx, dump_keys_size do |count|
             Redis::Dump.ld " reporting on #{chunk_entries.size} (#{idxplus}) from #{redis.client.id}"
             chunk_entries.each do |e|
               #puts record if obj.global.verbose >= 1
