@@ -1,10 +1,14 @@
 REDIS-DUMP, CHANGES
 
+#### 0.3.2 (2012-01-05) ###############################
+
+* ADDED: Support setting redis URI via REDIS_URI environment variable
+
 #### 0.3.1 (2012-01-05) ###############################
 
 * ADDED: New global option for redis-dump: -f
 
-#### 0.3.0 (2012-01-05) ###############################
+#### 0.3.0 (2012-01-04) ###############################
 
 * ADDED: Redis::Dump.dump_strings
 * ADDED: New global options for redis-dump: -c, -O

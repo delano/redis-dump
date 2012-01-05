@@ -43,13 +43,14 @@ class Redis::Dump::CLI
   end
   
   before do |obj|
+    obj.global.uri ||= ENV['REDIS_URI']
     obj.global.uri ||= 'redis://%s:%s' % [Redis::Dump.host, Redis::Dump.port]
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
     Redis::Dump.with_optimizations = false if obj.global.without_optimizations
     Redis::Dump.chunk_size = obj.global.count if obj.global.count
-    Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.ld "redis_uri: #{obj.global.uri} (#{obj.global.database})"
     Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end
   
