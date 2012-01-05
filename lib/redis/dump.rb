@@ -20,7 +20,10 @@ class Redis
     class << self
       attr_accessor :debug, :encoder, :parser, :safe, :host, :port
       def ld(msg)
-        STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg] if @debug
+        STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg] if debug
+      end
+      def memory_usage
+        `ps -o rss= -p #{Process.pid}`.to_i # in kb
       end
     end
     attr_accessor :dbs, :uri
@@ -41,7 +44,7 @@ class Redis
       redis_connections["#{uri}/#{db}"] ||= connect("#{uri}/#{db}")
     end
     def connect(this_uri)
-      self.class.ld 'CONNECT: ' << this_uri
+      #self.class.ld 'CONNECT: ' << this_uri
       Redis.connect :url => this_uri
     end
     
@@ -51,7 +54,7 @@ class Redis
     def each_key(keys=nil, &blk)
       if keys.nil?
         @redis_connections.keys.sort.each do |redis_uri|
-          self.class.ld ['---', "DB: #{redis_connections[redis_uri].client.db}", '---'].join($/)
+          #self.class.ld ['---', "DB: #{redis_connections[redis_uri].client.db}", '---'].join($/)
           keys = redis_connections[redis_uri].keys
           keys.each do |key|
             blk.call redis_connections[redis_uri], key
@@ -76,7 +79,7 @@ class Redis
       values = []
       each_key(keys) do |this_redis,key|
         info = Redis::Dump.dump this_redis, key
-        self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
+        #self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
         encoded = self.class.encoder.encode info
         each_record.nil? ? (values << encoded) : each_record.call(encoded)
       end
@@ -86,7 +89,7 @@ class Redis
       values = []
       each_key do |this_redis,key|
         info = Redis::Dump.report this_redis, key
-        self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
+        #self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
         each_record.nil? ? (values << info) : each_record.call(info)
       end
       values
@@ -134,7 +137,7 @@ class Redis
         info['type'] = type(this_redis, key)
         info['value'] = value(this_redis, key, info['type'])
         info['size'] = stringify(this_redis, key, info['type'], info['value']).size
-        ld "dump[#{this_redis.hash}, #{info}]"
+        #ld "dump[#{this_redis.hash}, #{info}]"
         info
       end
       def set_value(this_redis, key, type, value, expire=nil)

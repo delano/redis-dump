@@ -27,6 +27,7 @@ class Redis::Dump::CLI
   
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :V, :version, "Display version" do 
     puts "Version: #{Redis::Dump::VERSION.to_s}"
     exit 0
@@ -46,13 +47,19 @@ class Redis::Dump::CLI
     Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
   end
   
+  after do |obj|
+    sleep obj.global.sleep.to_i if obj.global.sleep
+  end
+  
   usage "redis-dump > dumpfile_full.json"
   usage "redis-dump -d 15 > dumpfile_db15.json"
   command :dump do |obj|
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
     rd = Redis::Dump.new obj.global.database, obj.global.uri
     rd.dump do |record|
       puts record
     end
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end
   
 end
