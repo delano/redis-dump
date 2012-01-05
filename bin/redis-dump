@@ -45,21 +45,21 @@ class Redis::Dump::CLI
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
     Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end
   
   after do |obj|
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
     sleep obj.global.sleep.to_i if obj.global.sleep
   end
   
   usage "redis-dump > dumpfile_full.json"
   usage "redis-dump -d 15 > dumpfile_db15.json"
   command :dump do |obj|
-    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
     rd = Redis::Dump.new obj.global.database, obj.global.uri
     rd.dump do |record|
       puts record
     end
-    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end
   
 end
@@ -67,6 +67,8 @@ end
   
 begin
   Drydock.run!(ARGV, STDIN) if Drydock.run? && !Drydock.has_run?
+rescue RuntimeError => ex
+  STDERR.puts ex.message
 rescue Drydock::ArgError, Drydock::OptError => ex
   STDERR.puts ex.message
   STDERR.puts ex.usage

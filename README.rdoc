@@ -1,10 +1,8 @@
-= Redis-Dump v0.1 ALPHA
+= Redis-Dump v0.3 ALPHA
 
 <i>Backup and restore your Redis data to and from JSON.</i>
 
-<b>NOTE: This is alpha software. DO NOT RELY ON IT FOR PRECIOUS THINGS!!</b>
-
-<b>ALSO: This is an unofficial tool.</b>
+<b>NOTE: This is alpha software. TEST IT BEFORE RELYING ON IT.</b>
 
 
 == Usage
@@ -24,7 +22,7 @@ All redis datatypes are output to a simple JSON object. All objects have the fol
 
 * db (Integer)
 * key (String)
-* ttl (Integer): The amount of time in seconds that the key will live . If no expire is set, it's -1. 
+* ttl (Integer): The amount of time in seconds that the key will live. If no expire is set, it's -1. 
 * type (String), one of: string, list, set, zset, hash, none. 
 * value (String): A JSON-encoded string. For keys of type list, set, zset, and hash, the data is given a specific structure (see below). 
 

@@ -17,8 +17,9 @@ class Redis
     @encoder = Yajl::Encoder.new
     @parser = Yajl::Parser.new
     @safe = true
+    @chunk_size = 2500
     class << self
-      attr_accessor :debug, :encoder, :parser, :safe, :host, :port
+      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size
       def ld(msg)
         STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg] if debug
       end
@@ -34,11 +35,8 @@ class Redis
       unless dbs.nil?
         @dbs = Range === dbs ? dbs : (dbs..dbs)
         @dbs = (@dbs.first.to_i..@dbs.last.to_i) # enforce integers
-        open_all_connections
+        @dbs.to_a.each { |db| redis(db) } # open_all_connections
       end
-    end
-    def open_all_connections
-      dbs.to_a.each { |db| redis(db) } unless dbs.nil?
     end
     def redis(db)
       redis_connections["#{uri}/#{db}"] ||= connect("#{uri}/#{db}")
@@ -48,52 +46,74 @@ class Redis
       Redis.connect :url => this_uri
     end
     
-    # Calls blk for each key. If keys is nil, this will iterate over
-    # every key in every open redis connection.
-    # * keys (Array, optional). If keys is provided it must contain URI::Redis objects.
-    def each_key(keys=nil, &blk)
-      if keys.nil?
-        @redis_connections.keys.sort.each do |redis_uri|
-          #self.class.ld ['---', "DB: #{redis_connections[redis_uri].client.db}", '---'].join($/)
-          keys = redis_connections[redis_uri].keys
-          keys.each do |key|
-            blk.call redis_connections[redis_uri], key
-          end
-        end
-      else
-        keys.each do |key|
-          unless URI::Redis === key
-            raise Redis::Dump::Problem, "#{key} must be a URI::Redis object"
-          end
-          redis_uri = key.serverid
-          if redis_connections[redis_uri].nil?
-            raise Redis::Dump::Problem, "Not connected to #{redis_uri}"
-          end
-          blk.call redis_connections[redis_uri], key.key
-        end
+    def each_database
+      @redis_connections.keys.sort.each do |redis_uri|
+        yield redis_connections[redis_uri]
       end
     end
     
     # See each_key
-    def dump(keys=nil, &each_record)
-      values = []
-      each_key(keys) do |this_redis,key|
-        info = Redis::Dump.dump this_redis, key
-        #self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
-        encoded = self.class.encoder.encode info
-        each_record.nil? ? (values << encoded) : each_record.call(encoded)
+    def dump filter='*'
+      entries = []
+      each_database do |redis|
+        chunk_entries = []
+        dump_keys = redis.keys(filter)
+        dump_keys_size = dump_keys.size
+        dump_keys.each_with_index do |key,idx|
+          entry, idxplus = Redis::Dump.dump(redis, key), idx+1
+          #self.class.ld " #{key} (#{key_dump['type']}): #{key_dump['size'].to_bytes}"
+          entry_enc = self.class.encoder.encode entry
+          if block_given?
+            begin
+              chunk_entries << entry_enc
+              if (idxplus % self.class.chunk_size).zero? || idxplus >= dump_keys_size
+                Redis::Dump.ld " dumping #{chunk_entries.size} (#{idxplus}) from #{redis.client.id}"
+                yield chunk_entries
+                chunk_entries.clear
+              end
+            rescue Interrupt => ex
+              yield chunk_entries
+              break
+            end
+          else
+            begin
+              entries << entry_enc
+            rescue Interrupt => ex
+              break
+            end
+          end
+        end
       end
+      entries
+    end
+    
+    def report filter='*'
+      values = []
+      total_size, dbs = 0, {}
+      each_database do |redis|
+        chunk_entries = []
+        dump_keys = redis.keys(filter)
+        dump_keys_size = dump_keys.size
+        dump_keys.each_with_index do |key,idx|
+          entry, idxplus = Redis::Dump.report(redis, key), idx+1
+          chunk_entries << entry
+          if (idxplus % self.class.chunk_size).zero? || idxplus >= dump_keys_size
+            Redis::Dump.ld " reporting on #{chunk_entries.size} (#{idxplus}) from #{redis.client.id}"
+            chunk_entries.each do |e|
+              #puts record if obj.global.verbose >= 1
+              dbs[e['db']] ||= 0
+              dbs[e['db']] += e['size']
+              total_size += e['size']
+            end
+            chunk_entries.clear
+          end
+        end
+      end
+      puts dbs.keys.sort.collect { |db| "  db#{db}: #{dbs[db].to_bytes}" }
+      puts "total: #{total_size.to_bytes}"
       values
     end
-    def report(&each_record)
-      values = []
-      each_key do |this_redis,key|
-        info = Redis::Dump.report this_redis, key
-        #self.class.ld " #{key} (#{info['type']}): #{info['size'].to_bytes}"
-        each_record.nil? ? (values << info) : each_record.call(info)
-      end
-      values
-    end
+    
     def load(string_or_stream, &each_record)
       count = 0
       Redis::Dump.ld " LOAD SOURCE: #{string_or_stream}"
@@ -103,10 +123,10 @@ class Redis
           next
         end
         this_redis = redis(obj["db"])
-        Redis::Dump.ld "load[#{this_redis.hash}, #{obj}]"
+        #Redis::Dump.ld "load[#{this_redis.hash}, #{obj}]"
         if each_record.nil? 
           if Redis::Dump.safe && this_redis.exists(obj['key'])
-            Redis::Dump.ld " record exists (no change)"
+            #Redis::Dump.ld " record exists (no change)"
             next
           end
           Redis::Dump.set_value this_redis, obj['key'], obj['type'], obj['value'], obj['ttl']
@@ -128,7 +148,7 @@ class Redis
         info['type'] = type(this_redis, key)
         info['size'] = stringify(this_redis, key, info['type'], info['value']).size
         info['bytes'] = info['size'].to_bytes
-        ld "report[#{this_redis.hash}, #{info}]"
+        #ld "report[#{this_redis.hash}, #{info}]"
         info
       end
       def dump(this_redis, key)
