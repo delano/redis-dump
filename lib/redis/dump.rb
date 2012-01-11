@@ -14,13 +14,11 @@ class Redis
     @host = '127.0.0.1'
     @port = 6379
     @debug = false
-    @encoder = Yajl::Encoder.new
-    @parser = Yajl::Parser.new
     @safe = true
     @chunk_size = 10000
     @with_optimizations = true
     class << self
-      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size, :with_optimizations
+      attr_accessor :debug, :safe, :host, :port, :chunk_size, :with_optimizations
       def ld(msg)
         STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg] if debug
       end
@@ -81,7 +79,7 @@ class Redis
                 end
               end
               unless output_buffer.empty?
-                yield output_buffer 
+                yield output_buffer
               end
               unless chunk_entries.empty?
                 yield Redis::Dump.dump_strings(redis, chunk_entries) { |obj| obj.to_json } 

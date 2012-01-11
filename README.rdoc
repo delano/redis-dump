@@ -73,7 +73,7 @@ Or of you want to run it directly:
     $ cd redis-dump
     $ gem install redis
     $ gem install uri-redis
-    $ gem install yajl-ruby
+    $ gem install json
     $ gem install drydock
     $ ruby -rubygems bin/redis-dump
 

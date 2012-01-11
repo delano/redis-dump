@@ -25,7 +25,7 @@ begin
     gem.email = "delano@solutious.com"
     gem.homepage = "http://github.com/delano/redis-dump"
     gem.authors = ["Delano Mandelbaum"]
-    gem.add_dependency("yajl-ruby",    ">= 0.1")
+    gem.add_dependency("json",         ">= 1.6.4")
     gem.add_dependency("redis",        ">= 2.0")
     gem.add_dependency("uri-redis",    ">= 0.4.0")
     gem.add_dependency("drydock",      ">= 0.6.9")
