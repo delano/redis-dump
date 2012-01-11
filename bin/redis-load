@@ -27,8 +27,9 @@ class Redis::Dump::CLI
   
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :V, :version, "Display version" do 
-    puts "Version: #{Redis::Dump::VERSION.to_s}"
+    puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
   end
   global :D, :debug do
@@ -39,25 +40,79 @@ class Redis::Dump::CLI
   end
   
   before do |obj|
+    obj.global.uri ||= ENV['REDIS_URI']
     obj.global.uri ||= 'redis://%s:%s' % [Redis::Dump.host, Redis::Dump.port]
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
-    Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.ld "redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
+  end
+  
+  after do |obj|
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
+    sleep obj.global.sleep.to_i if obj.global.sleep
   end
   
   usage "<dumpfile_full.json redis-load"
   usage "<dumpfile_db15.json redis-load -d 15"
   command :load do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
+    raise "Usage: cat dumpfile_db15.json | redis-load -d 15" if STDIN.tty?
     rd.load STDIN
   end
   
+  about "Add test data to redis"
+  usage "redis-load populate -c 1000"
+  usage "redis-load -d 1 populate -c 1000"
+  option :c, :count, Integer, "Populate the redis db with <count> keys"
+  option :FLUSH, "Flush the redis db before populating. THIS WILL DESTROY DATA."
+  command :populate do |obj|
+    require 'benchmark'
+    obj.option.count ||= 100_000
+    obj.global.database ||= 0
+    rd = Redis::Dump.new obj.global.database, obj.global.uri
+    rd.each_database do |redis|
+      now = Time.now.utc.to_i
+      if obj.option.FLUSH
+        puts "Flushing db #{redis.client.id}..."
+        redis.flushdb
+      end
+      puts "Generating..."
+      time = Benchmark.measure do
+        redis.pipelined do
+          obj.option.count.times do |idx|
+            grp = (idx % 10)+1
+            val = '0' * (grp*100).to_i
+            redis.set 'rdtemp:%d:idx-%d:group-%d' % [now, idx, grp], val
+          end
+        end
+      end
+      info = redis.info
+      puts '%s: %s' % [redis.client.id, info["db#{redis.client.db}"]]
+      puts 'Total used memory: %s' % [info['used_memory_human']]
+      puts time.to_s
+    end
+  end
+  
+  command :info do |obj|
+    rd = Redis::Dump.new obj.global.database, obj.global.uri
+    memory = nil
+    rd.each_database do |redis|
+      info = redis.info
+      memory ||= info['used_memory_human']
+      next unless info["db#{redis.client.db}"]
+      puts '%s: %s' % [redis.client.id, info["db#{redis.client.db}"]]
+    end
+    puts 'Total used memory: %s' % [memory]
+  end
 end
 
   
 begin
   Drydock.run!(ARGV, STDIN) if Drydock.run? && !Drydock.has_run?
+rescue RuntimeError => ex
+  STDERR.puts ex.message
 rescue Drydock::ArgError, Drydock::OptError => ex
   STDERR.puts ex.message
   STDERR.puts ex.usage

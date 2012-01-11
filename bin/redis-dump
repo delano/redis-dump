@@ -16,7 +16,6 @@ lib_dir = File.join(RD_HOME, 'lib')
 $:.unshift lib_dir  
 
 require 'redis/dump'
-require 'uri/redis'
 require 'drydock'
 
 # Command-line interface for bin/redis-dump
@@ -28,9 +27,12 @@ class Redis::Dump::CLI
   
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
-  global :k, :keys, String, "Keys to dump separated by comma"
+  global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
+  global :c, :count, Integer, "Chunk size (default: #{Redis::Dump.chunk_size})"
+  global :f, :filter, String, "Filter selected keys (passed directly to redis' KEYS command)"
+  global :O, :without_optimizations, "Disable run time optimizations"
   global :V, :version, "Display version" do 
-    puts "Version: #{RedisDump::VERSION}"
+    puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
   end
   global :D, :debug do
@@ -41,28 +43,31 @@ class Redis::Dump::CLI
   end
   
   before do |obj|
+    obj.global.uri ||= ENV['REDIS_URI']
     obj.global.uri ||= 'redis://%s:%s' % [Redis::Dump.host, Redis::Dump.port]
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
-
-    if (obj.global.keys)
-      obj.global.keys = obj.global.keys.split(",").collect do |k|
-        tmp_uri = URI.parse(obj.global.uri)
-        tmp_uri.key = k
-        tmp_uri
-      end
-    end
-
-    Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.with_optimizations = false if obj.global.without_optimizations
+    Redis::Dump.chunk_size = obj.global.count if obj.global.count
+    Redis::Dump.ld "redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
+  end
+  
+  after do |obj|
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
+    sleep obj.global.sleep.to_i if obj.global.sleep
   end
   
   usage "redis-dump > dumpfile_full.json"
   usage "redis-dump -d 15 > dumpfile_db15.json"
+  usage "redis-dump -d 15 -c 100_000 > dumpfile_db15.json"
   command :dump do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
-    rd.dump(obj.global.keys) do |record|
-      puts record
+    obj.global.filter &&= '*%s*' % obj.global.filter
+    Redis::Dump.ld " filter #{obj.global.filter}"
+    rd.dump(obj.global.filter) do |records|
+      puts records
     end
   end
   
@@ -71,6 +76,8 @@ end
   
 begin
   Drydock.run!(ARGV, STDIN) if Drydock.run? && !Drydock.has_run?
+rescue RuntimeError => ex
+  STDERR.puts ex.message
 rescue Drydock::ArgError, Drydock::OptError => ex
   STDERR.puts ex.message
   STDERR.puts ex.usage

@@ -1,3 +1,2 @@
 # Bundler
-.bundle
-vendor/local
+pkg/

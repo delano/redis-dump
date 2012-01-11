@@ -27,12 +27,13 @@ class Redis::Dump::CLI
   
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :v, :verbose, "Increase output" do 
     @verbose ||= 0
     @verbose += 1
   end
   global :V, :version, "Display version" do 
-    puts "Version: #{Redis::Dump::VERSION.to_s}"
+    puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
   end
   global :D, :debug do
@@ -43,26 +44,26 @@ class Redis::Dump::CLI
   end
   
   before do |obj|
+    obj.global.uri ||= ENV['REDIS_URI']
     obj.global.uri ||= 'redis://%s:%s' % [Redis::Dump.host, Redis::Dump.port]
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
-    Redis::Dump.ld " redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.ld "redis_uri: #{obj.global.uri} (#{obj.global.database})"
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end
   
-  usage "<dumpfile_full.json redis-load"
-  usage "<dumpfile_db15.json redis-load -d 15"
+  after do |obj|
+    Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
+    sleep obj.global.sleep.to_i if obj.global.sleep
+  end
+  
+  usage "redis-report"
+  usage "redis-report -d 15"
   command :report do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
     total_size, dbs = 0, {}
-    rd.report do |record|
-      puts record if obj.global.verbose >= 1
-      dbs[record['db']] ||= 0
-      dbs[record['db']] += record['size']
-      total_size += record['size']
-    end
-    puts dbs.keys.sort.collect { |db| "  db#{db}: #{dbs[db].to_bytes}" }
-    puts "total: #{total_size.to_bytes}"
+    report = rd.report
   end
   
 end
@@ -70,6 +71,8 @@ end
   
 begin
   Drydock.run!(ARGV, STDIN) if Drydock.run? && !Drydock.has_run?
+rescue RuntimeError => ex
+  STDERR.puts ex.message
 rescue Drydock::ArgError, Drydock::OptError => ex
   STDERR.puts ex.message
   STDERR.puts ex.usage

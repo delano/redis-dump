@@ -1,10 +1,8 @@
-= Redis-Dump v0.1 ALPHA
+= Redis-Dump v0.3 ALPHA
 
 <i>Backup and restore your Redis data to and from JSON.</i>
 
-<b>NOTE: This is alpha software. DO NOT RELY ON IT FOR PRECIOUS THINGS!!</b>
-
-<b>ALSO: This is an unofficial tool.</b>
+<b>NOTE: This is alpha software. TEST IT BEFORE RELYING ON IT.</b>
 
 
 == Usage
@@ -12,14 +10,18 @@
 There are two executables: <tt>redis-dump</tt> and <tt>redis-load</tt>. 
 
     $ redis-dump 
-    $ redis-dump -k my_key
-    $ redis-dump -k my_obj:*
-    $ redis-dump -k my_key,my_obj:*
     $ redis-dump -u 127.0.0.1:6371 > db_full.json
     $ redis-dump -u 127.0.0.1:6371 -d 15 > db_db15.json
     
-    $ < db_full.json redis-load 
+    $ < db_full.json redis-load
     $ < db_db15.json redis-load -d 15
+    # OR
+    $ cat db_full | redis-load
+    $ cat db_db15.json | redis-load -d 15
+    
+    # You can specify the redis URI via an environment variable
+    $ export REDIS_URI=127.0.0.1:6371
+    $ redis-dump
     
 == Output format
 
@@ -27,7 +29,7 @@ All redis datatypes are output to a simple JSON object. All objects have the fol
 
 * db (Integer)
 * key (String)
-* ttl (Integer): The amount of time in seconds that the key will live . If no expire is set, it's -1. 
+* ttl (Integer): The amount of time in seconds that the key will live. If no expire is set, it's -1. 
 * type (String), one of: string, list, set, zset, hash, none. 
 * value (String): A JSON-encoded string. For keys of type list, set, zset, and hash, the data is given a specific structure (see below). 
 
@@ -44,6 +46,23 @@ Here are examples of each datatype:
 One of the purposes of redis-dump is the ability to restore the database to a known state. When you restore a redis database from a redis-dump file, <em>the expires are reset to their values at the time the dump was created</em>. This is different from restoring from Redis' native .rdb or .aof files (expires are stored relative to the actual time they were set). 
 
 
+== Output directly to an encrypted file
+
+For most sensitive data, you should consider encrypting the data directly without writing first to a temp file. You can do this using the power of [gpg](http://www.gnupg.org/) and file descriptors. Here are a couple examples:
+  
+    # Encrypt the data (interactive)
+    $ redis-dump -u 127.0.0.1:6371 -d 15 | gpg --force-mdc -v -c > path/2/backup-db15.json.gpg
+    
+    # Encrypt the data (automated)
+    $ redis-dump -u 127.0.0.1:6371 -d 15 | 3</path/2/passphrase.txt gpg --force-mdc -v -c --passphrase-fd 3 > path/2/backup-db15.json.gpg
+    
+    # Decrypt the file (interactive)
+    $ gpg path/2/backup-db15.json.gpg
+    Enter passphrase: *******
+    
+    # Decrypt the file (automated)
+    $  3</path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg
+    
 == Installation
 
     $ gem install redis-dump

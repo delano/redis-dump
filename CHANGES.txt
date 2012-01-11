@@ -1,8 +1,22 @@
 REDIS-DUMP, CHANGES
 
-#### 0.2.0 (2011-12-21) ###############################
+#### 0.3.2 (2012-01-05) ###############################
 
-* ADDED: export for specific keys
+* ADDED: Support setting redis URI via REDIS_URI environment variable
+
+#### 0.3.1 (2012-01-05) ###############################
+
+* ADDED: New global option for redis-dump: -f
+
+#### 0.3.0 (2012-01-04) ###############################
+
+* ADDED: Redis::Dump.dump_strings
+* ADDED: New global options for redis-dump: -c, -O
+* CHANGED: memory optimizations for Redis::Dump#dump
+
+#### 0.2.0 (unreleased) ###############################
+
+* ADDED: Redis::Dump.chunk_size support for dump and report
 
 #### 0.1.5 (2011-06-04) ###############################
 
