@@ -4,7 +4,6 @@ end
 
 require 'redis'
 require 'uri/redis'
-require 'yajl'
 require 'json'
 
 class Redis
