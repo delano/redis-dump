@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<redis>, [">= 2.0"])
       s.add_runtime_dependency(%q<uri-redis>, [">= 0.4.0"])
       s.add_runtime_dependency(%q<drydock>, [">= 0.6.9"])
+      s.add_development_dependency('rspec', '>= 2.11.0')
     else
       s.add_dependency(%q<yajl-ruby>, [">= 0.1"])
       s.add_dependency(%q<redis>, [">= 2.0"])
