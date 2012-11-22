@@ -1,5 +1,9 @@
 REDIS-DUMP, CHANGES
 
+#### 0.3.3 (2012-11-22) ###############################
+
+* Fixed issue with return value from zrange in newer versions of redis lib (3.0+). 
+
 #### 0.3.2 (2012-01-05) ###############################
 
 * ADDED: Support setting redis URI via REDIS_URI environment variable

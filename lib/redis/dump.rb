@@ -224,7 +224,7 @@ class Redis
       def value_string(this_redis, key)  this_redis.get key                                                       end
       def value_list  (this_redis, key)  this_redis.lrange key, 0, -1                                             end
       def value_set   (this_redis, key)  this_redis.smembers key                                                  end
-      def value_zset  (this_redis, key)  this_redis.zrange(key, 0, -1, :with_scores => true).tuple                end
+      def value_zset  (this_redis, key)  this_redis.zrange(key, 0, -1, :with_scores => true).flatten.tuple        end
       def value_hash  (this_redis, key)  this_redis.hgetall(key)                                                  end
       def value_none  (this_redis, key)  ''                                                                       end
       def stringify_string(this_redis, key, v=nil)  (v || value_string(this_redis, key))                          end
