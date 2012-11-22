@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=US-ASCII" http-equiv="Content-Type">
+
+<title>module Redis::Dump::ClassMethods - redis-dump 0.3.3.</title>
+
+<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../index.html">Home</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/redis/dump.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-dump">#dump</a>
+    
+    <li><a href="#method-i-dump_strings">#dump_strings</a>
+    
+    <li><a href="#method-i-report">#report</a>
+    
+    <li><a href="#method-i-set_value">#set_value</a>
+    
+    <li><a href="#method-i-set_value_hash">#set_value_hash</a>
+    
+    <li><a href="#method-i-set_value_list">#set_value_list</a>
+    
+    <li><a href="#method-i-set_value_none">#set_value_none</a>
+    
+    <li><a href="#method-i-set_value_set">#set_value_set</a>
+    
+    <li><a href="#method-i-set_value_string">#set_value_string</a>
+    
+    <li><a href="#method-i-set_value_zset">#set_value_zset</a>
+    
+    <li><a href="#method-i-stringify">#stringify</a>
+    
+    <li><a href="#method-i-stringify_hash">#stringify_hash</a>
+    
+    <li><a href="#method-i-stringify_list">#stringify_list</a>
+    
+    <li><a href="#method-i-stringify_none">#stringify_none</a>
+    
+    <li><a href="#method-i-stringify_set">#stringify_set</a>
+    
+    <li><a href="#method-i-stringify_string">#stringify_string</a>
+    
+    <li><a href="#method-i-stringify_zset">#stringify_zset</a>
+    
+    <li><a href="#method-i-type">#type</a>
+    
+    <li><a href="#method-i-value">#value</a>
+    
+    <li><a href="#method-i-value_hash">#value_hash</a>
+    
+    <li><a href="#method-i-value_list">#value_list</a>
+    
+    <li><a href="#method-i-value_none">#value_none</a>
+    
+    <li><a href="#method-i-value_set">#value_set</a>
+    
+    <li><a href="#method-i-value_string">#value_string</a>
+    
+    <li><a href="#method-i-value_zset">#value_zset</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../LICENSE_txt.html">LICENSE</a>
+  
+    <li class="file"><a href="../../README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../Redis.html">Redis</a>
+  
+    <li><a href="../../Redis/Dump.html">Redis::Dump</a>
+  
+    <li><a href="../../Redis/Dump/ClassMethods.html">Redis::Dump::ClassMethods</a>
+  
+    <li><a href="../../Redis/Dump/Problem.html">Redis::Dump::Problem</a>
+  
+    <li><a href="../../Redis/Dump/VERSION.html">Redis::Dump::VERSION</a>
+  
+    <li><a href="../../Array.html">Array</a>
+  
+    <li><a href="../../Numeric.html">Numeric</a>
+  
+    <li><a href="../../Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Redis::Dump::ClassMethods</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-dump" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dump</span><span
+            class="method-args">(this_redis, key, type=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dump-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 170</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dump</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">type</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">type</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">type</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">info</span> = { <span class="ruby-string">'db'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">client</span>.<span class="ruby-identifier">db</span>, <span class="ruby-string">'key'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span> }
+  <span class="ruby-identifier">info</span>[<span class="ruby-string">'ttl'</span>] = <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">ttl</span> <span class="ruby-identifier">key</span>
+  <span class="ruby-identifier">info</span>[<span class="ruby-string">'type'</span>] = <span class="ruby-identifier">type</span>
+  <span class="ruby-identifier">info</span>[<span class="ruby-string">'value'</span>] = <span class="ruby-identifier">value</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">info</span>[<span class="ruby-string">'type'</span>])
+  <span class="ruby-identifier">info</span>[<span class="ruby-string">'size'</span>] = <span class="ruby-identifier">stringify</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">info</span>[<span class="ruby-string">'type'</span>], <span class="ruby-identifier">info</span>[<span class="ruby-string">'value'</span>]).<span class="ruby-identifier">size</span>
+  <span class="ruby-comment">#ld &quot;dump[#{this_redis.hash}, #{info}]&quot;</span>
+  <span class="ruby-identifier">info</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dump-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dump-method -->
+
+    
+      <div id="method-i-dump_strings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dump_strings</span><span
+            class="method-args">(this_redis, keys) { |info| ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dump_strings-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dump_strings</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">keys</span>)
+  <span class="ruby-identifier">vals</span> = <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">mget</span> *<span class="ruby-identifier">keys</span>
+  <span class="ruby-identifier">idx</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">idx</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">info</span> = { 
+      <span class="ruby-string">'db'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">client</span>.<span class="ruby-identifier">db</span>, <span class="ruby-string">'key'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>,
+      <span class="ruby-string">'ttl'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">ttl</span>(<span class="ruby-identifier">key</span>), <span class="ruby-string">'type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'string'</span>,
+      <span class="ruby-string">'value'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">vals</span>[<span class="ruby-identifier">idx</span>].<span class="ruby-identifier">to_s</span>, <span class="ruby-string">'size'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">vals</span>[<span class="ruby-identifier">idx</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+    }
+    <span class="ruby-identifier">block_given?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">info</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">info</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dump_strings-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dump_strings-method -->
+
+    
+      <div id="method-i-report" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">report</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="report-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 162</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">report</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">info</span> = { <span class="ruby-string">'db'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">client</span>.<span class="ruby-identifier">db</span>, <span class="ruby-string">'key'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span> }
+  <span class="ruby-identifier">info</span>[<span class="ruby-string">'type'</span>] = <span class="ruby-identifier">type</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">info</span>[<span class="ruby-string">'size'</span>] = <span class="ruby-identifier">stringify</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">info</span>[<span class="ruby-string">'type'</span>], <span class="ruby-identifier">info</span>[<span class="ruby-string">'value'</span>]).<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">info</span>[<span class="ruby-string">'bytes'</span>] = <span class="ruby-identifier">info</span>[<span class="ruby-string">'size'</span>].<span class="ruby-identifier">to_bytes</span>
+  <span class="ruby-comment">#ld &quot;report[#{this_redis.hash}, #{info}]&quot;</span>
+  <span class="ruby-identifier">info</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- report-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- report-method -->
+
+    
+      <div id="method-i-set_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_value</span><span
+            class="method-args">(this_redis, key, type, value, expire=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_value-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 193</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_value</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">expire</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">t</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">type</span>
+  <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;set_value_#{t}&quot;</span>, <span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">expire</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">expire</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">expire</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_value-method -->
+
+    
+      <div id="method-i-set_value_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_value_hash</span><span
+            class="method-args">(this_redis, key, hash)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_value_hash-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 205</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_value_hash</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">hash</span>)
+  <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">hset</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">k</span>, <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">k</span>] }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_value_hash-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_value_hash-method -->
+
+    
+      <div id="method-i-set_value_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_value_list</span><span
+            class="method-args">(this_redis, key, list)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_value_list-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 208</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_value_list</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">list</span>)
+  <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">rpush</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_value_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_value_list-method -->
+
+    
+      <div id="method-i-set_value_none" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_value_none</span><span
+            class="method-args">(this_redis, key, str)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_value_none-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_value_none</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">str</span>)
+  <span class="ruby-comment"># ignore</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_value_none-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_value_none-method -->
+
+    
+      <div id="method-i-set_value_set" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_value_set</span><span
+            class="method-args">(this_redis, key, set)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_value_set-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 211</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_value_set</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">set</span>)
+  <span class="ruby-identifier">set</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">sadd</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_value_set-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_value_set-method -->
+
+    
+      <div id="method-i-set_value_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_value_string</span><span
+            class="method-args">(this_redis, key, str)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_value_string-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 217</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_value_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">str</span>)
+  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">set</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">str</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_value_string-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_value_string-method -->
+
+    
+      <div id="method-i-set_value_zset" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_value_zset</span><span
+            class="method-args">(this_redis, key, zset)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_value_zset-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_value_zset</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">zset</span>)
+  <span class="ruby-identifier">zset</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">zadd</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">pair</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">pair</span>[<span class="ruby-value">0</span>] }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_value_zset-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_value_zset-method -->
+
+    
+      <div id="method-i-stringify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stringify</span><span
+            class="method-args">(this_redis, key, t=nil, v=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stringify-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 201</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stringify</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">t</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;stringify_#{t}&quot;</span>, <span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stringify-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stringify-method -->
+
+    
+      <div id="method-i-stringify_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stringify_hash</span><span
+            class="method-args">(this_redis, key, v=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stringify_hash-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 234</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stringify_hash</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_hash</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>  <span class="ruby-keyword">end</span></pre>
+          </div><!-- stringify_hash-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stringify_hash-method -->
+
+    
+      <div id="method-i-stringify_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stringify_list</span><span
+            class="method-args">(this_redis, key, v=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stringify_list-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 231</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stringify_list</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_list</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">join</span>                       <span class="ruby-keyword">end</span></pre>
+          </div><!-- stringify_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stringify_list-method -->
+
+    
+      <div id="method-i-stringify_none" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stringify_none</span><span
+            class="method-args">(this_redis, key, v=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stringify_none-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 235</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stringify_none</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-string">''</span>)                                                     <span class="ruby-keyword">end</span></pre>
+          </div><!-- stringify_none-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stringify_none-method -->
+
+    
+      <div id="method-i-stringify_set" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stringify_set</span><span
+            class="method-args">(this_redis, key, v=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stringify_set-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 232</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stringify_set</span>   (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_set</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">join</span>                        <span class="ruby-keyword">end</span></pre>
+          </div><!-- stringify_set-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stringify_set-method -->
+
+    
+      <div id="method-i-stringify_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stringify_string</span><span
+            class="method-args">(this_redis, key, v=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stringify_string-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 230</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stringify_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>))                          <span class="ruby-keyword">end</span></pre>
+          </div><!-- stringify_string-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stringify_string-method -->
+
+    
+      <div id="method-i-stringify_zset" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stringify_zset</span><span
+            class="method-args">(this_redis, key, v=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stringify_zset-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 233</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stringify_zset</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">v</span>=<span class="ruby-keyword">nil</span>)  (<span class="ruby-identifier">v</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">value_zset</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>       <span class="ruby-keyword">end</span></pre>
+          </div><!-- stringify_zset-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stringify_zset-method -->
+
+    
+      <div id="method-i-type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">type</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="type-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 157</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">type</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">type</span> = <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">type</span> <span class="ruby-identifier">key</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Unknown type: #{type}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">VALID_TYPES</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">type</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- type-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- type-method -->
+
+    
+      <div id="method-i-value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value</span><span
+            class="method-args">(this_redis, key, t=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="value-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 198</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">t</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;value_#{t}&quot;</span>, <span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- value-method -->
+
+    
+      <div id="method-i-value_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value_hash</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="value_hash-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 228</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value_hash</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">hgetall</span>(<span class="ruby-identifier">key</span>)                                                  <span class="ruby-keyword">end</span></pre>
+          </div><!-- value_hash-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- value_hash-method -->
+
+    
+      <div id="method-i-value_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value_list</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="value_list-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 225</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value_list</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">lrange</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">0</span>, <span class="ruby-value">-1</span>                                             <span class="ruby-keyword">end</span></pre>
+          </div><!-- value_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- value_list-method -->
+
+    
+      <div id="method-i-value_none" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value_none</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="value_none-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 229</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value_none</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-string">''</span>                                                                       <span class="ruby-keyword">end</span></pre>
+          </div><!-- value_none-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- value_none-method -->
+
+    
+      <div id="method-i-value_set" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value_set</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="value_set-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 226</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value_set</span>   (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">smembers</span> <span class="ruby-identifier">key</span>                                                  <span class="ruby-keyword">end</span></pre>
+          </div><!-- value_set-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- value_set-method -->
+
+    
+      <div id="method-i-value_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value_string</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="value_string-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 224</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value_string</span>(<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">key</span>                                                       <span class="ruby-keyword">end</span></pre>
+          </div><!-- value_string-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- value_string-method -->
+
+    
+      <div id="method-i-value_zset" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value_zset</span><span
+            class="method-args">(this_redis, key)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="value_zset-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 227</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value_zset</span>  (<span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">key</span>)  <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">zrange</span>(<span class="ruby-identifier">key</span>, <span class="ruby-value">0</span>, <span class="ruby-value">-1</span>, <span class="ruby-value">:with_scores</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">tuple</span>        <span class="ruby-keyword">end</span></pre>
+          </div><!-- value_zset-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- value_zset-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

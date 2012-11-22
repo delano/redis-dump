@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=US-ASCII" http-equiv="Content-Type">
+
+<title>README - redis-dump 0.3.3.</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./LICENSE_txt.html">LICENSE</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Redis.html">Redis</a>
+  
+    <li><a href="./Redis/Dump.html">Redis::Dump</a>
+  
+    <li><a href="./Redis/Dump/ClassMethods.html">Redis::Dump::ClassMethods</a>
+  
+    <li><a href="./Redis/Dump/Problem.html">Redis::Dump::Problem</a>
+  
+    <li><a href="./Redis/Dump/VERSION.html">Redis::Dump::VERSION</a>
+  
+    <li><a href="./Array.html">Array</a>
+  
+    <li><a href="./Numeric.html">Numeric</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-Redis-Dump+v0.3+ALPHA">Redis-Dump v0.3 ALPHA</h1>
+
+<p><em>Backup and restore your <a href="Redis.html">Redis</a> data to and from
+JSON.</em></p>
+
+<p><strong>NOTE: This is alpha software. TEST IT BEFORE RELYING ON
+IT.</strong></p>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>There are two executables: <code>redis-dump</code> and
+<code>redis-load</code>.</p>
+
+<pre>$ redis-dump 
+$ redis-dump -u 127.0.0.1:6371 &gt; db_full.json
+$ redis-dump -u 127.0.0.1:6371 -d 15 &gt; db_db15.json
+
+$ &lt; db_full.json redis-load
+$ &lt; db_db15.json redis-load -d 15
+# OR
+$ cat db_full | redis-load
+$ cat db_db15.json | redis-load -d 15
+
+# You can specify the redis URI via an environment variable
+$ export REDIS_URI=127.0.0.1:6371
+$ redis-dump</pre>
+
+<h2 id="label-Output+format">Output format</h2>
+
+<p>All redis datatypes are output to a simple JSON object. All objects have
+the following 5 fields:</p>
+<ul><li>
+<p>db (Integer)</p>
+</li><li>
+<p>key (String)</p>
+</li><li>
+<p>ttl (Integer): The amount of time in seconds that the key will live. If no
+expire is set, it's -1.</p>
+</li><li>
+<p>type (String), one of: string, list, set, zset, hash, none.</p>
+</li><li>
+<p>value (String): A JSON-encoded string. For keys of type list, set, zset,
+and hash, the data is given a specific structure (see below).</p>
+</li></ul>
+
+<p>Here are examples of each datatype:</p>
+
+<pre>{&quot;db&quot;:0,&quot;key&quot;:&quot;hashkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;hash&quot;,&quot;value&quot;:{&quot;field_a&quot;:&quot;value_a&quot;,&quot;field_b&quot;:&quot;value_b&quot;,&quot;field_c&quot;:&quot;value_c&quot;},&quot;size&quot;:42}
+{&quot;db&quot;:0,&quot;key&quot;:&quot;listkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;list&quot;,&quot;value&quot;:[&quot;value_0&quot;,&quot;value_1&quot;,&quot;value_2&quot;,&quot;value_0&quot;,&quot;value_1&quot;,&quot;value_2&quot;],&quot;size&quot;:42}
+{&quot;db&quot;:0,&quot;key&quot;:&quot;setkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;set&quot;,&quot;value&quot;:[&quot;value_2&quot;,&quot;value_0&quot;,&quot;value_1&quot;,&quot;value_3&quot;],&quot;size&quot;:28}
+{&quot;db&quot;:0,&quot;key&quot;:&quot;zsetkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;zset&quot;,&quot;value&quot;:[[&quot;value_0&quot;,&quot;100&quot;],[&quot;value_1&quot;,&quot;100&quot;],[&quot;value_2&quot;,&quot;200&quot;],[&quot;value_3&quot;,&quot;300&quot;],[&quot;value_4&quot;,&quot;400&quot;]],&quot;size&quot;:50}
+{&quot;db&quot;:0,&quot;key&quot;:&quot;stringkey&quot;,&quot;ttl&quot;:79,&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;stringvalue&quot;,&quot;size&quot;:11}</pre>
+
+<h3 id="label-Important+note+about+TTLs">Important note about TTLs</h3>
+
+<p>One of the purposes of redis-dump is the ability to restore the database to
+a known state. When you restore a redis database from a redis-dump file,
+<em>the expires are reset to their values at the time the dump was
+created</em>. This is different from restoring from Redis' native .rdb or
+.aof files (expires are stored relative to the actual time they were set).</p>
+
+<h2 id="label-Output+directly+to+an+encrypted+file">Output directly to an encrypted file</h2>
+
+<p>For most sensitive data, you should consider encrypting the data directly
+without writing first to a temp file. You can do this using the power of
+[gpg](<a href="http://www.gnupg.org/">www.gnupg.org/</a>) and file
+descriptors. Here are a couple examples:</p>
+
+<pre># Encrypt the data (interactive)
+$ redis-dump -u 127.0.0.1:6371 -d 15 | gpg --force-mdc -v -c &gt; path/2/backup-db15.json.gpg
+
+# Encrypt the data (automated)
+$ redis-dump -u 127.0.0.1:6371 -d 15 | 3&lt;/path/2/passphrase.txt gpg --force-mdc -v -c --passphrase-fd 3 &gt; path/2/backup-db15.json.gpg
+
+# Decrypt the file (interactive)
+$ gpg path/2/backup-db15.json.gpg
+Enter passphrase: *******
+
+# Decrypt the file (automated)
+$  3&lt;/path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg</pre>
+
+<h2 id="label-Installation">Installation</h2>
+
+<pre>$ gem install redis-dump</pre>
+
+<p>Or of you want to run it directly:</p>
+
+<pre>$ git clone https://github.com/delano/redis-dump.git
+$ cd redis-dump
+$ gem install redis
+$ gem install uri-redis
+$ gem install yajl-ruby
+$ gem install drydock
+$ ruby -rubygems bin/redis-dump</pre>
+
+<h2 id="label-More+Info">More Info</h2>
+<ul><li>
+<p><a href="http://github.com/delano/redis-dump">Codes</a></p>
+</li><li>
+<p><a href="http://goldensword.ca/redis-dump/">Docs</a></p>
+</li></ul>
+
+<h2 id="label-Credits">Credits</h2>
+<ul><li>
+<p><a href="http://github.com/delano">delano</a></p>
+</li></ul>
+
+<h2 id="label-Thanks">Thanks</h2>
+<ul><li>
+<p>antirez and the funky redis bunch!</p>
+</li></ul>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

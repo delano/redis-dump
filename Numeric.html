@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=US-ASCII" http-equiv="Content-Type">
+
+<title>class Numeric - redis-dump 0.3.3.</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/redis/dump.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-to_bytes">#to_bytes</a>
+    
+    <li><a href="#method-i-to_ms">#to_ms</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./LICENSE_txt.html">LICENSE</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Redis.html">Redis</a>
+  
+    <li><a href="./Redis/Dump.html">Redis::Dump</a>
+  
+    <li><a href="./Redis/Dump/ClassMethods.html">Redis::Dump::ClassMethods</a>
+  
+    <li><a href="./Redis/Dump/Problem.html">Redis::Dump::Problem</a>
+  
+    <li><a href="./Redis/Dump/VERSION.html">Redis::Dump::VERSION</a>
+  
+    <li><a href="./Array.html">Array</a>
+  
+    <li><a href="./Numeric.html">Numeric</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Numeric</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-to_bytes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_bytes</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>TODO: Use 1024?</p>
+          
+
+          
+          <div class="method-source-code" id="to_bytes-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 292</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_bytes</span>
+  <span class="ruby-identifier">args</span> = <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">abs</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">when</span> (<span class="ruby-value">1000</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)
+    <span class="ruby-string">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword">self</span> <span class="ruby-operator">/</span> <span class="ruby-value">1000</span>.<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-string">'KB'</span>]
+  <span class="ruby-keyword">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)
+    <span class="ruby-string">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-string">'MB'</span>]
+  <span class="ruby-keyword">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)
+    <span class="ruby-string">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">3</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-string">'GB'</span>]
+  <span class="ruby-keyword">when</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">6</span>)
+    <span class="ruby-string">'%3.2f%s'</span> <span class="ruby-operator">%</span> [(<span class="ruby-keyword">self</span> <span class="ruby-operator">/</span> (<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">4</span>).<span class="ruby-identifier">to_f</span>).<span class="ruby-identifier">to_s</span>, <span class="ruby-string">'TB'</span>]
+  <span class="ruby-keyword">else</span>
+    [<span class="ruby-keyword">self</span>, <span class="ruby-string">'B'</span>].<span class="ruby-identifier">join</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_bytes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_bytes-method -->
+
+    
+      <div id="method-i-to_ms" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_ms</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="to_ms-source">
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 287</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_ms</span>
+  (<span class="ruby-keyword">self</span>*<span class="ruby-value">1000</span>).<span class="ruby-identifier">to_i</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_ms-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_ms-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
