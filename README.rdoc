@@ -22,6 +22,12 @@ There are two executables: <tt>redis-dump</tt> and <tt>redis-load</tt>.
     # You can specify the redis URI via an environment variable
     $ export REDIS_URI=127.0.0.1:6371
     $ redis-dump
+
+    # If your instance uses a password (such as on RedisToGo), you
+    # can specify the Redis URL as such:
+    # :<password>@<domain>:<port>
+    # Note the leading colon is important for specifying no username.
+    $ redis-dump -u :234288a830f009980e08@example.redistogo.com:9055
     
 == Output format
 
