@@ -1,8 +1,14 @@
 REDIS-DUMP, CHANGES
 
+#### 0.3.4 (2012-12-19) ###############################
+
+* ADDED: Allow loading of redis dumps with binary data (-n flag) [meekmichael]
+* FIXED: Rescue exceptions when setting values
+
+
 #### 0.3.3 (2012-11-22) ###############################
 
-* Fixed issue with return value from zrange in newer versions of redis lib (3.0+). 
+* FIXED: issue with return value from zrange in newer versions of redis lib (3.0+).
 
 #### 0.3.2 (2012-01-05) ###############################
 
