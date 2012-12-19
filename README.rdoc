@@ -68,6 +68,11 @@ For most sensitive data, you should consider encrypting the data directly withou
     
     # Decrypt the file (automated)
     $  3</path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg
+
+
+== Loading data with binary strings
+
+If you have binary or serialized data in your Redis database, the YAJL parser may not load your dump file because it sees some of the binary data as 'invalid bytes in UTF8 string'.  If you are certain that your data is binary and not malformed UTF8, you can use the -n flag to redis-load to tell YAJL to not check the input for UTF8 validity.  Use with caution!
     
 == Installation
 
