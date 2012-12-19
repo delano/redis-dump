@@ -28,6 +28,9 @@ class Redis::Dump::CLI
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
+  global :n, :no_check_utf8 do
+    Redis::Dump.check_utf8 = false
+  end
   global :V, :version, "Display version" do 
     puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
