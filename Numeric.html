@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=US-ASCII" http-equiv="Content-Type">
 
-<title>class Numeric - redis-dump 0.3.3.</title>
+<title>class Numeric - redis-dump 0.3.4.</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -160,7 +160,7 @@
 
           
           <div class="method-source-code" id="to_bytes-source">
-            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 292</span>
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 303</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_bytes</span>
   <span class="ruby-identifier">args</span> = <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">abs</span>.<span class="ruby-identifier">to_i</span>
   <span class="ruby-keyword">when</span> (<span class="ruby-value">1000</span>)<span class="ruby-operator">..</span>(<span class="ruby-value">1000</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>)
@@ -201,7 +201,7 @@
 
           
           <div class="method-source-code" id="to_ms-source">
-            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 287</span>
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 298</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_ms</span>
   (<span class="ruby-keyword">self</span>*<span class="ruby-value">1000</span>).<span class="ruby-identifier">to_i</span>
 <span class="ruby-keyword">end</span></pre>

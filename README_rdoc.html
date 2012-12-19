@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=US-ASCII" http-equiv="Content-Type">
 
-<title>README - redis-dump 0.3.3.</title>
+<title>README - redis-dump 0.3.4.</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -171,6 +171,15 @@ Enter passphrase: *******
 
 # Decrypt the file (automated)
 $  3&lt;/path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg</pre>
+
+<h2 id="label-Loading+data+with+binary+strings">Loading data with binary strings</h2>
+
+<p>If you have binary or serialized data in your <a
+href="Redis.html">Redis</a> database, the YAJL parser may not load your
+dump file because it sees some of the binary data as 'invalid bytes in UTF8
+string'.  If you are certain that your data is binary and not malformed
+UTF8, you can use the -n flag to redis-load to tell YAJL to not check the
+input for UTF8 validity.  Use with caution!</p>
 
 <h2 id="label-Installation">Installation</h2>
 

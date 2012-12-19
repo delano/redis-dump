@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=US-ASCII" http-equiv="Content-Type">
 
-<title>class Array - redis-dump 0.3.3.</title>
+<title>class Array - redis-dump 0.3.4.</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -189,7 +189,7 @@
 
           
           <div class="method-source-code" id="chunk-source">
-            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 269</span>
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 280</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">chunk</span>(<span class="ruby-identifier">number_of_chunks</span>)
   <span class="ruby-identifier">chunks</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">number_of_chunks</span>).<span class="ruby-identifier">collect</span> { [] }
   <span class="ruby-identifier">chunks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a_chunk</span><span class="ruby-operator">|</span>
@@ -227,7 +227,7 @@
 
           
           <div class="method-source-code" id="tuple-source">
-            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 277</span>
+            <pre><span class="ruby-comment"># File lib/redis/dump.rb, line 288</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">tuple</span>(<span class="ruby-identifier">tuple_size</span>=<span class="ruby-value">2</span>)
   <span class="ruby-identifier">tuples</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">size</span><span class="ruby-operator">/</span><span class="ruby-identifier">tuple_size</span>)).<span class="ruby-identifier">collect</span> { [] }
   <span class="ruby-identifier">tuples</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a_tuple</span>,<span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>
