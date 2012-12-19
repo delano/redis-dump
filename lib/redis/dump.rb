@@ -16,11 +16,13 @@ class Redis
     @debug = false
     @encoder = Yajl::Encoder.new
     @parser = Yajl::Parser.new
-    @safe = true
     @chunk_size = 10000
     @with_optimizations = true
     class << self
       attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size, :with_optimizations
+      def le(msg)
+        STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg]
+      end
       def ld(msg)
         STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg] if debug
       end
@@ -46,13 +48,13 @@ class Redis
       #self.class.ld 'CONNECT: ' << this_uri
       Redis.connect :url => this_uri
     end
-    
+
     def each_database
       @redis_connections.keys.sort.each do |redis_uri|
         yield redis_connections[redis_uri]
       end
     end
-    
+
     # See each_key
     def dump filter=nil
       filter ||= '*'
@@ -71,9 +73,9 @@ class Redis
             process_chunk idx, dump_keys_size do |count|
               Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id}"
               output_buffer = []
-              chunk_entries.select! do |key| 
+              chunk_entries.select! do |key|
                 type = Redis::Dump.type(redis, key)
-                if self.class.with_optimizations && type == 'string' 
+                if self.class.with_optimizations && type == 'string'
                   true
                 else
                   output_buffer.push self.class.encoder.encode(Redis::Dump.dump(redis, key, type))
@@ -81,10 +83,10 @@ class Redis
                 end
               end
               unless output_buffer.empty?
-                yield output_buffer 
+                yield output_buffer
               end
               unless chunk_entries.empty?
-                yield Redis::Dump.dump_strings(redis, chunk_entries) { |obj| self.class.encoder.encode(obj) } 
+                yield Redis::Dump.dump_strings(redis, chunk_entries) { |obj| self.class.encoder.encode(obj) }
               end
               output_buffer.clear
               chunk_entries.clear
@@ -96,13 +98,13 @@ class Redis
       end
       entries
     end
-    
+
     def process_chunk idx, total_size
       idxplus = idx+1
       yield idxplus if (idxplus % self.class.chunk_size).zero? || idxplus >= total_size
     end
     private :process_chunk
-    
+
     def report filter='*'
       values = []
       total_size, dbs = 0, {}
@@ -129,7 +131,7 @@ class Redis
       puts "total: #{total_size.to_bytes}"
       values
     end
-    
+
     def load(string_or_stream, &each_record)
       count = 0
       Redis::Dump.ld " LOAD SOURCE: #{string_or_stream}"
@@ -140,12 +142,16 @@ class Redis
         end
         this_redis = redis(obj["db"])
         #Redis::Dump.ld "load[#{this_redis.hash}, #{obj}]"
-        if each_record.nil? 
+        if each_record.nil?
           if Redis::Dump.safe && this_redis.exists(obj['key'])
             #Redis::Dump.ld " record exists (no change)"
             next
           end
-          Redis::Dump.set_value this_redis, obj['key'], obj['type'], obj['value'], obj['ttl']
+          begin
+            Redis::Dump.set_value this_redis, obj['key'], obj['type'], obj['value'], obj['ttl']
+          rescue => ex
+            Redis::Dump.le '(key: %s) %s' % [obj['key'], ex.message]
+          end
         else
           each_record.call obj
         end
@@ -182,7 +188,7 @@ class Redis
         idx = -1
         keys.collect { |key|
           idx += 1
-          info = { 
+          info = {
             'db' => this_redis.client.db, 'key' => key,
             'ttl' => this_redis.ttl(key), 'type' => 'string',
             'value' => vals[idx].to_s, 'size' => vals[idx].to_s.size
@@ -201,7 +207,7 @@ class Redis
       def stringify(this_redis, key, t=nil, v=nil)
         send("stringify_#{t}", this_redis, key, v)
       end
-      
+
       def set_value_hash(this_redis, key, hash)
         hash.keys.each { |k|  this_redis.hset key, k, hash[k] }
       end
@@ -220,7 +226,7 @@ class Redis
       def set_value_none(this_redis, key, str)
         # ignore
       end
-      
+
       def value_string(this_redis, key)  this_redis.get key                                                       end
       def value_list  (this_redis, key)  this_redis.lrange key, 0, -1                                             end
       def value_set   (this_redis, key)  this_redis.smembers key                                                  end
@@ -235,7 +241,7 @@ class Redis
       def stringify_none  (this_redis, key, v=nil)  (v || '')                                                     end
     end
     extend Redis::Dump::ClassMethods
-    
+
     module VERSION
       def self.stamp
         @info[:STAMP].to_i
