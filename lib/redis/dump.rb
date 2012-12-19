@@ -27,6 +27,11 @@ class Redis
       def memory_usage
         `ps -o rss= -p #{Process.pid}`.to_i # in kb
       end
+      def check_utf8=(check)
+        if check == false
+          @parser = Yajl::Parser.new(:check_utf8 => false)
+        end
+      end
     end
     attr_accessor :dbs, :uri
     attr_reader :redis_connections
