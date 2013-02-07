@@ -78,7 +78,7 @@ class Redis
             process_chunk idx, dump_keys_size do |count|
               Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id}"
               output_buffer = []
-              chunk_entries.select! do |key|
+              chunk_entries = chunk_entries.select do |key|
                 type = Redis::Dump.type(redis, key)
                 if self.class.with_optimizations && type == 'string'
                   true
