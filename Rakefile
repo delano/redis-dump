@@ -1,44 +1,59 @@
 require "rubygems"
 require "rake"
 require "rake/clean"
-require 'yaml'
+require "rdoc/task"
 
-require 'rdoc/task'
-
-config = YAML.load_file("VERSION.yml")
 task :default => ["build"]
-CLEAN.include [ 'pkg', 'doc' ]
+CLEAN.include [ 'pkg', 'rdoc' ]
 name = "redis-dump"
+
+$:.unshift File.join(File.dirname(__FILE__), 'lib')
+require "redis/dump"
+version = Redis::Dump::VERSION
 
 begin
   require "jeweler"
-  Jeweler::Tasks.new do |gem|
-    gem.version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}"
-    gem.name = "redis-dump"
-    gem.rubyforge_project = gem.name
-    gem.summary = "Backup and restore your Redis data to and from JSON."
-    gem.description = gem.summary
-    gem.email = "delano@solutious.com"
-    gem.homepage = "http://github.com/delano/redis-dump"
-    gem.authors = ["Delano Mandelbaum"]
-    gem.add_dependency("yajl-ruby",    ">= 0.1")
-    gem.add_dependency("redis",        ">= 2.0")
-    gem.add_dependency("uri-redis",    ">= 0.4.0")
-    gem.add_dependency("drydock",      ">= 0.6.9")
+  Jeweler::Tasks.new do |s|
+    s.version = version
+    s.name = name
+    s.summary = "Backup and restore your Redis data to and from JSON."
+    s.description = s.summary
+    s.email = "delano@solutious.com"
+    s.homepage = "http://github.com/delano/redis-dump"
+    s.authors = ["Delano Mandelbaum"]
+
+    s.add_dependency("yajl-ruby",    ">= 0.1")
+    s.add_dependency("redis",        ">= 2.0")
+    s.add_dependency("uri-redis",    ">= 0.4.0")
+    s.add_dependency("drydock",      ">= 0.6.9")
+
+    s.license = "MIT"
+
+    s.signing_key = File.join('/mnt/gem/', 'gem-private_key.pem')
+    s.cert_chain  = ['gem-public_cert.pem']
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-
-RDoc::Task.new do |rdoc|
-  version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}.#{config[:BUILD]}"
-  rdoc.rdoc_dir = "doc"
-  rdoc.title = "redis-dump #{version}"
-  rdoc.rdoc_files.include("README*")
-  rdoc.rdoc_files.include("LICENSE.txt")
-  #rdoc.rdoc_files.include("bin/*.rb")
-  rdoc.rdoc_files.include("lib/**/*.rb")
+require 'rake/testtask'
+Rake::TestTask.new do |t|
+  t.libs = ["lib", "test"]
 end
+
+extra_files = %w[LICENSE.txt THANKS.txt CHANGES.txt ]
+RDoc::Task.new do |rdoc|
+  rdoc.rdoc_dir = "rdoc"
+  rdoc.title = "#{name} #{version}"
+  rdoc.generator = 'hanna' # gem install hanna-nouveau
+  rdoc.main = 'README.rdoc'
+  rdoc.rdoc_files.include("README*")
+  rdoc.rdoc_files.include("bin/*.rb")
+  rdoc.rdoc_files.include("lib/**/*.rb")
+  extra_files.each { |file|
+    rdoc.rdoc_files.include(file) if File.exists?(file)
+  }
+end
+
 
