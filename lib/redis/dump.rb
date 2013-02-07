@@ -248,23 +248,21 @@ class Redis
     extend Redis::Dump::ClassMethods
 
     module VERSION
-      def self.stamp
-        @info[:STAMP].to_i
+      @path = File.join(RD_HOME, 'VERSION')
+      class << self
+        attr_reader :version, :path
+        def version
+          @version || read_version
+        end
+        def read_version
+          return if @version
+          @version = File.read(path).strip!
+        end
+        def prerelease?() false end
+        def to_a()     version.split('.')   end
+        def to_s()     version              end
+        def inspect()  version              end
       end
-      def self.owner
-        @info[:OWNER]
-      end
-      def self.to_s
-        [@info[:MAJOR], @info[:MINOR], @info[:PATCH]].join('.')
-      end
-      def self.path
-        File.join(RD_HOME, 'VERSION.yml')
-      end
-      def self.load_config
-        require 'yaml'
-        @info ||= YAML.load_file(path)
-      end
-      load_config
     end
 
     class Problem < RuntimeError
