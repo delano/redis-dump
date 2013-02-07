@@ -1,5 +1,9 @@
 REDIS-DUMP, CHANGES
 
+#### 0.3.5 (2013-02-07) ###############################
+
+* Array#select fix for Ruby 1.8 [TIT]
+
 #### 0.3.4 (2012-12-19) ###############################
 
 * ADDED: Allow loading of redis dumps with binary data (-n flag) [meekmichael]
