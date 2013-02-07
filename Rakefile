@@ -9,7 +9,7 @@ name = "redis-dump"
 
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 require "redis/dump"
-version = Redis::Dump::VERSION
+version = Redis::Dump::VERSION.to_s
 
 begin
   require "jeweler"
