@@ -1,10 +1,10 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # = Redis-Dump
-# 
+#
 #
 # Usage:
-# 
+#
 #     $ redis-load -h
 #     $ <dumpfile_full.json redis-load
 #     $ <dumpfile_db15.json redis-load -d 15
@@ -13,7 +13,7 @@
 
 RD_HOME = File.expand_path File.join(File.dirname(__FILE__), '..')
 lib_dir = File.join(RD_HOME, 'lib')
-$:.unshift lib_dir  
+$:.unshift lib_dir
 
 require 'redis/dump'
 require 'drydock'
@@ -21,17 +21,17 @@ require 'drydock'
 # Command-line interface for bin/redis-dump
 class Redis::Dump::CLI
   extend Drydock
-  
+
   default :load
   trawler :load
-  
+
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :n, :no_check_utf8 do
     Redis::Dump.check_utf8 = false
   end
-  global :V, :version, "Display version" do 
+  global :V, :version, "Display version" do
     puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
   end
@@ -41,7 +41,7 @@ class Redis::Dump::CLI
   global :nosafe do
     Redis::Dump.safe = false
   end
-  
+
   before do |obj|
     obj.global.uri ||= ENV['REDIS_URI']
     obj.global.uri ||= 'redis://%s:%s' % [Redis::Dump.host, Redis::Dump.port]
@@ -51,12 +51,12 @@ class Redis::Dump::CLI
     Redis::Dump.ld "redis_uri: #{obj.global.uri} (#{obj.global.database})"
     Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end
-  
+
   after do |obj|
     Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
     sleep obj.global.sleep.to_i if obj.global.sleep
   end
-  
+
   usage "<dumpfile_full.json redis-load"
   usage "<dumpfile_db15.json redis-load -d 15"
   command :load do |obj|
@@ -64,7 +64,7 @@ class Redis::Dump::CLI
     raise "Usage: cat dumpfile_db15.json | redis-load -d 15" if STDIN.tty?
     rd.load STDIN
   end
-  
+
   about "Add test data to redis"
   usage "redis-load populate -c 1000"
   usage "redis-load -d 1 populate -c 1000"
@@ -97,7 +97,7 @@ class Redis::Dump::CLI
       puts time.to_s
     end
   end
-  
+
   command :info do |obj|
     rd = Redis::Dump.new obj.global.database, obj.global.uri
     memory = nil
@@ -111,7 +111,7 @@ class Redis::Dump::CLI
   end
 end
 
-  
+
 begin
   Drydock.run!(ARGV, STDIN) if Drydock.run? && !Drydock.has_run?
 rescue RuntimeError => ex

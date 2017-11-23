@@ -1,10 +1,10 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # = Redis-Dump
-# 
+#
 #
 # Usage:
-# 
+#
 #     $ redis-dump -h
 #     $ redis-dump > dumpfile_full.json
 #     $ redis-dump -d 15 > dumpfile_db15.json
@@ -13,7 +13,7 @@
 
 RD_HOME = File.expand_path File.join(File.dirname(__FILE__), '..')
 lib_dir = File.join(RD_HOME, 'lib')
-$:.unshift lib_dir  
+$:.unshift lib_dir
 
 require 'redis/dump'
 require 'drydock'
@@ -21,17 +21,17 @@ require 'drydock'
 # Command-line interface for bin/redis-dump
 class Redis::Dump::CLI
   extend Drydock
-  
+
   default :dump
   trawler :dump
-  
+
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :c, :count, Integer, "Chunk size (default: #{Redis::Dump.chunk_size})"
   global :f, :filter, String, "Filter selected keys (passed directly to redis' KEYS command)"
   global :O, :without_optimizations, "Disable run time optimizations"
-  global :V, :version, "Display version" do 
+  global :V, :version, "Display version" do
     puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
   end
@@ -41,7 +41,7 @@ class Redis::Dump::CLI
   global :nosafe do
     Redis::Dump.safe = false
   end
-  
+
   before do |obj|
     obj.global.uri ||= ENV['REDIS_URI']
     obj.global.uri ||= 'redis://%s:%s' % [Redis::Dump.host, Redis::Dump.port]
@@ -53,12 +53,12 @@ class Redis::Dump::CLI
     Redis::Dump.ld "redis_uri: #{obj.global.uri} (#{obj.global.database})"
     Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
   end
-  
+
   after do |obj|
     Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug
     sleep obj.global.sleep.to_i if obj.global.sleep
   end
-  
+
   usage "redis-dump > dumpfile_full.json"
   usage "redis-dump -d 15 > dumpfile_db15.json"
   usage "redis-dump -d 15 -c 100_000 > dumpfile_db15.json"
@@ -70,10 +70,10 @@ class Redis::Dump::CLI
       puts records
     end
   end
-  
+
 end
 
-  
+
 begin
   Drydock.run!(ARGV, STDIN) if Drydock.run? && !Drydock.has_run?
 rescue RuntimeError => ex

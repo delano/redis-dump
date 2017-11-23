@@ -37,7 +37,7 @@ class Redis
     end
     attr_accessor :dbs, :uri
     attr_reader :redis_connections
-    def initialize(dbs=nil,uri="redis://#{Redis::Dump.host}:#{Redis::Dump.port}")
+    def initialize(dbs=nil, uri="redis://#{Redis::Dump.host}:#{Redis::Dump.port}")
       @redis_connections = {}
       @uri = uri
       unless dbs.nil?
@@ -51,7 +51,7 @@ class Redis
     end
     def connect(this_uri)
       #self.class.ld 'CONNECT: ' << this_uri
-      Redis.connect :url => this_uri
+      Redis.new :url => this_uri
     end
 
     def each_database
@@ -64,22 +64,23 @@ class Redis
     def dump filter=nil
       filter ||= '*'
       entries = []
+      # binding.pry
       each_database do |redis|
         chunk_entries = []
+
         dump_keys = redis.keys(filter)
         dump_keys_size = dump_keys.size
         Redis::Dump.ld "Memory after loading keys: #{Redis::Dump.memory_usage}kb"
         dump_keys.each_with_index do |key,idx|
           entry, idxplus = key, idx+1
-          #self.class.ld " #{key} (#{key_dump['type']}): #{key_dump['size'].to_bytes}"
-          #entry_enc = self.class.encoder.encode entry
           if block_given?
             chunk_entries << entry
             process_chunk idx, dump_keys_size do |count|
-              Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.client.id}"
+              Redis::Dump.ld " dumping #{chunk_entries.size} (#{count}) from #{redis.connection[:id]}"
               output_buffer = []
               chunk_entries = chunk_entries.select do |key|
                 type = Redis::Dump.type(redis, key)
+
                 if self.class.with_optimizations && type == 'string'
                   true
                 else
@@ -121,9 +122,9 @@ class Redis
           entry, idxplus = Redis::Dump.report(redis, key), idx+1
           chunk_entries << entry
           process_chunk idx, dump_keys_size do |count|
-            Redis::Dump.ld " reporting on #{chunk_entries.size} (#{idxplus}) from #{redis.client.id}"
+            Redis::Dump.ld " reporting on #{chunk_entries.size} (#{idxplus}) from #{redis.connection[:id]}"
             chunk_entries.each do |e|
-              #puts record if obj.global.verbose >= 1
+              puts record if obj.global.verbose >= 1
               dbs[e['db']] ||= 0
               dbs[e['db']] += e['size']
               total_size += e['size']
@@ -171,7 +172,7 @@ class Redis
         type
       end
       def report(this_redis, key)
-        info = { 'db' => this_redis.client.db, 'key' => key }
+        info = { 'db' => this_redis.connection[:db], 'key' => key }
         info['type'] = type(this_redis, key)
         info['size'] = stringify(this_redis, key, info['type'], info['value']).size
         info['bytes'] = info['size'].to_bytes
@@ -180,7 +181,7 @@ class Redis
       end
       def dump(this_redis, key, type=nil)
         type ||= type(this_redis, key)
-        info = { 'db' => this_redis.client.db, 'key' => key }
+        info = { 'db' => this_redis.connection[:db], 'key' => key }
         info['ttl'] = this_redis.ttl key
         info['type'] = type
         info['value'] = value(this_redis, key, info['type'])
@@ -194,7 +195,7 @@ class Redis
         keys.collect { |key|
           idx += 1
           info = {
-            'db' => this_redis.client.db, 'key' => key,
+            'db' => this_redis.connection[:db], 'key' => key,
             'ttl' => this_redis.ttl(key), 'type' => 'string',
             'value' => vals[idx].to_s, 'size' => vals[idx].to_s.size
           }

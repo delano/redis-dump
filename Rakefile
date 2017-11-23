@@ -23,7 +23,7 @@ begin
     s.authors = ["Delano Mandelbaum"]
 
     s.add_dependency("yajl-ruby",    ">= 0.1")
-    s.add_dependency("redis",        ">= 2.0", "< 4.0")
+    s.add_dependency("redis",        ">= 4.0")
     s.add_dependency("uri-redis",    ">= 0.4.0")
     s.add_dependency("drydock",      ">= 0.6.9")
 
