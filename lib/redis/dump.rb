@@ -5,6 +5,7 @@ end
 require 'redis'
 require 'uri/redis'
 require 'yajl'
+require 'base64'
 
 class Redis
   class Dump
@@ -18,8 +19,9 @@ class Redis
     @parser = Yajl::Parser.new
     @chunk_size = 10000
     @with_optimizations = true
+    @with_base64 = false
     class << self
-      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size, :with_optimizations
+      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size, :with_optimizations, :with_base64
       def le(msg)
         STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg]
       end
@@ -50,7 +52,7 @@ class Redis
       redis_connections["#{uri}/#{db}"] ||= connect("#{uri}/#{db}")
     end
     def connect(this_uri)
-      #self.class.ld 'CONNECT: ' << this_uri
+      self.class.ld 'CONNECT: ' << this_uri
       Redis.new :url => this_uri
     end
 
@@ -60,14 +62,11 @@ class Redis
       end
     end
 
-    # See each_key
     def dump filter=nil
       filter ||= '*'
       entries = []
-      # binding.pry
       each_database do |redis|
         chunk_entries = []
-
         dump_keys = redis.keys(filter)
         dump_keys_size = dump_keys.size
         Redis::Dump.ld "Memory after loading keys: #{Redis::Dump.memory_usage}kb"
@@ -80,7 +79,6 @@ class Redis
               output_buffer = []
               chunk_entries = chunk_entries.select do |key|
                 type = Redis::Dump.type(redis, key)
-
                 if self.class.with_optimizations && type == 'string'
                   true
                 else
@@ -147,14 +145,18 @@ class Redis
           next
         end
         this_redis = redis(obj["db"])
-        #Redis::Dump.ld "load[#{this_redis.hash}, #{obj}]"
+        Redis::Dump.ld "load[#{this_redis.hash}, #{obj}]"
         if each_record.nil?
           if Redis::Dump.safe && this_redis.exists(obj['key'])
-            #Redis::Dump.ld " record exists (no change)"
+            Redis::Dump.ld " record exists (no change)"
             next
           end
           begin
-            Redis::Dump.set_value this_redis, obj['key'], obj['type'], obj['value'], obj['ttl']
+            val, type = obj['value'], obj['type']
+            if Redis::Dump.with_base64 && type === 'string'
+              val = Base64.decode64 val
+            end
+            ret = Redis::Dump.set_value this_redis, obj['key'], type, val, obj['ttl']
           rescue => ex
             Redis::Dump.le '(key: %s) %s' % [obj['key'], ex.message]
           end
@@ -176,7 +178,6 @@ class Redis
         info['type'] = type(this_redis, key)
         info['size'] = stringify(this_redis, key, info['type'], info['value']).size
         info['bytes'] = info['size'].to_bytes
-        #ld "report[#{this_redis.hash}, #{info}]"
         info
       end
       def dump(this_redis, key, type=nil)
@@ -184,9 +185,12 @@ class Redis
         info = { 'db' => this_redis.connection[:db], 'key' => key }
         info['ttl'] = this_redis.ttl key
         info['type'] = type
+        stringified = stringify(this_redis, key, info['type'], info['value'])
         info['value'] = value(this_redis, key, info['type'])
-        info['size'] = stringify(this_redis, key, info['type'], info['value']).size
-        #ld "dump[#{this_redis.hash}, #{info}]"
+        info['size'] = stringified.size
+        if Redis::Dump.with_base64 && type === 'string'
+          info['value'] = Base64.encode64(info['value'])
+        end
         info
       end
       def dump_strings(this_redis, keys)
@@ -194,10 +198,14 @@ class Redis
         idx = -1
         keys.collect { |key|
           idx += 1
+          val = vals[idx].to_s
           info = {
-            'db' => this_redis.connection[:db], 'key' => key,
-            'ttl' => this_redis.ttl(key), 'type' => 'string',
-            'value' => vals[idx].to_s, 'size' => vals[idx].to_s.size
+            'db'    => this_redis.connection[:db],
+            'key'   => key,
+            'ttl'   => this_redis.ttl(key),
+            'type'  => 'string',
+            'value' => Redis::Dump.with_base64 ? Base64.encode64(val) : val,
+            'size'  => vals[idx].to_s.size
           }
           block_given? ? yield(info) : info
         }

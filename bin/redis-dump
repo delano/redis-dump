@@ -30,7 +30,12 @@ class Redis::Dump::CLI
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :c, :count, Integer, "Chunk size (default: #{Redis::Dump.chunk_size})"
   global :f, :filter, String, "Filter selected keys (passed directly to redis' KEYS command)"
-  global :O, :without_optimizations, "Disable run time optimizations"
+  global :b, :base64, "Encode key values as base64 (useful for binary values)" do
+    Redis::Dump.with_base64 = true
+  end
+  global :O, :without_optimizations, "Disable run time optimizations" do
+    Redis::Dump.with_optimizations = false
+  end
   global :V, :version, "Display version" do
     puts "redis-dump v#{Redis::Dump::VERSION.to_s}"
     exit 0
@@ -48,7 +53,6 @@ class Redis::Dump::CLI
     obj.global.uri = 'redis://' << obj.global.uri unless obj.global.uri.match(/^redis:\/\//)
     obj.global.database &&= obj.global.database.to_i
     obj.global.database ||= (0..15)
-    Redis::Dump.with_optimizations = false if obj.global.without_optimizations
     Redis::Dump.chunk_size = obj.global.count if obj.global.count
     Redis::Dump.ld "redis_uri: #{obj.global.uri} (#{obj.global.database})"
     Redis::Dump.ld "Process: #{$$}; Memory: #{Redis::Dump.memory_usage}" if Redis::Dump.debug

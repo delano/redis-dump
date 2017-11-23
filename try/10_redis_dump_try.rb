@@ -1,12 +1,13 @@
 require 'redis/dump'
 
 # The test instance of redis must be running:
-# $ redis-server try/redis-server.conf
+# $ redis-server try/redis.conf
 
 @uri_base = "redis://127.0.0.1:6371"
 
 Redis::Dump.debug = false
 Redis::Dump.safe = true
+
 
 ## Connect to DB
 @rdump = Redis::Dump.new 0, @uri_base
@@ -43,8 +44,8 @@ db0.redis(0).keys.size
 
 ## DB 0 content matches previous dump content
 values = @rdump.dump
-values.sort
-#=> @values.sort
+[values[0], values.size]
+#=> [@values[0], @values.size]
 
 ## Won't load data in safe mode if records exist
 @rdump.load @values.join
@@ -58,3 +59,4 @@ Redis::Dump.safe = false
 Redis::Dump.safe = true
 db0 = Redis::Dump.new 0, @uri_base
 db0.redis(0).flushdb
+
