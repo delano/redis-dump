@@ -1,134 +1,148 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
-  <head>
-    <title>CHANGES.txt</title>
-    <meta content='text/html; charset=US-ASCII' http-equiv='Content-Type'>
-    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
-    <script type='text/javascript'>
-      //<![CDATA[
-        function popupCode(url) {
-          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
-        }
-        
-        function toggleCode(id) {
-          var code = document.getElementById(id)
-        
-          code.style.display = code.style.display != 'block' ? 'block' : 'none'
-          return true
-        }
-        
-        // Make codeblocks hidden by default
-        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
-      //]]>
-    </script>
-  </head>
-  <body class='page'>
-    <div class='file' id='wrapper'>
-      <div class='header'>
-        <h1 class='name'>CHANGES.txt</h1>
-        <div class='paths'>
-          CHANGES.txt
-        </div>
-        <div class='last-update'>
-          Last Update:
-          <span class='datetime'>2013-02-07 15:43:56 -0800</span>
-        </div>
-      </div>
-      <div id='content'>
-        <div id='text'>
-          <div id='description'>
-            
-            <p>REDIS-DUMP, <a href="CHANGES_txt.html">CHANGES</a></p>
-            
-            <p>#### 0.3.5 (2013-02-07) ###############################</p>
-            <ul><li>
-            <p>Array#select fix for Ruby 1.8 [TIT]</p>
-            </li></ul>
-            
-            <p>#### 0.3.4 (2012-12-19) ###############################</p>
-            <ul><li>
-            <p>ADDED: Allow loading of redis dumps with binary data (-n flag)
-            [meekmichael]</p>
-            </li><li>
-            <p>FIXED: Rescue exceptions when setting values</p>
-            </li></ul>
-            
-            <p>#### 0.3.3 (2012-11-22) ###############################</p>
-            <ul><li>
-            <p>FIXED: issue with return value from zrange in newer versions of redis lib
-            (3.0+).</p>
-            </li></ul>
-            
-            <p>#### 0.3.2 (2012-01-05) ###############################</p>
-            <ul><li>
-            <p>ADDED: Support setting redis URI via REDIS_URI environment variable</p>
-            </li></ul>
-            
-            <p>#### 0.3.1 (2012-01-05) ###############################</p>
-            <ul><li>
-            <p>ADDED: New global option for redis-dump: -f</p>
-            </li></ul>
-            
-            <p>#### 0.3.0 (2012-01-04) ###############################</p>
-            <ul><li>
-            <p>ADDED: Redis::Dump.dump_strings</p>
-            </li><li>
-            <p>ADDED: New global options for redis-dump: -c, -O</p>
-            </li><li>
-            <p>CHANGED: memory optimizations for <a
-            href="../classes/Redis/Dump.html#method-i-dump">Redis::Dump#dump</a></p>
-            </li></ul>
-            
-            <p>#### 0.2.0 (unreleased) ###############################</p>
-            <ul><li>
-            <p>ADDED: <a
-            href="../classes/Redis/Dump.html#attribute-c-chunk_size">Redis::Dump.chunk_size</a>
-            support for dump and report</p>
-            </li></ul>
-            
-            <p>#### 0.1.5 (2011-06-04) ###############################</p>
-            <ul><li>
-            <p>FIXED: Added drydock dependency to gemspec [Mike Dupont]</p>
-            </li></ul>
-            
-            <p>#### 0.1.4 (2010-11-16) ###############################</p>
-            <ul><li>
-            <p>FIXED: missing set_value_none</p>
-            </li></ul>
-            
-            <p>#### 0.1.3 (2010-11-16) ###############################</p>
-            <ul><li>
-            <p>ADDED: Support for dumping a specific subset of keys</p>
-            </li><li>
-            <p>CHANGE: Now dependent on uri-redis 0.4+</p>
-            </li></ul>
-            
-            <p>#### 0.1.2 (2010-11-15) ###############################</p>
-            <ul><li>
-            <p>ADDED: redis-report</p>
-            </li></ul>
-            
-            <p>#### 0.1.1 (2010-11-15) ###############################</p>
-            <ul><li>
-            <p>ADDED: redis-load and redis-dump executables</p>
-            </li><li>
-            <p>ADDED: <a
-            href="../classes/Redis/Dump.html#attribute-c-host">Redis::Dump.host</a>, <a
-            href="../classes/Redis/Dump.html#attribute-c-port">Redis::Dump.port</a></p>
-            </li></ul>
-            
-            <p>#### 0.1.0 (2010-11-15) ###############################</p>
-            
-            <p>Initial public release.</p>
-          </div>
-          <div id='context'>
-          </div>
-        </div>
-      </div>
-      <div id='footer-push'></div>
-    </div>
-    <div id='footer'>
-      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
-    </div>
-  </body>
+<head>
+<title>CHANGES.txt</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>CHANGES.txt
+</h1>
+<div class='paths'>
+CHANGES.txt
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2017-11-23 17:19:34 -0800</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>REDIS-DUMP, <a href="CHANGES_txt.html">CHANGES</a></p>
+
+<p>#### 0.4.0 (2017-11-23) ###############################</p>
+<ul><li>
+<p>ADDED: support for redis &gt;= 4.0</p>
+</li><li>
+<p>ADDED: support for base64 encoded string keys</p>
+</li><li>
+<p>FIXED: redis passwords with special characters</p>
+</li></ul>
+
+<p>#### 0.3.6 (2017-11-09) ###############################</p>
+<ul><li>
+<p>FIXED: redis &lt; 4.0 dependency [Clemens Fuchslocher]</p>
+</li></ul>
+
+<p>#### 0.3.5 (2013-02-07) ###############################</p>
+<ul><li>
+<p>Array#select fix for Ruby 1.8 [TIT]</p>
+</li></ul>
+
+<p>#### 0.3.4 (2012-12-19) ###############################</p>
+<ul><li>
+<p>ADDED: Allow loading of redis dumps with binary data (-n flag)
+[meekmichael]</p>
+</li><li>
+<p>FIXED: Rescue exceptions when setting values</p>
+</li></ul>
+
+<p>#### 0.3.3 (2012-11-22) ###############################</p>
+<ul><li>
+<p>FIXED: issue with return value from zrange in newer versions of redis lib
+(3.0+).</p>
+</li></ul>
+
+<p>#### 0.3.2 (2012-01-05) ###############################</p>
+<ul><li>
+<p>ADDED: Support setting redis URI via REDIS_URI environment variable</p>
+</li></ul>
+
+<p>#### 0.3.1 (2012-01-05) ###############################</p>
+<ul><li>
+<p>ADDED: New global option for redis-dump: -f</p>
+</li></ul>
+
+<p>#### 0.3.0 (2012-01-04) ###############################</p>
+<ul><li>
+<p>ADDED: Redis::Dump.dump_strings</p>
+</li><li>
+<p>ADDED: New global options for redis-dump: -c, -O</p>
+</li><li>
+<p>CHANGED: memory optimizations for <a
+href="../classes/Redis/Dump.html#method-i-dump">Redis::Dump#dump</a></p>
+</li></ul>
+
+<p>#### 0.2.0 (unreleased) ###############################</p>
+<ul><li>
+<p>ADDED: <a
+href="../classes/Redis/Dump.html#attribute-c-chunk_size">Redis::Dump.chunk_size</a>
+support for dump and report</p>
+</li></ul>
+
+<p>#### 0.1.5 (2011-06-04) ###############################</p>
+<ul><li>
+<p>FIXED: Added drydock dependency to gemspec [Mike Dupont]</p>
+</li></ul>
+
+<p>#### 0.1.4 (2010-11-16) ###############################</p>
+<ul><li>
+<p>FIXED: missing set_value_none</p>
+</li></ul>
+
+<p>#### 0.1.3 (2010-11-16) ###############################</p>
+<ul><li>
+<p>ADDED: Support for dumping a specific subset of keys</p>
+</li><li>
+<p>CHANGE: Now dependent on uri-redis 0.4+</p>
+</li></ul>
+
+<p>#### 0.1.2 (2010-11-15) ###############################</p>
+<ul><li>
+<p>ADDED: redis-report</p>
+</li></ul>
+
+<p>#### 0.1.1 (2010-11-15) ###############################</p>
+<ul><li>
+<p>ADDED: redis-load and redis-dump executables</p>
+</li><li>
+<p>ADDED: <a
+href="../classes/Redis/Dump.html#attribute-c-host">Redis::Dump.host</a>, <a
+href="../classes/Redis/Dump.html#attribute-c-port">Redis::Dump.port</a></p>
+</li></ul>
+
+<p>#### 0.1.0 (2010-11-15) ###############################</p>
+
+<p>Initial public release.</p>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
 </html>

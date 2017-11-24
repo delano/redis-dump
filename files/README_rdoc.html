@@ -1,139 +1,139 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
-  <head>
-    <title>README.rdoc</title>
-    <meta content='text/html; charset=US-ASCII' http-equiv='Content-Type'>
-    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
-    <script type='text/javascript'>
-      //<![CDATA[
-        function popupCode(url) {
-          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
-        }
-        
-        function toggleCode(id) {
-          var code = document.getElementById(id)
-        
-          code.style.display = code.style.display != 'block' ? 'block' : 'none'
-          return true
-        }
-        
-        // Make codeblocks hidden by default
-        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
-      //]]>
-    </script>
-  </head>
-  <body class='page'>
-    <div class='file' id='wrapper'>
-      <div class='header'>
-        <h1 class='name'>README.rdoc</h1>
-        <div class='paths'>
-          README.rdoc
-        </div>
-        <div class='last-update'>
-          Last Update:
-          <span class='datetime'>2013-02-07 15:43:56 -0800</span>
-        </div>
-      </div>
-      <div id='content'>
-        <div id='text'>
-          <div id='description'>
-            
-            <h1 id="label-Redis-Dump+v0.3+ALPHA">Redis-Dump v0.3 ALPHA</h1>
-            
-            <p><em>Backup and restore your <a href="../classes/Redis.html">Redis</a> data
-            to and from JSON.</em></p>
-            
-            <p><strong>NOTE: This is alpha software. TEST IT BEFORE RELYING ON
-            IT.</strong></p>
-            
-            <h2 id="label-Usage">Usage</h2>
-            
-            <p>There are two executables: <code>redis-dump</code> and
-            <code>redis-load</code>.</p>
-            
-            <pre>$ redis-dump &#x000A;$ redis-dump -u 127.0.0.1:6371 &gt; db_full.json&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 &gt; db_db15.json&#x000A;$ &lt; db_full.json redis-load&#x000A;$ &lt; db_db15.json redis-load -d 15&#x000A;# OR&#x000A;$ cat db_full | redis-load&#x000A;$ cat db_db15.json | redis-load -d 15&#x000A;&#x000A;# You can specify the redis URI via an environment variable&#x000A;$ export REDIS_URI=127.0.0.1:6371&#x000A;$ redis-dump&#x000A;&#x000A;# If your instance uses a password (such as on RedisToGo), you&#x000A;# can specify the Redis URL as such:&#x000A;# :&lt;password&gt;@&lt;domain&gt;:&lt;port&gt;&#x000A;# Note the leading colon is important for specifying no username.&#x000A;$ redis-dump -u :234288a830f009980e08@example.redistogo.com:9055</pre>
-            
-            <h2 id="label-Output+format">Output format</h2>
-            
-            <p>All redis datatypes are output to a simple JSON object. All objects have
-            the following 5 fields:</p>
-            <ul><li>
-            <p>db (Integer)</p>
-            </li><li>
-            <p>key (String)</p>
-            </li><li>
-            <p>ttl (Integer): The amount of time in seconds that the key will live. If no
-            expire is set, it's -1.</p>
-            </li><li>
-            <p>type (String), one of: string, list, set, zset, hash, none.</p>
-            </li><li>
-            <p>value (String): A JSON-encoded string. For keys of type list, set, zset,
-            and hash, the data is given a specific structure (see below).</p>
-            </li></ul>
-            
-            <p>Here are examples of each datatype:</p>
-            
-            <pre>{&quot;db&quot;:0,&quot;key&quot;:&quot;hashkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;hash&quot;,&quot;value&quot;:{&quot;field_a&quot;:&quot;value_a&quot;,&quot;field_b&quot;:&quot;value_b&quot;,&quot;field_c&quot;:&quot;value_c&quot;},&quot;size&quot;:42}&#x000A;{&quot;db&quot;:0,&quot;key&quot;:&quot;listkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;list&quot;,&quot;value&quot;:[&quot;value_0&quot;,&quot;value_1&quot;,&quot;value_2&quot;,&quot;value_0&quot;,&quot;value_1&quot;,&quot;value_2&quot;],&quot;size&quot;:42}&#x000A;{&quot;db&quot;:0,&quot;key&quot;:&quot;setkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;set&quot;,&quot;value&quot;:[&quot;value_2&quot;,&quot;value_0&quot;,&quot;value_1&quot;,&quot;value_3&quot;],&quot;size&quot;:28}&#x000A;{&quot;db&quot;:0,&quot;key&quot;:&quot;zsetkey&quot;,&quot;ttl&quot;:-1,&quot;type&quot;:&quot;zset&quot;,&quot;value&quot;:[[&quot;value_0&quot;,&quot;100&quot;],[&quot;value_1&quot;,&quot;100&quot;],[&quot;value_2&quot;,&quot;200&quot;],[&quot;value_3&quot;,&quot;300&quot;],[&quot;value_4&quot;,&quot;400&quot;]],&quot;size&quot;:50}&#x000A;{&quot;db&quot;:0,&quot;key&quot;:&quot;stringkey&quot;,&quot;ttl&quot;:79,&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;stringvalue&quot;,&quot;size&quot;:11}</pre>
-            
-            <h3 id="label-Important+note+about+TTLs">Important note about TTLs</h3>
-            
-            <p>One of the purposes of redis-dump is the ability to restore the database to
-            a known state. When you restore a redis database from a redis-dump file,
-            <em>the expires are reset to their values at the time the dump was
-            created</em>. This is different from restoring from Redis' native .rdb or
-            .aof files (expires are stored relative to the actual time they were set).</p>
-            
-            <h2 id="label-Output+directly+to+an+encrypted+file">Output directly to an encrypted file</h2>
-            
-            <p>For most sensitive data, you should consider encrypting the data directly
-            without writing first to a temp file. You can do this using the power of
-            [gpg](<a target="_top" href="http://www.gnupg.org/">www.gnupg.org/</a>) and file
-            descriptors. Here are a couple examples:</p>
-            
-            <pre># Encrypt the data (interactive)&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 | gpg --force-mdc -v -c &gt; path/2/backup-db15.json.gpg&#x000A;# Encrypt the data (automated)&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 | 3&lt;/path/2/passphrase.txt gpg --force-mdc -v -c --passphrase-fd 3 &gt; path/2/backup-db15.json.gpg&#x000A;&#x000A;# Decrypt the file (interactive)&#x000A;$ gpg path/2/backup-db15.json.gpg&#x000A;Enter passphrase: *******&#x000A;&#x000A;# Decrypt the file (automated)&#x000A;$  3&lt;/path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg</pre>
-            
-            <h2 id="label-Loading+data+with+binary+strings">Loading data with binary strings</h2>
-            
-            <p>If you have binary or serialized data in your <a
-            href="../classes/Redis.html">Redis</a> database, the YAJL parser may not
-            load your dump file because it sees some of the binary data as 'invalid
-            bytes in UTF8 string'.  If you are certain that your data is binary and not
-            malformed UTF8, you can use the -n flag to redis-load to tell YAJL to not
-            check the input for UTF8 validity.  Use with caution!</p>
-            
-            <h2 id="label-Installation">Installation</h2>
-            
-            <pre>$ gem install redis-dump</pre>
-            
-            <p>Or of you want to run it directly:</p>
-            
-            <pre>$ git clone https://github.com/delano/redis-dump.git&#x000A;$ cd redis-dump&#x000A;$ gem install redis&#x000A;$ gem install uri-redis&#x000A;$ gem install yajl-ruby&#x000A;$ gem install drydock&#x000A;$ ruby -rubygems bin/redis-dump</pre>
-            
-            <h2 id="label-More+Info">More Info</h2>
-            <ul><li>
-            <p><a target="_top" href="http://github.com/delano/redis-dump">Codes</a></p>
-            </li><li>
-            <p><a target="_top" href="http://goldensword.ca/redis-dump/">Docs</a></p>
-            </li></ul>
-            
-            <h2 id="label-Credits">Credits</h2>
-            <ul><li>
-            <p><a target="_top" href="http://github.com/delano">delano</a></p>
-            </li></ul>
-            
-            <h2 id="label-Thanks">Thanks</h2>
-            <ul><li>
-            <p>antirez and the funky redis bunch!</p>
-            </li></ul>
-          </div>
-          <div id='context'>
-          </div>
-        </div>
-      </div>
-      <div id='footer-push'></div>
-    </div>
-    <div id='footer'>
-      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
-    </div>
-  </body>
+<head>
+<title>README.rdoc</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>README.rdoc
+</h1>
+<div class='paths'>
+README.rdoc
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2017-11-23 17:19:34 -0800</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<h1 id="label-Redis-Dump+v0.4+BETA">Redis-Dump v0.4 BETA<span><a href="#label-Redis-Dump+v0.4+BETA">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<p><em>Backup and restore your <a href="../classes/Redis.html">Redis</a> data
+to and from JSON.</em></p>
+
+<p><strong>NOTE: This is beta software. TEST IT BEFORE RELYING ON IT.</strong></p>
+
+<h2 id="label-Usage">Usage<span><a href="#label-Usage">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>There are two executables: <code>redis-dump</code> and
+<code>redis-load</code>.</p>
+
+<pre>$ redis-dump&#x000A;$ redis-dump -u 127.0.0.1:6371 &gt; db_full.json&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 &gt; db_db15.json&#x000A;$ &lt; db_full.json redis-load&#x000A;$ &lt; db_db15.json redis-load -d 15&#x000A;# OR&#x000A;$ cat db_full | redis-load&#x000A;$ cat db_db15.json | redis-load -d 15&#x000A;&#x000A;# You can specify the redis URI via an environment variable&#x000A;$ export REDIS_URI=127.0.0.1:6371&#x000A;$ redis-dump&#x000A;&#x000A;# If your instance uses a password (such as on RedisToGo), you&#x000A;# can specify the Redis URL as such:&#x000A;# :&lt;password&gt;@&lt;domain&gt;:&lt;port&gt;&#x000A;# Note the leading colon is important for specifying no username.&#x000A;$ redis-dump -u :234288a830f009980e08@example.redistogo.com:9055</pre>
+
+<h2 id="label-Output+format">Output format<span><a href="#label-Output+format">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>All redis datatypes are output to a simple JSON object. All objects have
+the following 5 fields:</p>
+<ul><li>
+<p>db (Integer)</p>
+</li><li>
+<p>key (String)</p>
+</li><li>
+<p>ttl (Integer): The amount of time in seconds that the key will live. If no
+expire is set, it&#39;s -1.</p>
+</li><li>
+<p>type (String), one of: string, list, set, zset, hash, none.</p>
+</li><li>
+<p>value (String): A JSON-encoded string. For keys of type list, set, zset,
+and hash, the data is given a specific structure (see below).</p>
+</li></ul>
+
+<p>Here are examples of each datatype:</p>
+
+<pre class="ruby">{<span class="ruby-string">&quot;db&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">0</span>,<span class="ruby-string">&quot;key&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;hashkey&quot;</span>,<span class="ruby-string">&quot;ttl&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">-1</span>,<span class="ruby-string">&quot;type&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;hash&quot;</span>,<span class="ruby-string">&quot;value&quot;</span><span class="ruby-operator">:</span>{<span class="ruby-string">&quot;field_a&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;value_a&quot;</span>,<span class="ruby-string">&quot;field_b&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;value_b&quot;</span>,<span class="ruby-string">&quot;field_c&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;value_c&quot;</span>},<span class="ruby-string">&quot;size&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">42</span>}&#x000A;{<span class="ruby-string">&quot;db&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">0</span>,<span class="ruby-string">&quot;key&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;listkey&quot;</span>,<span class="ruby-string">&quot;ttl&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">-1</span>,<span class="ruby-string">&quot;type&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;list&quot;</span>,<span class="ruby-string">&quot;value&quot;</span><span class="ruby-operator">:</span>[<span class="ruby-string">&quot;value_0&quot;</span>,<span class="ruby-string">&quot;value_1&quot;</span>,<span class="ruby-string">&quot;value_2&quot;</span>,<span class="ruby-string">&quot;value_0&quot;</span>,<span class="ruby-string">&quot;value_1&quot;</span>,<span class="ruby-string">&quot;value_2&quot;</span>],<span class="ruby-string">&quot;size&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">42</span>}&#x000A;{<span class="ruby-string">&quot;db&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">0</span>,<span class="ruby-string">&quot;key&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;setkey&quot;</span>,<span class="ruby-string">&quot;ttl&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">-1</span>,<span class="ruby-string">&quot;type&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;set&quot;</span>,<span class="ruby-string">&quot;value&quot;</span><span class="ruby-operator">:</span>[<span class="ruby-string">&quot;value_2&quot;</span>,<span class="ruby-string">&quot;value_0&quot;</span>,<span class="ruby-string">&quot;value_1&quot;</span>,<span class="ruby-string">&quot;value_3&quot;</span>],<span class="ruby-string">&quot;size&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">28</span>}&#x000A;{<span class="ruby-string">&quot;db&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">0</span>,<span class="ruby-string">&quot;key&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;zsetkey&quot;</span>,<span class="ruby-string">&quot;ttl&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">-1</span>,<span class="ruby-string">&quot;type&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;zset&quot;</span>,<span class="ruby-string">&quot;value&quot;</span><span class="ruby-operator">:</span>[[<span class="ruby-string">&quot;value_0&quot;</span>,<span class="ruby-string">&quot;100&quot;</span>],[<span class="ruby-string">&quot;value_1&quot;</span>,<span class="ruby-string">&quot;100&quot;</span>],[<span class="ruby-string">&quot;value_2&quot;</span>,<span class="ruby-string">&quot;200&quot;</span>],[<span class="ruby-string">&quot;value_3&quot;</span>,<span class="ruby-string">&quot;300&quot;</span>],[<span class="ruby-string">&quot;value_4&quot;</span>,<span class="ruby-string">&quot;400&quot;</span>]],<span class="ruby-string">&quot;size&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">50</span>}&#x000A;{<span class="ruby-string">&quot;db&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">0</span>,<span class="ruby-string">&quot;key&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;stringkey&quot;</span>,<span class="ruby-string">&quot;ttl&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">79</span>,<span class="ruby-string">&quot;type&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;string&quot;</span>,<span class="ruby-string">&quot;value&quot;</span><span class="ruby-operator">:</span><span class="ruby-string">&quot;stringvalue&quot;</span>,<span class="ruby-string">&quot;size&quot;</span><span class="ruby-operator">:</span><span class="ruby-value">11</span>}</pre>
+
+<h3 id="label-Important+note+about+TTLs">Important note about TTLs<span><a href="#label-Important+note+about+TTLs">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>One of the purposes of redis-dump is the ability to restore the database to
+a known state. When you restore a redis database from a redis-dump file,
+<em>the expires are reset to their values at the time the dump was
+created</em>. This is different from restoring from Redis&#39; native .rdb
+or .aof files (expires are stored relative to the actual time they were
+set).</p>
+
+<h2 id="label-Output+directly+to+an+encrypted+file">Output directly to an encrypted file<span><a href="#label-Output+directly+to+an+encrypted+file">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>For most sensitive data, you should consider encrypting the data directly
+without writing first to a temp file. You can do this using the power of
+[gpg](<a target="_top" href="http://www.gnupg.org">www.gnupg.org</a>/) and file
+descriptors. Here are a couple examples:</p>
+
+<pre># Encrypt the data (interactive)&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 | gpg --force-mdc -v -c &gt; path/2/backup-db15.json.gpg&#x000A;# Encrypt the data (automated)&#x000A;$ redis-dump -u 127.0.0.1:6371 -d 15 | 3&lt;/path/2/passphrase.txt gpg --force-mdc -v -c --passphrase-fd 3 &gt; path/2/backup-db15.json.gpg&#x000A;&#x000A;# Decrypt the file (interactive)&#x000A;$ gpg path/2/backup-db15.json.gpg&#x000A;Enter passphrase: *******&#x000A;&#x000A;# Decrypt the file (automated)&#x000A;$  3&lt;/path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg</pre>
+
+<h2 id="label-Loading+data+with+binary+strings">Loading data with binary strings<span><a href="#label-Loading+data+with+binary+strings">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>If you have binary or serialized data in your <a
+href="../classes/Redis.html">Redis</a> database, the YAJL parser may not
+load your dump file because it sees some of the binary data as &#39;invalid
+bytes in UTF8 string&#39;.  If you are certain that your data is binary and
+not malformed UTF8, you can use the -n flag to redis-load to tell YAJL to
+not check the input for UTF8 validity.  Use with caution!</p>
+
+<h2 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<pre>$ gem install redis-dump</pre>
+
+<p>Or of you want to run it directly:</p>
+
+<pre>$ git clone https://github.com/delano/redis-dump.git&#x000A;$ cd redis-dump&#x000A;$ gem install redis&#x000A;$ gem install uri-redis&#x000A;$ gem install yajl-ruby&#x000A;$ gem install drydock&#x000A;$ ruby -rubygems bin/redis-dump</pre>
+
+<h2 id="label-More+Info">More Info<span><a href="#label-More+Info">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<ul><li>
+<p><a target="_top" href="http://github.com/delano/redis-dump">Codes</a></p>
+</li><li>
+<p><a target="_top" href="http://goldensword.ca/redis-dump/">Docs</a></p>
+</li></ul>
+
+<h2 id="label-Credits">Credits<span><a href="#label-Credits">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<ul><li>
+<p><a target="_top" href="http://github.com/delano">delano</a></p>
+</li></ul>
+
+<h2 id="label-Thanks">Thanks<span><a href="#label-Thanks">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<ul><li>
+<p>antirez and the funky redis bunch!</p>
+</li></ul>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
 </html>

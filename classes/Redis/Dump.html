@@ -1,375 +1,401 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
-  <head>
-    <title>Redis::Dump</title>
-    <meta content='text/html; charset=US-ASCII' http-equiv='Content-Type'>
-    <link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
-    <script type='text/javascript'>
-      //<![CDATA[
-        function popupCode(url) {
-          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
-        }
-        
-        function toggleCode(id) {
-          var code = document.getElementById(id)
-        
-          code.style.display = code.style.display != 'block' ? 'block' : 'none'
-          return true
-        }
-        
-        // Make codeblocks hidden by default
-        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
-      //]]>
-    </script>
-  </head>
-  <body class='page'>
-    <div class='class' id='wrapper'>
-      <div class='header'>
-        <h1 class='name'>
-          <span class='type'>class</span>
-          Redis::Dump
-        </h1>
-        <ol class='paths'>
-          <li>
-            <a target="docwin" href="../../files/lib/redis/dump_rb.html">lib/redis/dump.rb</a>
-          </li>
-        </ol>
-        <div class='parent'>
-          Parent:
-          <strong><a target="docwin" href="../Redis.html">Redis</a></strong>
-        </div>
-      </div>
-      <div id='content'>
-        <div id='text'>
-          <div id='description'></div>
-          <div id='method-list'>
-            <h2>Methods</h2>
-            <h3>Public Class</h3>
-            <ol>
-              <li><a target="docwin" href="#method-c-check_utf8-3D">check_utf8=</a></li>
-              <li><a target="docwin" href="#attribute-c-chunk_size">chunk_size</a></li>
-              <li><a target="docwin" href="#attribute-c-debug">debug</a></li>
-              <li><a target="docwin" href="#attribute-c-encoder">encoder</a></li>
-              <li><a target="docwin" href="#attribute-c-host">host</a></li>
-              <li><a target="docwin" href="#method-c-ld">ld</a></li>
-              <li><a target="docwin" href="#method-c-le">le</a></li>
-              <li><a target="docwin" href="#method-c-memory_usage">memory_usage</a></li>
-              <li><a target="docwin" href="#method-c-new">new</a></li>
-              <li><a target="docwin" href="#attribute-c-parser">parser</a></li>
-              <li><a target="docwin" href="#attribute-c-port">port</a></li>
-              <li><a target="docwin" href="#attribute-c-safe">safe</a></li>
-              <li><a target="docwin" href="#attribute-c-with_optimizations">with_optimizations</a></li>
-            </ol>
-            <h3>Public Instance</h3>
-            <ol>
-              <li><a target="docwin" href="#method-i-connect">connect</a></li>
-              <li><a target="docwin" href="#attribute-i-dbs">dbs</a></li>
-              <li><a target="docwin" href="#method-i-dump">dump</a></li>
-              <li><a target="docwin" href="#method-i-each_database">each_database</a></li>
-              <li><a target="docwin" href="#method-i-load">load</a></li>
-              <li><a target="docwin" href="#method-i-redis">redis</a></li>
-              <li><a target="docwin" href="#attribute-i-redis_connections">redis_connections</a></li>
-              <li><a target="docwin" href="#method-i-report">report</a></li>
-              <li><a target="docwin" href="#attribute-i-uri">uri</a></li>
-            </ol>
-          </div>
-          <div id='context'>
-          </div>
-          <div id='class-list'>
-            <h2>Classes and Modules</h2>
-            <ol>
-              <li><a target="docwin" href="Dump/ClassMethods.html">Redis::Dump::ClassMethods</a></li>
-              <li><a target="docwin" href="Dump/VERSION.html">Redis::Dump::VERSION</a></li>
-              <li><a target="docwin" href="Dump/Problem.html">Redis::Dump::Problem</a></li>
-            </ol>
-          </div>
-          <div id='section'>
-            <div id='constants-list'>
-              <h2>Constants</h2>
-              <div class='name-list'>
-                <table summary='Constants'>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>VALID_TYPES</td>
-                    <td>=</td>
-                    <td class='context-item-value'>['string', 'set', 'list', 'zset', 'hash', 'none'].freeze</td>
-                    <td>&nbsp;</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div id='attribute-list'>
-              <h2 class='section-bar'>Attributes</h2>
-              <div class='name-list'>
-                <table>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-chunk_size'>chunk_size</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-debug'>debug</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-encoder'>encoder</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-host'>host</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-parser'>parser</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-port'>port</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-safe'>safe</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-c-with_optimizations'>with_optimizations</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-i-dbs'>dbs</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-i-redis_connections'>redis_connections</a>
-                    </td>
-                    <td class='context-item-value'>[R]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                  <tr class='top-aligned-row context-row'>
-                    <td class='context-item-name'>
-                      <a name='attribute-i-uri'>uri</a>
-                    </td>
-                    <td class='context-item-value'>[RW]</td>
-                    <td class='context-item-desc'></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div id='methods'>
-              <h2>Public Class methods</h2>
-              <div class='method public-class' id='method-method-c-check_utf8-3D'>
-                <a name='method-c-check_utf8-3D'></a>
-                <div class='synopsis'>
-                  <span class='name'>check_utf8=</span>
-                  <span class='arguments'>(check)</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-check_utf8-3D-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-c-check_utf8-3D-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 32</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_utf8=</span>(<span class="ruby-identifier">check</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">check</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>&#x000A;    <span class="ruby-ivar">@parser</span> = <span class="ruby-constant">Yajl</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:check_utf8</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-class' id='method-method-c-ld'>
-                <a name='method-c-ld'></a>
-                <div class='synopsis'>
-                  <span class='name'>ld</span>
-                  <span class='arguments'>(msg)</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-ld-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-c-ld-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 26</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">ld</span>(<span class="ruby-identifier">msg</span>)&#x000A;  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#%.4f: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">msg</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">debug</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-class' id='method-method-c-le'>
-                <a name='method-c-le'></a>
-                <div class='synopsis'>
-                  <span class='name'>le</span>
-                  <span class='arguments'>(msg)</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-le-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-c-le-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 23</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">le</span>(<span class="ruby-identifier">msg</span>)&#x000A;  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#%.4f: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">msg</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-class' id='method-method-c-memory_usage'>
-                <a name='method-c-memory_usage'></a>
-                <div class='synopsis'>
-                  <span class='name'>memory_usage</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-memory_usage-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-c-memory_usage-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 29</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">memory_usage</span>&#x000A;  <span class="ruby-node">%xps -o rss= -p #{Process.pid}`</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-comment"># in kb</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-class' id='method-method-c-new'>
-                <a name='method-c-new'></a>
-                <div class='synopsis'>
-                  <span class='name'>new</span>
-                  <span class='arguments'>(dbs=nil,uri="redis://#{Redis::Dump.host}:#{Redis::Dump.port}")</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-new-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-c-new-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 40</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">dbs</span>=<span class="ruby-keyword">nil</span>,<span class="ruby-identifier">uri</span>=<span class="ruby-node">&quot;redis://#{Redis::Dump.host}:#{Redis::Dump.port}&quot;</span>)&#x000A;  <span class="ruby-ivar">@redis_connections</span> = {}&#x000A;  <span class="ruby-ivar">@uri</span> = <span class="ruby-identifier">uri</span>&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">dbs</span>.<span class="ruby-identifier">nil?</span>&#x000A;    <span class="ruby-ivar">@dbs</span> = <span class="ruby-constant">Range</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">dbs</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">dbs</span> <span class="ruby-operator">:</span> (<span class="ruby-identifier">dbs</span><span class="ruby-operator">..</span><span class="ruby-identifier">dbs</span>)&#x000A;    <span class="ruby-ivar">@dbs</span> = (<span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">to_i</span><span class="ruby-operator">..</span><span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">to_i</span>) <span class="ruby-comment"># enforce integers</span>&#x000A;    <span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">db</span><span class="ruby-operator">|</span> <span class="ruby-identifier">redis</span>(<span class="ruby-identifier">db</span>) } <span class="ruby-comment"># open_all_connections</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <h2>Public Instance methods</h2>
-              <div class='method public-instance' id='method-method-i-connect'>
-                <a name='method-i-connect'></a>
-                <div class='synopsis'>
-                  <span class='name'>connect</span>
-                  <span class='arguments'>(this_uri)</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-connect-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-i-connect-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 52</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">connect</span>(<span class="ruby-identifier">this_uri</span>)&#x000A;  <span class="ruby-comment">#self.class.ld 'CONNECT: ' &lt;&lt; this_uri</span>&#x000A;  <span class="ruby-constant">Redis</span>.<span class="ruby-identifier">connect</span> <span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">this_uri</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-method-i-dump'>
-                <a name='method-i-dump'></a>
-                <div class='synopsis'>
-                  <span class='name'>dump</span>
-                  <span class='arguments'>(filter=nil)</span>
-                </div>
-                <div class='description'>
-                  
-                  <p>See each_key</p>
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-dump-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-i-dump-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 64</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">dump</span> <span class="ruby-identifier">filter</span>=<span class="ruby-keyword">nil</span>&#x000A;  <span class="ruby-identifier">filter</span> <span class="ruby-operator">||=</span> <span class="ruby-string">'*'</span>&#x000A;  <span class="ruby-identifier">entries</span> = []&#x000A;  <span class="ruby-identifier">each_database</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">redis</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">chunk_entries</span> = []&#x000A;    <span class="ruby-identifier">dump_keys</span> = <span class="ruby-identifier">redis</span>.<span class="ruby-identifier">keys</span>(<span class="ruby-identifier">filter</span>)&#x000A;    <span class="ruby-identifier">dump_keys_size</span> = <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">size</span>&#x000A;    <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot;Memory after loading keys: #{Redis::Dump.memory_usage}kb&quot;</span>&#x000A;    <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">idxplus</span> = <span class="ruby-identifier">key</span>, <span class="ruby-identifier">idx</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>&#x000A;      <span class="ruby-comment">#self.class.ld &quot; #{key} (#{key_dump['type']}): #{key_dump['size'].to_bytes}&quot;</span>&#x000A;      <span class="ruby-comment">#entry_enc = self.class.encoder.encode entry</span>&#x000A;      <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;        <span class="ruby-identifier">chunk_entries</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span>&#x000A;        <span class="ruby-identifier">process_chunk</span> <span class="ruby-identifier">idx</span>, <span class="ruby-identifier">dump_keys_size</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">count</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot; dumping #{chunk_entries.size} (#{count}) from #{redis.client.id}&quot;</span>&#x000A;          <span class="ruby-identifier">output_buffer</span> = []&#x000A;          <span class="ruby-identifier">chunk_entries</span> = <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">select</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>&#x000A;            <span class="ruby-identifier">type</span> = <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">type</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">key</span>)&#x000A;            <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">with_optimizations</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">'string'</span>&#x000A;              <span class="ruby-keyword">true</span>&#x000A;            <span class="ruby-keyword">else</span>&#x000A;              <span class="ruby-identifier">output_buffer</span>.<span class="ruby-identifier">push</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">encoder</span>.<span class="ruby-identifier">encode</span>(<span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">type</span>))&#x000A;              <span class="ruby-keyword">false</span>&#x000A;            <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-keyword">unless</span> <span class="ruby-identifier">output_buffer</span>.<span class="ruby-identifier">empty?</span>&#x000A;            <span class="ruby-keyword">yield</span> <span class="ruby-identifier">output_buffer</span>&#x000A;          <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-keyword">unless</span> <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">empty?</span>&#x000A;            <span class="ruby-keyword">yield</span> <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">dump_strings</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">chunk_entries</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">encoder</span>.<span class="ruby-identifier">encode</span>(<span class="ruby-identifier">obj</span>) }&#x000A;          <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-identifier">output_buffer</span>.<span class="ruby-identifier">clear</span>&#x000A;          <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">clear</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;      <span class="ruby-keyword">else</span>&#x000A;        <span class="ruby-identifier">entries</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">encoder</span>.<span class="ruby-identifier">encode</span>(<span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">entry</span>))&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-identifier">entries</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-method-i-each_database'>
-                <a name='method-i-each_database'></a>
-                <div class='synopsis'>
-                  <span class='name'>each_database</span>
-                  <span class='arguments'>()</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-each_database-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-i-each_database-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 57</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">each_database</span>&#x000A;  <span class="ruby-ivar">@redis_connections</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">redis_uri</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">redis_connections</span>[<span class="ruby-identifier">redis_uri</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-method-i-load'>
-                <a name='method-i-load'></a>
-                <div class='synopsis'>
-                  <span class='name'>load</span>
-                  <span class='arguments'>(string_or_stream, &each_record)</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-load-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-i-load-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 140</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">load</span>(<span class="ruby-identifier">string_or_stream</span>, &amp;<span class="ruby-identifier">each_record</span>)&#x000A;  <span class="ruby-identifier">count</span> = <span class="ruby-value">0</span>&#x000A;  <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot; LOAD SOURCE: #{string_or_stream}&quot;</span>&#x000A;  <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">string_or_stream</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">obj</span>[<span class="ruby-string">&quot;db&quot;</span>].<span class="ruby-identifier">to_i</span>)&#x000A;      <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot;db out of range: #{obj[&quot;db&quot;]}&quot;</span>&#x000A;      <span class="ruby-keyword">next</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-identifier">this_redis</span> = <span class="ruby-identifier">redis</span>(<span class="ruby-identifier">obj</span>[<span class="ruby-string">&quot;db&quot;</span>])&#x000A;    <span class="ruby-comment">#Redis::Dump.ld &quot;load[#{this_redis.hash}, #{obj}]&quot;</span>&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-identifier">each_record</span>.<span class="ruby-identifier">nil?</span>&#x000A;      <span class="ruby-keyword">if</span> <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">safe</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">exists</span>(<span class="ruby-identifier">obj</span>[<span class="ruby-string">'key'</span>])&#x000A;        <span class="ruby-comment">#Redis::Dump.ld &quot; record exists (no change)&quot;</span>&#x000A;        <span class="ruby-keyword">next</span>&#x000A;      <span class="ruby-keyword">end</span>&#x000A;      <span class="ruby-keyword">begin</span>&#x000A;        <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">set_value</span> <span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">obj</span>[<span class="ruby-string">'key'</span>], <span class="ruby-identifier">obj</span>[<span class="ruby-string">'type'</span>], <span class="ruby-identifier">obj</span>[<span class="ruby-string">'value'</span>], <span class="ruby-identifier">obj</span>[<span class="ruby-string">'ttl'</span>]&#x000A;      <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ex</span>&#x000A;        <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">le</span> <span class="ruby-string">'(key: %s) %s'</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">obj</span>[<span class="ruby-string">'key'</span>], <span class="ruby-identifier">ex</span>.<span class="ruby-identifier">message</span>]&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">else</span>&#x000A;      <span class="ruby-identifier">each_record</span>.<span class="ruby-identifier">call</span> <span class="ruby-identifier">obj</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-identifier">count</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-method-i-redis'>
-                <a name='method-i-redis'></a>
-                <div class='synopsis'>
-                  <span class='name'>redis</span>
-                  <span class='arguments'>(db)</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-redis-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-i-redis-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 49</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">redis</span>(<span class="ruby-identifier">db</span>)&#x000A;  <span class="ruby-identifier">redis_connections</span>[<span class="ruby-node">&quot;#{uri}/#{db}&quot;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">connect</span>(<span class="ruby-node">&quot;#{uri}/#{db}&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-              <div class='method public-instance' id='method-method-i-report'>
-                <a name='method-i-report'></a>
-                <div class='synopsis'>
-                  <span class='name'>report</span>
-                  <span class='arguments'>(filter='*')</span>
-                </div>
-                <div class='description'>
-                  
-                </div>
-                <div class='source'>
-                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-report-source'); return false">
-                    [show source]
-                  </a>
-                  <pre id='method-i-report-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 113</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">report</span> <span class="ruby-identifier">filter</span>=<span class="ruby-string">'*'</span>&#x000A;  <span class="ruby-identifier">values</span> = []&#x000A;  <span class="ruby-identifier">total_size</span>, <span class="ruby-identifier">dbs</span> = <span class="ruby-value">0</span>, {}&#x000A;  <span class="ruby-identifier">each_database</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">redis</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">chunk_entries</span> = []&#x000A;    <span class="ruby-identifier">dump_keys</span> = <span class="ruby-identifier">redis</span>.<span class="ruby-identifier">keys</span>(<span class="ruby-identifier">filter</span>)&#x000A;    <span class="ruby-identifier">dump_keys_size</span> = <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">size</span>&#x000A;    <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">idxplus</span> = <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">report</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">key</span>), <span class="ruby-identifier">idx</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>&#x000A;      <span class="ruby-identifier">chunk_entries</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span>&#x000A;      <span class="ruby-identifier">process_chunk</span> <span class="ruby-identifier">idx</span>, <span class="ruby-identifier">dump_keys_size</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">count</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot; reporting on #{chunk_entries.size} (#{idxplus}) from #{redis.client.id}&quot;</span>&#x000A;        <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-comment">#puts record if obj.global.verbose &gt;= 1</span>&#x000A;          <span class="ruby-identifier">dbs</span>[<span class="ruby-identifier">e</span>[<span class="ruby-string">'db'</span>]] <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>&#x000A;          <span class="ruby-identifier">dbs</span>[<span class="ruby-identifier">e</span>[<span class="ruby-string">'db'</span>]] <span class="ruby-operator">+=</span> <span class="ruby-identifier">e</span>[<span class="ruby-string">'size'</span>]&#x000A;          <span class="ruby-identifier">total_size</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">e</span>[<span class="ruby-string">'size'</span>]&#x000A;        <span class="ruby-keyword">end</span>&#x000A;        <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">clear</span>&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">dbs</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">db</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;  db#{db}: #{dbs[db].to_bytes}&quot;</span> }&#x000A;  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;total: #{total_size.to_bytes}&quot;</span>&#x000A;  <span class="ruby-identifier">values</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id='footer-push'></div>
-    </div>
-    <div id='footer'>
-      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
-    </div>
-  </body>
+<head>
+<title>Redis::Dump</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Redis::Dump
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../files/lib/redis/dump_rb.html">lib/redis/dump.rb</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong><a href="../Object.html">Object</a></strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'></div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Class</h3>
+<ol>
+<li><a href="#method-c-check_utf8-3D">check_utf8=</a></li>
+<li><a href="#attribute-c-chunk_size">chunk_size</a></li>
+<li><a href="#attribute-c-debug">debug</a></li>
+<li><a href="#attribute-c-encoder">encoder</a></li>
+<li><a href="#attribute-c-host">host</a></li>
+<li><a href="#method-c-ld">ld</a></li>
+<li><a href="#method-c-le">le</a></li>
+<li><a href="#method-c-memory_usage">memory_usage</a></li>
+<li><a href="#method-c-new">new</a></li>
+<li><a href="#attribute-c-parser">parser</a></li>
+<li><a href="#attribute-c-password">password</a></li>
+<li><a href="#attribute-c-port">port</a></li>
+<li><a href="#attribute-c-safe">safe</a></li>
+<li><a href="#attribute-c-with_base64">with_base64</a></li>
+<li><a href="#attribute-c-with_optimizations">with_optimizations</a></li>
+</ol>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-connect">connect</a></li>
+<li><a href="#attribute-i-dbs">dbs</a></li>
+<li><a href="#method-i-dump">dump</a></li>
+<li><a href="#method-i-each_database">each_database</a></li>
+<li><a href="#method-i-load">load</a></li>
+<li><a href="#method-i-redis">redis</a></li>
+<li><a href="#attribute-i-redis_connections">redis_connections</a></li>
+<li><a href="#method-i-report">report</a></li>
+<li><a href="#attribute-i-uri">uri</a></li>
+</ol>
+</div>
+<div id='context'>
+</div>
+<div id='class-list'>
+<h2>Classes and Modules</h2>
+<ol>
+<li><a href="Dump/ClassMethods.html">Redis::Dump::ClassMethods</a></li>
+<li><a href="Dump/VERSION.html">Redis::Dump::VERSION</a></li>
+<li><a href="Dump/Yajl.html">Redis::Dump::Yajl</a></li>
+<li><a href="Dump/Problem.html">Redis::Dump::Problem</a></li>
+</ol>
+</div>
+<div id='section'>
+<div id='constants-list'>
+<h2>Constants</h2>
+<div class='name-list'>
+<table summary='Constants'>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>VALID_TYPES</td>
+<td>=</td>
+<td class='context-item-value'>['string', 'set', 'list', 'zset', 'hash', 'none'].freeze</td>
+<td>&nbsp;</td>
+<td class='context-item-desc'></td>
+</tr>
+</table>
+</div>
+</div>
+<div id='attribute-list'>
+<h2 class='section-bar'>Attributes</h2>
+<div class='name-list'>
+<table>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-chunk_size'>chunk_size</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-debug'>debug</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-encoder'>encoder</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-host'>host</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-parser'>parser</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-password'>password</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-port'>port</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-safe'>safe</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-with_base64'>with_base64</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-with_optimizations'>with_optimizations</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-i-dbs'>dbs</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-i-redis_connections'>redis_connections</a>
+</td>
+<td class='context-item-value'>[R]</td>
+<td class='context-item-desc'></td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-i-uri'>uri</a>
+</td>
+<td class='context-item-value'>[RW]</td>
+<td class='context-item-desc'></td>
+</tr>
+</table>
+</div>
+</div>
+<div id='methods'>
+<h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-check_utf8-3D'>
+<a name='method-c-check_utf8-3D'></a>
+<div class='synopsis'>
+<span class='name'>check_utf8=</span>
+<span class='arguments'>(check)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-check_utf8-3D-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-check_utf8-3D-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_utf8=</span>(<span class="ruby-identifier">check</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">check</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>&#x000A;    <span class="ruby-ivar">@parser</span> = <span class="ruby-constant">Yajl</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:check_utf8</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-ld'>
+<a name='method-c-ld'></a>
+<div class='synopsis'>
+<span class='name'>ld</span>
+<span class='arguments'>(msg)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-ld-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-ld-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 28</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">ld</span>(<span class="ruby-identifier">msg</span>)&#x000A;  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#%.4f: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">msg</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">debug</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-le'>
+<a name='method-c-le'></a>
+<div class='synopsis'>
+<span class='name'>le</span>
+<span class='arguments'>(msg)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-le-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-le-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 25</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">le</span>(<span class="ruby-identifier">msg</span>)&#x000A;  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#%.4f: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">msg</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-memory_usage'>
+<a name='method-c-memory_usage'></a>
+<div class='synopsis'>
+<span class='name'>memory_usage</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-memory_usage-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-memory_usage-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 31</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">memory_usage</span>&#x000A;  <span class="ruby-node">%x`ps -o rss= -p #{Process.pid}`</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-comment"># in kb</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-new'>
+<a name='method-c-new'></a>
+<div class='synopsis'>
+<span class='name'>new</span>
+<span class='arguments'>(dbs=nil, uri="redis://#{Redis::Dump.host}:#{Redis::Dump.port}")</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-new-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-new-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 42</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">dbs</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">uri</span>=<span class="ruby-node">&quot;redis://#{Redis::Dump.host}:#{Redis::Dump.port}&quot;</span>)&#x000A;  <span class="ruby-ivar">@redis_connections</span> = {}&#x000A;  <span class="ruby-ivar">@uri</span> = <span class="ruby-identifier">uri</span>&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">dbs</span>.<span class="ruby-identifier">nil?</span>&#x000A;    <span class="ruby-ivar">@dbs</span> = <span class="ruby-constant">Range</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">dbs</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">dbs</span> <span class="ruby-operator">:</span> (<span class="ruby-identifier">dbs</span><span class="ruby-operator">..</span><span class="ruby-identifier">dbs</span>)&#x000A;    <span class="ruby-ivar">@dbs</span> = (<span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">to_i</span><span class="ruby-operator">..</span><span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">to_i</span>) <span class="ruby-comment"># enforce integers</span>&#x000A;    <span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">db</span><span class="ruby-operator">|</span> <span class="ruby-identifier">redis</span>(<span class="ruby-identifier">db</span>) } <span class="ruby-comment"># open_all_connections</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-connect'>
+<a name='method-i-connect'></a>
+<div class='synopsis'>
+<span class='name'>connect</span>
+<span class='arguments'>(this_uri)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-connect-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-connect-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 54</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">connect</span>(<span class="ruby-identifier">this_uri</span>)&#x000A;  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">ld</span> <span class="ruby-string">&#39;CONNECT: &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">this_uri</span>&#x000A;  <span class="ruby-identifier">opts</span> = {&#x000A;    <span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">this_uri</span>&#x000A;  }&#x000A;  <span class="ruby-identifier">opts</span>[<span class="ruby-value">:password</span>] = <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">password</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">password</span>&#x000A;  <span class="ruby-constant">Redis</span>.<span class="ruby-identifier">new</span> <span class="ruby-operator">**</span><span class="ruby-identifier">opts</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-dump'>
+<a name='method-i-dump'></a>
+<div class='synopsis'>
+<span class='name'>dump</span>
+<span class='arguments'>(filter=nil)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-dump-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-dump-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 69</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">dump</span> <span class="ruby-identifier">filter</span>=<span class="ruby-keyword">nil</span>&#x000A;  <span class="ruby-identifier">filter</span> <span class="ruby-operator">||=</span> <span class="ruby-string">&#39;*&#39;</span>&#x000A;  <span class="ruby-identifier">entries</span> = []&#x000A;  <span class="ruby-identifier">each_database</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">redis</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">chunk_entries</span> = []&#x000A;    <span class="ruby-identifier">dump_keys</span> = <span class="ruby-identifier">redis</span>.<span class="ruby-identifier">keys</span>(<span class="ruby-identifier">filter</span>)&#x000A;    <span class="ruby-identifier">dump_keys_size</span> = <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">size</span>&#x000A;    <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot;Memory after loading keys: #{Redis::Dump.memory_usage}kb&quot;</span>&#x000A;    <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">idxplus</span> = <span class="ruby-identifier">key</span>, <span class="ruby-identifier">idx</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>&#x000A;      <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;        <span class="ruby-identifier">chunk_entries</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span>&#x000A;        <span class="ruby-identifier">process_chunk</span> <span class="ruby-identifier">idx</span>, <span class="ruby-identifier">dump_keys_size</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">count</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot; dumping #{chunk_entries.size} (#{count}) from #{redis.connection[:id]}&quot;</span>&#x000A;          <span class="ruby-identifier">output_buffer</span> = []&#x000A;          <span class="ruby-identifier">chunk_entries</span> = <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">select</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>&#x000A;            <span class="ruby-identifier">type</span> = <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">type</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">key</span>)&#x000A;            <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">with_optimizations</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;string&#39;</span>&#x000A;              <span class="ruby-keyword">true</span>&#x000A;            <span class="ruby-keyword">else</span>&#x000A;              <span class="ruby-identifier">output_buffer</span>.<span class="ruby-identifier">push</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">encoder</span>.<span class="ruby-identifier">encode</span>(<span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">type</span>))&#x000A;              <span class="ruby-keyword">false</span>&#x000A;            <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-keyword">unless</span> <span class="ruby-identifier">output_buffer</span>.<span class="ruby-identifier">empty?</span>&#x000A;            <span class="ruby-keyword">yield</span> <span class="ruby-identifier">output_buffer</span>&#x000A;          <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-keyword">unless</span> <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">empty?</span>&#x000A;            <span class="ruby-keyword">yield</span> <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">dump_strings</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">chunk_entries</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">encoder</span>.<span class="ruby-identifier">encode</span>(<span class="ruby-identifier">obj</span>) }&#x000A;          <span class="ruby-keyword">end</span>&#x000A;          <span class="ruby-identifier">output_buffer</span>.<span class="ruby-identifier">clear</span>&#x000A;          <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">clear</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;      <span class="ruby-keyword">else</span>&#x000A;        <span class="ruby-identifier">entries</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">encoder</span>.<span class="ruby-identifier">encode</span>(<span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">entry</span>))&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-identifier">entries</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-each_database'>
+<a name='method-i-each_database'></a>
+<div class='synopsis'>
+<span class='name'>each_database</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-each_database-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-each_database-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 63</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">each_database</span>&#x000A;  <span class="ruby-ivar">@redis_connections</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">redis_uri</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">redis_connections</span>[<span class="ruby-identifier">redis_uri</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-load'>
+<a name='method-i-load'></a>
+<div class='synopsis'>
+<span class='name'>load</span>
+<span class='arguments'>(string_or_stream, &each_record)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-load-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-load-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 143</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">load</span>(<span class="ruby-identifier">string_or_stream</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">each_record</span>)&#x000A;  <span class="ruby-identifier">count</span> = <span class="ruby-value">0</span>&#x000A;  <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot; LOAD SOURCE: #{string_or_stream}&quot;</span>&#x000A;  <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">string_or_stream</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@dbs</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">obj</span>[<span class="ruby-string">&quot;db&quot;</span>].<span class="ruby-identifier">to_i</span>)&#x000A;      <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot;db out of range: #{obj[&quot;db&quot;]}&quot;</span>&#x000A;      <span class="ruby-keyword">next</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-identifier">this_redis</span> = <span class="ruby-identifier">redis</span>(<span class="ruby-identifier">obj</span>[<span class="ruby-string">&quot;db&quot;</span>])&#x000A;    <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot;load[#{this_redis.hash}, #{obj}]&quot;</span>&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-identifier">each_record</span>.<span class="ruby-identifier">nil?</span>&#x000A;      <span class="ruby-keyword">if</span> <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">safe</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">this_redis</span>.<span class="ruby-identifier">exists</span>(<span class="ruby-identifier">obj</span>[<span class="ruby-string">&#39;key&#39;</span>])&#x000A;        <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-string">&quot; record exists (no change)&quot;</span>&#x000A;        <span class="ruby-keyword">next</span>&#x000A;      <span class="ruby-keyword">end</span>&#x000A;      <span class="ruby-keyword">begin</span>&#x000A;        <span class="ruby-identifier">val</span>, <span class="ruby-identifier">type</span> = <span class="ruby-identifier">obj</span>[<span class="ruby-string">&#39;value&#39;</span>], <span class="ruby-identifier">obj</span>[<span class="ruby-string">&#39;type&#39;</span>]&#x000A;        <span class="ruby-keyword">if</span> <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">with_base64</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">===</span> <span class="ruby-string">&#39;string&#39;</span>&#x000A;          <span class="ruby-identifier">val</span> = <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span> <span class="ruby-identifier">val</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;        <span class="ruby-identifier">ret</span> = <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">set_value</span> <span class="ruby-identifier">this_redis</span>, <span class="ruby-identifier">obj</span>[<span class="ruby-string">&#39;key&#39;</span>], <span class="ruby-identifier">type</span>, <span class="ruby-identifier">val</span>, <span class="ruby-identifier">obj</span>[<span class="ruby-string">&#39;ttl&#39;</span>]&#x000A;      <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ex</span>&#x000A;        <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">le</span> <span class="ruby-string">&#39;(key: %s) %s&#39;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">obj</span>[<span class="ruby-string">&#39;key&#39;</span>], <span class="ruby-identifier">ex</span>.<span class="ruby-identifier">message</span>]&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">else</span>&#x000A;      <span class="ruby-identifier">each_record</span>.<span class="ruby-identifier">call</span> <span class="ruby-identifier">obj</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-identifier">count</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-redis'>
+<a name='method-i-redis'></a>
+<div class='synopsis'>
+<span class='name'>redis</span>
+<span class='arguments'>(db)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-redis-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-redis-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 51</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">redis</span>(<span class="ruby-identifier">db</span>)&#x000A;  <span class="ruby-identifier">redis_connections</span>[<span class="ruby-node">&quot;#{uri}/#{db}&quot;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">connect</span>(<span class="ruby-node">&quot;#{uri}/#{db}&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-report'>
+<a name='method-i-report'></a>
+<div class='synopsis'>
+<span class='name'>report</span>
+<span class='arguments'>(filter='*')</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-report-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-report-source'><span class="ruby-comment"># File lib/redis/dump.rb, line 116</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">report</span> <span class="ruby-identifier">filter</span>=<span class="ruby-string">&#39;*&#39;</span>&#x000A;  <span class="ruby-identifier">values</span> = []&#x000A;  <span class="ruby-identifier">total_size</span>, <span class="ruby-identifier">dbs</span> = <span class="ruby-value">0</span>, {}&#x000A;  <span class="ruby-identifier">each_database</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">redis</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">chunk_entries</span> = []&#x000A;    <span class="ruby-identifier">dump_keys</span> = <span class="ruby-identifier">redis</span>.<span class="ruby-identifier">keys</span>(<span class="ruby-identifier">filter</span>)&#x000A;    <span class="ruby-identifier">dump_keys_size</span> = <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">size</span>&#x000A;    <span class="ruby-identifier">dump_keys</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">idx</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">idxplus</span> = <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">report</span>(<span class="ruby-identifier">redis</span>, <span class="ruby-identifier">key</span>), <span class="ruby-identifier">idx</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>&#x000A;      <span class="ruby-identifier">chunk_entries</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span>&#x000A;      <span class="ruby-identifier">process_chunk</span> <span class="ruby-identifier">idx</span>, <span class="ruby-identifier">dump_keys_size</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">count</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-constant">Redis</span><span class="ruby-operator">::</span><span class="ruby-constant">Dump</span>.<span class="ruby-identifier">ld</span> <span class="ruby-node">&quot; reporting on #{chunk_entries.size} (#{idxplus}) from #{redis.connection[:id]}&quot;</span>&#x000A;        <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>&#x000A;          <span class="ruby-identifier">puts</span> <span class="ruby-identifier">record</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">global</span>.<span class="ruby-identifier">verbose</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span>&#x000A;          <span class="ruby-identifier">dbs</span>[<span class="ruby-identifier">e</span>[<span class="ruby-string">&#39;db&#39;</span>]] <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>&#x000A;          <span class="ruby-identifier">dbs</span>[<span class="ruby-identifier">e</span>[<span class="ruby-string">&#39;db&#39;</span>]] <span class="ruby-operator">+=</span> <span class="ruby-identifier">e</span>[<span class="ruby-string">&#39;size&#39;</span>]&#x000A;          <span class="ruby-identifier">total_size</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">e</span>[<span class="ruby-string">&#39;size&#39;</span>]&#x000A;        <span class="ruby-keyword">end</span>&#x000A;        <span class="ruby-identifier">chunk_entries</span>.<span class="ruby-identifier">clear</span>&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">dbs</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">db</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;  db#{db}: #{dbs[db].to_bytes}&quot;</span> }&#x000A;  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;total: #{total_size.to_bytes}&quot;</span>&#x000A;  <span class="ruby-identifier">values</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
 </html>
