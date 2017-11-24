@@ -92,7 +92,7 @@ Or of you want to run it directly:
 == More Info
 
 * Codes[http://github.com/delano/redis-dump]
-* Docs[http://goldensword.ca/redis-dump/]
+* Docs[http://delanotes.com/redis-dump/]
 
 
 == Credits
