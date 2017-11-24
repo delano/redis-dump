@@ -27,6 +27,9 @@ class Redis::Dump::CLI
 
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :a, :password, String, "Redis password (e.g. -a 'my@pass/word')" do |v|
+    Redis::Dump.password = v
+  end
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :c, :count, Integer, "Chunk size (default: #{Redis::Dump.chunk_size})"
   global :f, :filter, String, "Filter selected keys (passed directly to redis' KEYS command)"

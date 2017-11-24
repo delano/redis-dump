@@ -27,6 +27,9 @@ class Redis::Dump::CLI
 
   global :u, :uri, String, "Redis URI (e.g. redis://hostname[:port])"
   global :d, :database, Integer, "Redis database (e.g. -d 15)"
+  global :a, :password, String, "Redis password (e.g. -a 'my@pass/word')" do |v|
+    Redis::Dump.password = v
+  end
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :b, :base64, "Decode key values from base64 (used with redis-dump -b)" do
     Redis::Dump.with_base64 = true

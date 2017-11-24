@@ -21,7 +21,7 @@ class Redis
     @with_optimizations = true
     @with_base64 = false
     class << self
-      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :chunk_size, :with_optimizations, :with_base64
+      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :password, :chunk_size, :with_optimizations, :with_base64
       def le(msg)
         STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg]
       end
@@ -53,7 +53,11 @@ class Redis
     end
     def connect(this_uri)
       self.class.ld 'CONNECT: ' << this_uri
-      Redis.new :url => this_uri
+      opts = {
+        :url => this_uri
+      }
+      opts[:password] = Redis::Dump.password if Redis::Dump.password
+      Redis.new **opts
     end
 
     def each_database

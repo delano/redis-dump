@@ -28,16 +28,16 @@ There are two executables: <tt>redis-dump</tt> and <tt>redis-load</tt>.
     # :<password>@<domain>:<port>
     # Note the leading colon is important for specifying no username.
     $ redis-dump -u :234288a830f009980e08@example.redistogo.com:9055
-    
+
 == Output format
 
 All redis datatypes are output to a simple JSON object. All objects have the following 5 fields:
 
 * db (Integer)
 * key (String)
-* ttl (Integer): The amount of time in seconds that the key will live. If no expire is set, it's -1. 
-* type (String), one of: string, list, set, zset, hash, none. 
-* value (String): A JSON-encoded string. For keys of type list, set, zset, and hash, the data is given a specific structure (see below). 
+* ttl (Integer): The amount of time in seconds that the key will live. If no expire is set, it's -1.
+* type (String), one of: string, list, set, zset, hash, none.
+* value (String): A JSON-encoded string. For keys of type list, set, zset, and hash, the data is given a specific structure (see below).
 
 Here are examples of each datatype:
 
@@ -49,23 +49,23 @@ Here are examples of each datatype:
 
 === Important note about TTLs
 
-One of the purposes of redis-dump is the ability to restore the database to a known state. When you restore a redis database from a redis-dump file, <em>the expires are reset to their values at the time the dump was created</em>. This is different from restoring from Redis' native .rdb or .aof files (expires are stored relative to the actual time they were set). 
+One of the purposes of redis-dump is the ability to restore the database to a known state. When you restore a redis database from a redis-dump file, <em>the expires are reset to their values at the time the dump was created</em>. This is different from restoring from Redis' native .rdb or .aof files (expires are stored relative to the actual time they were set).
 
 
 == Output directly to an encrypted file
 
 For most sensitive data, you should consider encrypting the data directly without writing first to a temp file. You can do this using the power of [gpg](http://www.gnupg.org/) and file descriptors. Here are a couple examples:
-  
+
     # Encrypt the data (interactive)
     $ redis-dump -u 127.0.0.1:6371 -d 15 | gpg --force-mdc -v -c > path/2/backup-db15.json.gpg
-    
+
     # Encrypt the data (automated)
     $ redis-dump -u 127.0.0.1:6371 -d 15 | 3</path/2/passphrase.txt gpg --force-mdc -v -c --passphrase-fd 3 > path/2/backup-db15.json.gpg
-    
+
     # Decrypt the file (interactive)
     $ gpg path/2/backup-db15.json.gpg
     Enter passphrase: *******
-    
+
     # Decrypt the file (automated)
     $  3</path/2/passphrase.txt gpg --passphrase-fd 3 path/2/backup-db15.json.gpg
 
@@ -73,7 +73,7 @@ For most sensitive data, you should consider encrypting the data directly withou
 == Loading data with binary strings
 
 If you have binary or serialized data in your Redis database, the YAJL parser may not load your dump file because it sees some of the binary data as 'invalid bytes in UTF8 string'.  If you are certain that your data is binary and not malformed UTF8, you can use the -n flag to redis-load to tell YAJL to not check the input for UTF8 validity.  Use with caution!
-    
+
 == Installation
 
     $ gem install redis-dump
@@ -88,7 +88,7 @@ Or of you want to run it directly:
     $ gem install drydock
     $ ruby -rubygems bin/redis-dump
 
-    
+
 == More Info
 
 * Codes[http://github.com/delano/redis-dump]
