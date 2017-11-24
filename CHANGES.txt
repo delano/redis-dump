@@ -1,5 +1,16 @@
 REDIS-DUMP, CHANGES
 
+#### 0.4.0 (2017-11-23) ###############################
+
+* ADDED: support for redis >= 4.0
+* ADDED: support for base64 encoded string keys
+* FIXED: redis passwords with special characters
+
+
+#### 0.3.6 (2017-11-09) ###############################
+
+* FIXED: redis < 4.0 dependency [Clemens Fuchslocher]
+
 #### 0.3.5 (2013-02-07) ###############################
 
 * Array#select fix for Ruby 1.8 [TIT]

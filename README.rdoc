@@ -1,24 +1,24 @@
-= Redis-Dump v0.3 ALPHA
+= Redis-Dump v0.4 BETA
 
 <i>Backup and restore your Redis data to and from JSON.</i>
 
-<b>NOTE: This is alpha software. TEST IT BEFORE RELYING ON IT.</b>
+<b>NOTE: This is beta software. TEST IT BEFORE RELYING ON IT.</b>
 
 
 == Usage
 
-There are two executables: <tt>redis-dump</tt> and <tt>redis-load</tt>. 
+There are two executables: <tt>redis-dump</tt> and <tt>redis-load</tt>.
 
-    $ redis-dump 
+    $ redis-dump
     $ redis-dump -u 127.0.0.1:6371 > db_full.json
     $ redis-dump -u 127.0.0.1:6371 -d 15 > db_db15.json
-    
+
     $ < db_full.json redis-load
     $ < db_db15.json redis-load -d 15
     # OR
     $ cat db_full | redis-load
     $ cat db_db15.json | redis-load -d 15
-    
+
     # You can specify the redis URI via an environment variable
     $ export REDIS_URI=127.0.0.1:6371
     $ redis-dump
