@@ -86,7 +86,7 @@ Or of you want to run it directly:
     $ gem install uri-redis
     $ gem install yajl-ruby
     $ gem install drydock
-    $ ruby -rubygems bin/redis-dump
+    $ ruby -r rubygems bin/redis-dump
 
 
 == More Info
