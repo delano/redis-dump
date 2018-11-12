@@ -21,7 +21,7 @@ class Redis
     @with_optimizations = true
     @with_base64 = false
     class << self
-      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :password, :chunk_size, :with_optimizations, :with_base64
+      attr_accessor :debug, :encoder, :parser, :safe, :host, :port, :password, :timeout, :chunk_size, :with_optimizations, :with_base64
       def le(msg)
         STDERR.puts "#%.4f: %s" % [Time.now.utc.to_f, msg]
       end
@@ -57,6 +57,7 @@ class Redis
         :url => this_uri
       }
       opts[:password] = Redis::Dump.password if Redis::Dump.password
+      opts[:timeout] = Redis::Dump.timeout if Redis::Dump.timeout
       Redis.new **opts
     end
 
