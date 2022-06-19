@@ -30,6 +30,9 @@ class Redis::Dump::CLI
   global :a, :password, String, "Redis password (e.g. -a 'my@pass/word')" do |v|
     Redis::Dump.password = v
   end
+  global :t, :timeout, Integer, "Configure connect, read, and write timeouts (ruby redis client)" do |t|
+    Redis::Dump.timeout = t
+  end
   global :s, :sleep, Integer, "Sleep for S seconds after dumping (for debugging)"
   global :c, :count, Integer, "Chunk size (default: #{Redis::Dump.chunk_size})"
   global :f, :filter, String, "Filter selected keys (passed directly to redis' KEYS command)"
