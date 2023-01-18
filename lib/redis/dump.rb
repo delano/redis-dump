@@ -1,11 +1,16 @@
+# frozen_string_literal: true
+
 unless defined?(RD_HOME)
   RD_HOME = File.expand_path(File.join(File.dirname(__FILE__), '..', '..') )
 end
 
 require 'redis'
-require 'uri/redis'
 require 'yajl'
 require 'base64'
+
+require 'uri/redis'
+
+require_relative "dump/version"
 
 class Redis
   class Dump

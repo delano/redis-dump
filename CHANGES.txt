@@ -1,5 +1,11 @@
 REDIS-DUMP, CHANGES
 
+#### 1.0.0 (2023-01-17) ###############################
+
+* ADDED: Timeout support for redis connections
+* CHANGED: uri-redis dependency to 1.0.0
+
+
 #### 0.4.0 (2017-11-23) ###############################
 
 * ADDED: support for redis >= 4.0
